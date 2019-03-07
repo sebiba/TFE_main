@@ -5,25 +5,30 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:tfe"
         mc:Ignorable="d"
-        Title="MainWindow" Height="763.2" Width="1129.455">
+        Title="MainWindow" WindowState="Maximized"
+        Height="763.2" Width="1129.455">
     <Grid>
+        <!---Record sound groupBox-->
+        <GroupBox Header="Enregistrer" HorizontalAlignment="Left" Height="242" Margin="10,10,0,0" VerticalAlignment="Top" Width="198">
+            <Grid HorizontalAlignment="Left" Height="215" Margin="-5,4,-4.4,-4.6" VerticalAlignment="Top" Width="195">
+                <Button Content="record" Click="StartBtn_Click" x:Name="StartBtn" IsEnabled="True"  HorizontalAlignment="Left" Margin="10,38,0,0" VerticalAlignment="Top" Width="75"/>
+                <Button Content="stop" Click="StopBtn_Click" x:Name="StopBtn" IsEnabled="False"  HorizontalAlignment="Left" Margin="10,84,0,0" VerticalAlignment="Top" Width="75"/>
+            </Grid>
+        </GroupBox>
+        <!---import audio file-->
         <GroupBox Header="importer un fichier" HorizontalAlignment="Left" Height="153" Margin="10,257,0,0" VerticalAlignment="Top" Width="397">
             <Grid HorizontalAlignment="Left" Height="117" Margin="4,10,-3,0" VerticalAlignment="Top" Width="383">
                 <Button Content="importer" Click="ImporteBtn_Click" x:Name="TestBtn" HorizontalAlignment="Left" Margin="298,88,0,0" VerticalAlignment="Top" Width="75"/>
                 <TextBox Name="Impfile" GotFocus="ImporteBtn_Click" HorizontalAlignment="Left" Height="19" Margin="10,88,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="288"/>
             </Grid>
         </GroupBox>
-        <GroupBox Header="Enregistrer" HorizontalAlignment="Left" Height="237" Margin="10,15,0,0" VerticalAlignment="Top" Width="198">
-            <Grid HorizontalAlignment="Left" Height="215" Margin="-5,4,-4.4,-4.6" VerticalAlignment="Top" Width="195">
-                <Button Content="record" Click="StartBtn_Click" x:Name="StartBtn" IsEnabled="True"  HorizontalAlignment="Left" Margin="10,38,0,0" VerticalAlignment="Top" Width="75"/>
-                <Button Content="stop" Click="StopBtn_Click" x:Name="StopBtn" IsEnabled="False"  HorizontalAlignment="Left" Margin="10,84,0,0" VerticalAlignment="Top" Width="75"/>
-            </Grid>
-        </GroupBox>
-        <TextBlock Name="frequence" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" HorizontalAlignment="Left" Margin="412,10,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="714" Width="182"/>
-        <TextBox Name="notes" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" HorizontalAlignment="Left" Margin="718,10,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="714" Width="345"/>
+        <!---note and frequencies and lilypond-->
+        <TextBox Name="frequence" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" HorizontalAlignment="Left" Margin="225,15,0,0" TextWrapping="Wrap" Text="Fréquences" VerticalAlignment="Top" Height="237" Width="182"/>
+        <TextBox Name="notes" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" HorizontalAlignment="Left" Margin="412,15,0,0" TextWrapping="Wrap" Text="Notes" VerticalAlignment="Top" Height="714" Width="345"/>
+        <TextBox Name="lilypond" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" HorizontalAlignment="Left" Margin="762,15,0,0" TextWrapping="Wrap" Text="Lilypond" VerticalAlignment="Top" Height="714" Width="345"/>
+        <!---Lilypond file's settings-->
         <GroupBox Header="Lilypond" HorizontalAlignment="Left" Height="309" Margin="10,415,0,0" VerticalAlignment="Top" Width="397">
             <Grid HorizontalAlignment="Left" Height="279" Margin="0,10,-3,-2.6" VerticalAlignment="Top" Width="387">
-                <Button Content="Générer le fichier Lilypond" HorizontalAlignment="Left" Margin="227,250,0,0" VerticalAlignment="Top" Width="150" Click="ToLilypond_Click"/>
                 <Label Content="Titre" HorizontalAlignment="Left" Margin="30,51,0,0" VerticalAlignment="Top" Width="99" Height="25"/>
                 <TextBox Name="titre" HorizontalAlignment="Left" Height="25" Margin="134,51,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
                 <Label Content="Sous-titre" HorizontalAlignment="Left" Margin="30,81,0,0" VerticalAlignment="Top" Width="99" Height="25"/>
@@ -32,6 +37,7 @@
                 <TextBox Name="piece" HorizontalAlignment="Left" Height="25" Margin="134,111,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
                 <Label Content="Pied de page" HorizontalAlignment="Left" Margin="30,141,0,0" VerticalAlignment="Top" Width="99" Height="30"/>
                 <TextBox Name="pdPage" HorizontalAlignment="Left" Height="25" Margin="134,141,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                <Button Content="Générer le fichier Lilypond" HorizontalAlignment="Left" Margin="227,250,0,0" VerticalAlignment="Top" Width="150" Click="ToLilypond_Click"/>
             </Grid>
         </GroupBox>
     </Grid>

@@ -18,6 +18,10 @@ namespace python
             ReadFile();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="path"></param>
         public void ReadFile(string path = null)
         {
             if (path == null) path = _File;
@@ -94,7 +98,7 @@ namespace python
             return concat.ToLower();
         }
 
-        public void SetNotes(List<string> notes)
+        public string SetNotes(List<string> notes)
         {
             for(int i=0;i<data.Count;i++)
             {
@@ -105,6 +109,7 @@ namespace python
                 }
             }
             File.WriteAllLines(_File, data);
+            return string.Join("\n", data);
         }
 
         public void Customise(string titre, string sTitre, string piece, string pdPage)

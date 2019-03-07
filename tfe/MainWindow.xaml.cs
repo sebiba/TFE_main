@@ -113,7 +113,7 @@ namespace tfe
             if (saveFileDialog.ShowDialog() != true) return;
             Lily Lilypond = new Lily(saveFileDialog.FileName);
             Lilypond.Customise(titre.Text, sTitre.Text, piece.Text, pdPage.Text);
-            Lilypond.SetNotes(_notes);
+            lilypond.Text = Lilypond.SetNotes(_notes);
             MessageBox.Show("Fichier lilypond généré avec succes","Génération Lylipond",MessageBoxButton.OK, MessageBoxImage.Information);
         }
     }
