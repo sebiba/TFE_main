@@ -1,20 +1,11 @@
-﻿using NAudio.Wave;
+﻿using Microsoft.Win32;
+using NAudio.Wave;
 using python;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace tfe
 {
@@ -25,11 +16,12 @@ namespace tfe
     {
         public WaveIn waveSource = null;
         public WaveFileWriter waveFile = null;
+        public List<string> _notes = new List<string>();
         public MainWindow()
         {
             InitializeComponent();
         }
-
+        #region record
         private void StartBtn_Click(object sender, EventArgs e)
         {
             StartBtn.IsEnabled = false;
@@ -51,22 +43,6 @@ namespace tfe
             StopBtn.IsEnabled = false;
 
             waveSource.StopRecording();
-        }
-        
-        private void TestBtn_Click(object sender, EventArgs e)
-        {
-            List<string> data = PyUtils.getfreq(Impfile.Text).Replace("||", "\n").Split('\n').ToList();
-            data.RemoveAt(data.Count - 1);
-            string freq = "";
-            string not = "";
-            foreach (string input in data) {
-                freq += input.Split(':').Last() + "\n";
-                string test = input.Split(':').Last();
-                float jsp = float.Parse(test, CultureInfo.InvariantCulture);
-                not += PyUtils.freqToNote(Math.Abs(jsp));
-            }
-            frequence.Text = freq;
-            notes.Text = not;
         }
 
         void waveSource_DataAvailable(object sender, WaveInEventArgs e)
@@ -93,6 +69,52 @@ namespace tfe
             }
 
             StartBtn.IsEnabled = true;
+        }
+        #endregion record
+
+        private void ImporteBtn_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Wav Files Only (*.wav)|*.wav";
+            openFileDialog.InitialDirectory = @"D:\programmation\python\TFE\";
+            if (openFileDialog.ShowDialog() != true) return;
+            Impfile.Text = openFileDialog.FileName;
+            List<string> data = PyUtils.getfreq(openFileDialog.FileName).Replace("||", "\n").Split('\n').ToList();
+            data.RemoveAt(data.Count - 1);
+            string freq = "";
+            foreach (string input in data) {
+                freq += input.Split(':').Last() + "\n";
+                _notes.Add(PyUtils.freqToNote(Math.Abs(float.Parse(input.Split(':').Last(), CultureInfo.InvariantCulture))));
+            }
+
+            for(int i= 0;i < _notes.Count;i++)
+            {
+                try
+                {
+                    if (_notes[i] != _notes[i + 1])
+                    {
+                        _notes.RemoveAt(i + 1);
+                    }
+                }
+                catch
+                {
+
+                }
+            }
+            frequence.Text = freq;
+            notes.Text = string.Join("\n", _notes);
+        }
+        
+        private void ToLilypond_Click(object sender, RoutedEventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "Lilypond Files (*.ly)|*.ly";
+            saveFileDialog.InitialDirectory = @"D:\programmation\c#\TFE\python\Lily\";
+            if (saveFileDialog.ShowDialog() != true) return;
+            Lily Lilypond = new Lily(saveFileDialog.FileName);
+            Lilypond.Customise(titre.Text, sTitre.Text, piece.Text, pdPage.Text);
+            Lilypond.SetNotes(_notes);
+            MessageBox.Show("Fichier lilypond généré avec succes","Génération Lylipond",MessageBoxButton.OK, MessageBoxImage.Information);
         }
     }
 }

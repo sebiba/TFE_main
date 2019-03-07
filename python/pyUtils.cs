@@ -10,10 +10,11 @@ namespace python
         static public string freqToNote(float frequence)
         {
             var ipy = Python.CreateRuntime();
-            dynamic test = ipy.UseFile(@"D:\programmation\c#\TFE\python\script\note.py");
-            var yolo = test.freqToData((int)frequence);
+            dynamic python = ipy.UseFile(@"D:\programmation\c#\TFE\python\script\note.py");
+            var note = python.freqToData((int)frequence);
             // Console.WriteLine(yolo);
-            return frequence.ToString() + "hz - " + yolo + "\n";
+            //return frequence.ToString() + "hz - " + yolo + "\n";
+            return note;
         }
 
         static public string getfreq(string file)

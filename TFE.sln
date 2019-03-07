@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.28606.126
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "test", "test\test.csproj", "{DB4A4BB3-FF6A-4D51-A92E-AF6495DC1804}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tfe", "tfe\tfe.csproj", "{F4096D8C-8ADC-4896-8AC1-79B8460872D3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "python", "python\python.csproj", "{F2A954A5-FEDB-49BC-8123-07F8B524FC99}"
@@ -15,10 +13,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{DB4A4BB3-FF6A-4D51-A92E-AF6495DC1804}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DB4A4BB3-FF6A-4D51-A92E-AF6495DC1804}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DB4A4BB3-FF6A-4D51-A92E-AF6495DC1804}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DB4A4BB3-FF6A-4D51-A92E-AF6495DC1804}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F4096D8C-8ADC-4896-8AC1-79B8460872D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F4096D8C-8ADC-4896-8AC1-79B8460872D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F4096D8C-8ADC-4896-8AC1-79B8460872D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
