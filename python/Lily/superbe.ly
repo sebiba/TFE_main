@@ -1,18 +1,18 @@
 \version "2.16.0"  % necessary for upgrading to future LilyPond versions.
 
 \header{
-	title = "pure"
-	subtitle = "pure"
+	title = "superbe"
+	subtitle = "superbe"
 }
 
-tagline = "pure"
+	tagline = "superbe"
 
 \header{
-	piece = "pure"
+	piece = "superbe"
 }
 
 \relative c' {
-	\time 6/8
+	\time 4/4
 	\key c \major
-	 d'8 b4 a8 g4 d8 e2
+	 bes16 ees8 d8 b4 a16 g16 b16 d16 e2
 }

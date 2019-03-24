@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:tfe"
         mc:Ignorable="d"
         Title="MainWindow" WindowState="Maximized"
-        Height="763.2" Width="1129.455">
+        Height="763.2" Width="1395.055">
     <Grid>
         <!---Record sound groupBox-->
         <GroupBox Header="Enregistrer" HorizontalAlignment="Left" Height="242" Margin="10,10,0,0" VerticalAlignment="Top" Width="198">
@@ -24,8 +24,14 @@
         </GroupBox>
         <!---note and frequencies and lilypond-->
         <TextBox Name="frequence" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" HorizontalAlignment="Left" Margin="225,15,0,0" TextWrapping="Wrap" Text="Fréquences" VerticalAlignment="Top" Height="237" Width="182"/>
-        <TextBox Name="notes" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" HorizontalAlignment="Left" Margin="412,15,0,0" TextWrapping="Wrap" Text="Notes" VerticalAlignment="Top" Height="714" Width="345"/>
-        <TextBox Name="lilypond" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" HorizontalAlignment="Left" Margin="762,15,0,0" TextWrapping="Wrap" Text="Lilypond" VerticalAlignment="Top" Height="714" Width="345"/>
+        
+        <TextBox Name="notes" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" HorizontalAlignment="Left" Margin="412,15,0,0" TextWrapping="Wrap" Text="Notes" VerticalAlignment="Top" Height="714" Width="89"/>
+        
+        <Button Content="sauvergader les changement" Click="SvgLily" HorizontalAlignment="Left" Margin="506,31,0,0" VerticalAlignment="Top" Width="164"/>
+        <Button Content="Ouvrir un fichier Lilypond" Click="OpenLily" HorizontalAlignment="Left" Margin="687,31,0,0" VerticalAlignment="Top" Width="164"/>
+        <TextBox Name="lilypond" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" HorizontalAlignment="Left" Margin="506,55,0,0" TextWrapping="Wrap" Text="Lilypond" VerticalAlignment="Top" Height="674" Width="345"/>
+        
+        <WebBrowser Name="pdfWebViewer" Margin="856,0,-0.2,-0.4"></WebBrowser>
         <!---Lilypond file's settings-->
         <GroupBox Header="Lilypond" HorizontalAlignment="Left" Height="309" Margin="10,415,0,0" VerticalAlignment="Top" Width="397">
             <Grid HorizontalAlignment="Left" Height="279" Margin="0,10,-3,-2.6" VerticalAlignment="Top" Width="387">
@@ -37,7 +43,9 @@
                 <TextBox Name="piece" HorizontalAlignment="Left" Height="25" Margin="134,111,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
                 <Label Content="Pied de page" HorizontalAlignment="Left" Margin="30,141,0,0" VerticalAlignment="Top" Width="99" Height="30"/>
                 <TextBox Name="pdPage" HorizontalAlignment="Left" Height="25" Margin="134,141,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-                <Button Content="Générer le fichier Lilypond" HorizontalAlignment="Left" Margin="227,250,0,0" VerticalAlignment="Top" Width="150" Click="ToLilypond_Click"/>
+                <Image Source="img\LilyPond-logo.png" HorizontalAlignment="Left" Height="59" Margin="325,176,0,0" VerticalAlignment="Top" Width="61"/>
+                <Button Content="Générer le fichier Lilypond" HorizontalAlignment="Left" Margin="171,199,0,0" VerticalAlignment="Top" Width="150" Click="ToLilypond_Click"/>
+                <Button Content="Générer le pdf" HorizontalAlignment="Left" Margin="170,249,0,0" VerticalAlignment="Top" Width="150" Click="ToPdf_Click"/>
             </Grid>
         </GroupBox>
     </Grid>

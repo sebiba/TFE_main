@@ -76,5 +76,6 @@
     <Content Include="script\freqs.py" />
     <Content Include="script\note.py" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

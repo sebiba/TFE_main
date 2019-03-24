@@ -2,13 +2,13 @@
 
 \header{
 	title = "test"
-	subtitle = "045"
+	subtitle = "test"
 }
 
 tagline = "pure"
 
 \header{
-	piece = "Hello World!"
+	piece = "test"
 }
 
 \relative c' {

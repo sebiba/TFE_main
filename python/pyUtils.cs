@@ -7,20 +7,35 @@ namespace python
 {
     public class PyUtils
     {
-        static public string freqToNote(float frequence)
+        /// <summary>
+        /// convert a frequency into the corresponding note
+        /// </summary>
+        /// <param name="frequence">frequency</param>
+        /// <returns>note corresponding to the param in english</returns>
+        static public string FreqToNote(float frequence)
         {
-            var ipy = Python.CreateRuntime();
-            dynamic python = ipy.UseFile(@"D:\programmation\c#\TFE\python\script\note.py");
-            var note = python.freqToData((int)frequence);
-            // Console.WriteLine(yolo);
-            //return frequence.ToString() + "hz - " + yolo + "\n";
-            return note;
+            try
+            {
+                dynamic python = Python.CreateRuntime().UseFile(@"D:\programmation\c#\TFE\python\script\note.py");
+                return python.freqToData((int)frequence);
+            }catch(Exception e)
+            {
+                return e.Message;
+            }
         }
 
-        static public string getfreq(string file)
+        /// <summary>
+        /// get all frequency inside a wav file
+        /// </summary>
+        /// <param name="file">path to a wav file</param>
+        /// <returns>string with all frequencies found</returns>
+        static public string Getfreq(string file)
         {
             string python = @"D:\Programme file(x86)\python\python.exe";
             string script = @"D:\programmation\c#\TFE\python\script\freqs.py";
+
+            if (!File.Exists(file)) return "Erreur: File doesn't exist";  // if file doesn't exist
+            if (Path.GetExtension(file) != ".wav") return "Erreur: File with wrong extension";  // if file is wrong extension
 
             ProcessStartInfo myProcessStartInfo = new ProcessStartInfo(python);
 

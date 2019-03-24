@@ -44,12 +44,12 @@ def frequence(signal):
 # y = initsignal(220, 0, 1)
 fs = 0  # sample rate
 y = read(sys.argv[1])
-test = np.array_split(y, len(y)/5000)
+slice = np.array_split(y, len(y)/4000) # 5000
 output = ""
 
-for i in range(len(test)):
+for i in range(len(slice)):
     # y2 = correlation(test[i])
-    output += str(i) + ":" + str(frequence(test[i])) + "||"
+    output += str(i) + ":" + str(frequence(slice[i])) + "||"
     # print(str(i) + ":" + str(frequence(test[i])) + "\t\t" + str(frequence(y)) + "\n")
 
 print(output)
