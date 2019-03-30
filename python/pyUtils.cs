@@ -17,6 +17,7 @@ namespace python
             try
             {
                 dynamic python = Python.CreateRuntime().UseFile(@"D:\programmation\c#\TFE\python\script\note.py");
+                //dynamic python = Python.CreateRuntime().UseFile(@"script\note.py");
                 return python.freqToData((int)frequence);
             }catch(Exception e)
             {

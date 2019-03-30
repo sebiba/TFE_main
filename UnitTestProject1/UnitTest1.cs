@@ -81,7 +81,7 @@ namespace UnitTestProject1
         public void Tempo1()
         {
             List<string> init = new List<string> { "A", "A", "B", "B", "B", "B", "C", "C", "C", "C", "C", "C", "C", "C" };  // list to convert by the tempo function
-            List<string> test = new List<string> { "A16", "B8", "C4" };  // list that tempo should return
+            List<string> test = new List<string> { /*"A16",*/ "B8", "C4" };  // list that tempo should return
             CollectionAssert.AreEqual(new Lily(@"D:\programmation\c#\TFE\python\Lily\good.ly").Tempo(init),test);
         }
         [TestMethod]
