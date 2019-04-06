@@ -39,7 +39,11 @@ namespace python
             }
             else  // if file doesn't exist
             {
+#if DEBUG
                 using (StreamReader sr = File.OpenText(@"D:\programmation\c#\TFE\python\Lily\template.ly"))
+#else
+                using (StreamReader sr = File.OpenText(@"Lily\template.ly"))
+#endif
                 {
                     string s = "";
                     while ((s = sr.ReadLine()) != null)  // loop on all the ligne from the file

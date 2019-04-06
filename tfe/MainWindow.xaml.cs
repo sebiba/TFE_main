@@ -89,7 +89,7 @@ namespace tfe
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "Wav Files Only (*.wav)|*.wav";  // only wav files
-            openFileDialog.InitialDirectory = @"D:\programmation\python\TFE\";
+            //openFileDialog.InitialDirectory = @"D:\programmation\python\TFE\";
             if (openFileDialog.ShowDialog() != true) return;  // if no file is selected
 
             Impfile.Text = openFileDialog.FileName;
@@ -128,7 +128,7 @@ namespace tfe
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             saveFileDialog.Filter = "Lilypond Files (*.ly)|*.ly";
-            saveFileDialog.InitialDirectory = @"D:\programmation\c#\TFE\python\Lily\";
+            //saveFileDialog.InitialDirectory = @"D:\programmation\c#\TFE\python\Lily\";
             if (saveFileDialog.ShowDialog() != true) return;
 
             Lily Lilypond = new Lily(saveFileDialog.FileName);
@@ -143,20 +143,34 @@ namespace tfe
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void ToPdf_Click(object sender, RoutedEventArgs e) {
+#if DEBUG
             string Lilypond = @"D:\Programme file(x86)\LilyPond\usr\bin\lilypond.exe";
-
+#else
+            string Lilypond = @"LilyPond\usr\bin\lilypond.exe";
+#endif
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "Lilypond Files (*.ly)|*.ly";  // only ly files
-            openFileDialog.InitialDirectory = @"D:\programmation\c#\TFE\python\Lily\";
+            //openFileDialog.InitialDirectory = @"D:\programmation\c#\TFE\python\Lily\";
             if (openFileDialog.ShowDialog() != true) return;  // if no file is selected
             string script = openFileDialog.FileName;
-            if (File.Exists(@"D:\programmation\c#\TFE\tfe\bin\Debug\"+ openFileDialog.SafeFileName.Split('.').First()+".pdf"))
+            if (File.Exists(openFileDialog.SafeFileName.Split('.').First()+".pdf"))
             {
-                File.Delete(@"D:\programmation\c#\TFE\tfe\bin\Debug\" + openFileDialog.SafeFileName.Split('.').First() + ".pdf");
+                File.Delete(openFileDialog.SafeFileName.Split('.').First() + ".pdf");
             }
             var process = Process.Start(Lilypond, script);
             process.WaitForExit();
-            pdfWebViewer.Navigate(@"D:\programmation\c#\TFE\tfe\bin\Debug\"+openFileDialog.SafeFileName.Split('.').First()+".pdf");  // display the new pdf on the screen
+            pdfWebViewer.Navigate(Path.GetFullPath(openFileDialog.SafeFileName.Split('.').First() + ".pdf"));  // display the new pdf on the screen
+        }
+
+        private void ToLaTex_Click (object sender, RoutedEventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "LaTex Files (*.tex)|*.tex";
+            //saveFileDialog.InitialDirectory = @"D:\programmation\c#\TFE\python\Lily\";
+            if (saveFileDialog.ShowDialog() != true) return;
+
+            Latex latex = new Latex(saveFileDialog.FileName);
+            latex.initRow();
         }
 
         /// <summary>
@@ -168,7 +182,7 @@ namespace tfe
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             saveFileDialog.Filter = "Lilypond Files (*.ly)|*.ly";
-            saveFileDialog.InitialDirectory = @"D:\programmation\c#\TFE\python\Lily\";
+            //saveFileDialog.InitialDirectory = @"D:\programmation\c#\TFE\python\Lily\";
             if (saveFileDialog.ShowDialog() != true) return;
 
             Lily Lilypond = new Lily(saveFileDialog.FileName);
@@ -186,7 +200,7 @@ namespace tfe
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "Lilypond Files (*.ly)|*.ly";
-            openFileDialog.InitialDirectory = @"D:\programmation\c#\TFE\python\Lily\";
+            //openFileDialog.InitialDirectory = @"D:\programmation\c#\TFE\python\Lily\";
             if (openFileDialog.ShowDialog() != true) return;
 
             Lily Lilypond = new Lily(openFileDialog.FileName);

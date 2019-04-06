@@ -16,8 +16,11 @@ namespace python
         {
             try
             {
+#if DEBUG
                 dynamic python = Python.CreateRuntime().UseFile(@"D:\programmation\c#\TFE\python\script\note.py");
-                //dynamic python = Python.CreateRuntime().UseFile(@"script\note.py");
+#else
+                dynamic python = Python.CreateRuntime().UseFile(@"script\note.py");
+#endif
                 return python.freqToData((int)frequence);
             }catch(Exception e)
             {
@@ -32,8 +35,13 @@ namespace python
         /// <returns>string with all frequencies found</returns>
         static public string Getfreq(string file)
         {
+#if DEBUG
             string python = @"D:\Programme file(x86)\python\python.exe";
             string script = @"D:\programmation\c#\TFE\python\script\freqs.py";
+#else
+            string python = @"python\python.exe";
+            string script = @"script\freqs.py";
+#endif
 
             if (!File.Exists(file)) return "Erreur: File doesn't exist";  // if file doesn't exist
             if (Path.GetExtension(file) != ".wav") return "Erreur: File with wrong extension";  // if file is wrong extension

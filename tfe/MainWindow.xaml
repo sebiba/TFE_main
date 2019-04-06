@@ -24,13 +24,13 @@
         </GroupBox>
         <!---note and frequencies and lilypond-->
         <TextBox Name="frequence" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" HorizontalAlignment="Left" Margin="225,15,0,0" TextWrapping="Wrap" Text="Fréquences" VerticalAlignment="Top" Height="237" Width="182"/>
-        
+
         <TextBox Name="notes" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" HorizontalAlignment="Left" Margin="412,15,0,0" TextWrapping="Wrap" Text="Notes" VerticalAlignment="Top" Height="714" Width="89"/>
-        
+
         <Button Content="sauvergader les changement" Click="SvgLily" HorizontalAlignment="Left" Margin="506,31,0,0" VerticalAlignment="Top" Width="164"/>
         <Button Content="Ouvrir un fichier Lilypond" Click="OpenLily" HorizontalAlignment="Left" Margin="687,31,0,0" VerticalAlignment="Top" Width="164"/>
         <TextBox Name="lilypond" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" HorizontalAlignment="Left" Margin="506,55,0,0" TextWrapping="Wrap" Text="Lilypond" VerticalAlignment="Top" Height="674" Width="345"/>
-        
+
         <WebBrowser Name="pdfWebViewer" Margin="856,0,-0.2,-0.4"></WebBrowser>
         <!---Lilypond file's settings-->
         <GroupBox Header="Lilypond" HorizontalAlignment="Left" Height="309" Margin="10,415,0,0" VerticalAlignment="Top" Width="397">
@@ -45,7 +45,8 @@
                 <TextBox Name="pdPage" HorizontalAlignment="Left" Height="25" Margin="134,141,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
                 <Image Source="img\LilyPond-logo.png" HorizontalAlignment="Left" Height="59" Margin="325,176,0,0" VerticalAlignment="Top" Width="61"/>
                 <Button Content="Générer le fichier Lilypond" HorizontalAlignment="Left" Margin="171,199,0,0" VerticalAlignment="Top" Width="150" Click="ToLilypond_Click"/>
-                <Button Content="Générer le pdf" HorizontalAlignment="Left" Margin="170,249,0,0" VerticalAlignment="Top" Width="150" Click="ToPdf_Click"/>
+                <Button Content="Générer la partition" HorizontalAlignment="Left" Margin="223,249,0,0" VerticalAlignment="Top" Width="150" Click="ToPdf_Click"/>
+                <Button Content="Générer la tablature" HorizontalAlignment="Left" Margin="68,249,0,0" VerticalAlignment="Top" Width="150" Click="ToLaTex_Click"/>
             </Grid>
         </GroupBox>
     </Grid>
