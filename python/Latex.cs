@@ -16,6 +16,10 @@ namespace python
             TexData = new List<string>(template.Split(new string[] { "\r\n" }, StringSplitOptions.None));
             path = pathparam;
         }
+
+        /// <summary>
+        /// compile the latex creating a pdf
+        /// </summary>
         public void CompileLaTexFile()
         {
 #if DEBUG
@@ -34,36 +38,57 @@ namespace python
             Process.Start(startInfo);
         }
 
+        /// <summary>
+        /// write latex file and create a pdf of the tablature
+        /// </summary>
         public void BuildLaTex()
         {
             File.WriteAllLines(path, TexData);  // write all the lignes in the lilypond files
             CompileLaTexFile();
         }
 
-        public void initRow()
+        /// <summary>
+        /// write init latex code for a tablature
+        /// </summary>
+        public void initRow(Uri Lilypath)
         {
-            int ligne = 0;
-            for (ligne = 0; ligne < TexData.Count; ligne++)
-            {
-                if (TexData[ligne].Contains("begin{center}"))  break;
-            }
-            TexData.InsertRange(ligne + 1, new List<string>{ @"\begin{tikzpicture}",
+            TexData.InsertRange((FindLigneContaining("begin{center}") + 1).Value, new List<string>{ @"\begin{tikzpicture}",
                                                             @"\draw[thick] (0,0) -- (10,0) node[anchor=north west] {}; % main ligne",
                                                             @"\draw (0cm, 1pt) -- (0cm, -1pt) node [anchor=south] {$Do$};  % init ligne Do",
                                                             @"\draw (0cm, 1pt) -- (0cm, -1pt) node [anchor=north] {$Sol$};  % init ligne Sol",
                                                             @"\draw [line width=0.5mm ] (0.5cm, 10pt) -- (0.5cm, -10pt) node {}; % thick vertical ligne",
                                                             @"\draw (0.55cm, 10pt) -- (0.55cm, -10pt) node {}; % second start vertical ligne",
                                                             @"\end{tikzpicture}" });
+            South();
             BuildLaTex();
         }
 
+        /// <summary>
+        /// add notes for Do row
+        /// </summary>
         public void South()
         {
-
+            TexData.InsertRange((FindLigneContaining(@"\end{tikzpicture}")).Value, new List<string> { @"\foreach \x in { 1,3}",
+                                                                            @"\draw(\x cm, 1pt)--(\x cm, -1pt) node[anchor = south] {$\x$};"
+                                                                            });
         }
 
         public void North()
         {
+        }
+
+        /// <summary>
+        /// find ligne containing param
+        /// </summary>
+        /// <param name="contain">string to find in latex file</param>
+        /// <returns></returns>
+        public int? FindLigneContaining(string contain)
+        {
+            for (int ligne = 0; ligne < TexData.Count; ligne++)
+            {
+                if (TexData[ligne].Contains(contain)) return ligne;
+            }
+            return null;
         }
     }
 }

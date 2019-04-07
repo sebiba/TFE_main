@@ -24,7 +24,7 @@ namespace UnitTestProject1
         [TestMethod]
         public void GetFreq1()
         {
-            Assert.AreEqual("0:440.2005778954972||1:440.2005778954972||2:440.2005778954972||3:440.2005778954972||4:440.2005778954972||5:440.2005778954972||6:440.2005778954972||7:440.2005778954972||8:440.2005778954972||9:440.2005778954972||10:440.2005778954972||11:440.2005778954972||12:440.2005778954972||13:440.2005778954972||14:440.2005778954972||15:440.2005778954972||16:440.3063583815029||17:440.3063583815029||", PyUtils.Getfreq(@"D:\programmation\python\TFE\440vrai.wav"));
+            Assert.AreEqual("0:440.2005778954972||1:440.2005778954972||2:440.2005778954972||3:440.2005778954972||4:440.2005778954972||5:440.2005778954972||6:440.2005778954972||7:440.2005778954972||8:440.2005778954972||9:440.2005778954972||10:440.2005778954972||11:440.2005778954972||12:440.2005778954972||13:440.2005778954972||14:440.2005778954972||15:440.2005778954972||16:440.3063583815029||17:440.3063583815029||", PyUtils.Getfreq(@"D:\programmation\python\TFE\440Hz.wav"));
         }
 #endregion fichier vers Frequence
 
@@ -106,5 +106,27 @@ namespace UnitTestProject1
             CollectionAssert.AreEqual(new Lily(@"D:\programmation\c#\TFE\python\Lily\good.ly").Tempo(init), test);
         }
         #endregion Tempo
+
+#region format
+        [TestMethod]
+        public void FormatEmpty()
+        {
+            string test = new Lily(@"D:\programmation\c#\TFE\python\Lily\good.ly").Format(new List<string>());
+            Assert.AreEqual(test, "");
+        }
+        [TestMethod]
+        public void Format1()
+        {
+            string test = new Lily(@"D:\programmation\c#\TFE\python\Lily\good.ly").Format(new List<string>() {"A","A","A","A","B","B", "B"});
+            Assert.AreEqual(test, " a8 b8");
+        }
+
+        [TestMethod]
+        public void Format2()
+        {
+            string test = new Lily(@"D:\programmation\c#\TFE\python\Lily\good.ly").Format(new List<string>() { "A#", "A#", "A#", "A#", "Bb", "Bb", "Bb" });
+            Assert.AreEqual(test, " ais8 bes8");
+        }
+#endregion
     }
 }

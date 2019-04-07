@@ -19,6 +19,7 @@ namespace tfe
         public WaveIn waveSource = null;
         public WaveFileWriter waveFile = null;
         public List<string> _notes = new List<string>();
+        private Uri _LyliPath;
         public MainWindow()
         {
             InitializeComponent();
@@ -135,6 +136,9 @@ namespace tfe
             Lilypond.Customise(titre.Text, sTitre.Text, piece.Text, pdPage.Text);
             lilypond.Text = Lilypond.SetNotes(_notes);
             MessageBox.Show("Fichier lilypond généré avec succes","Génération Lylipond",MessageBoxButton.OK, MessageBoxImage.Information);
+            ToLaTex.IsEnabled = true;
+            ToPdf.IsEnabled = true;
+            _LyliPath = new Uri(saveFileDialog.FileName);
         }
 
         /// <summary>
@@ -170,7 +174,7 @@ namespace tfe
             if (saveFileDialog.ShowDialog() != true) return;
 
             Latex latex = new Latex(saveFileDialog.FileName);
-            latex.initRow();
+            latex.initRow(_LyliPath);
         }
 
         /// <summary>
@@ -206,6 +210,9 @@ namespace tfe
             Lily Lilypond = new Lily(openFileDialog.FileName);
             lilypond.Text = string.Join("\n",Lilypond.ReadFile());
             MessageBox.Show("Fichier lilypond sauvegardé avec succes", "Génération Lylipond", MessageBoxButton.OK, MessageBoxImage.Information);
+            ToLaTex.IsEnabled = true;
+            ToPdf.IsEnabled = true;
+            _LyliPath = new Uri(openFileDialog.FileName);
         }
 
     }

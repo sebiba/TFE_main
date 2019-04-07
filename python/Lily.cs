@@ -65,6 +65,7 @@ namespace python
         {
             List<string> notes = new List<string>();
             int cpt = 1;
+            Dictionary<int, int> FreqLily = new Dictionary<int, int>() { { 16, 1 }, {8, 1}, {4, 4 }, {2, 8}};
             List<int> Freqstep = new List<int> { 16, 8, 4, 2 };
             List<int> Lilystep = new List<int> { 1, 2, 4, 8 };
             int i = 1;
@@ -75,14 +76,14 @@ namespace python
                 {
                     if (cpt != 1)
                     {
-                        for (int x = 0; x < Freqstep.Capacity; x++)
+                        for (int x = 0; x < FreqLily.Keys.Count; x++)
                         {
-                            while (cpt > Freqstep[x])
+                            while (cpt > FreqLily.Keys.ElementAt(x))
                             {
-                                if (cpt % Freqstep[x] != cpt)
+                                if (cpt % FreqLily.Keys.ElementAt(x) != cpt)
                                 {
-                                    cpt = cpt % Freqstep[x];
-                                    notes.Add(string.Concat(input[i - 1], Lilystep[x]));
+                                    cpt = cpt % FreqLily.Keys.ElementAt(x);
+                                    notes.Add(string.Concat(input[i - 1], FreqLily.Values.ElementAt(x)));
                                 }
                             }
                         }
@@ -92,14 +93,14 @@ namespace python
             }
             if (cpt != 1)  // last range of note not transformed otherwise
             {
-                for(int x=0; x<Freqstep.Capacity; x++)
+                for (int x = 0; x < FreqLily.Keys.Count; x++)
                 {
-                    while (cpt > Freqstep[x])
+                    while (cpt > FreqLily.Keys.ElementAt(x))
                     {
-                        if (cpt % Freqstep[x] != cpt)
+                        if (cpt % FreqLily.Keys.ElementAt(x) != cpt)
                         {
-                            cpt = cpt % Freqstep[x];
-                            notes.Add(string.Concat(input[i - 1], Lilystep[x]));
+                            cpt = cpt % FreqLily.Keys.ElementAt(x);
+                            notes.Add(string.Concat(input[i - 1], FreqLily.Values.ElementAt(x)));
                         }
                     }
                 }
