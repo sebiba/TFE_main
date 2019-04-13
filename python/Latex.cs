@@ -8,13 +8,18 @@ namespace python
 {
     public class Latex
     {
-        List<string> TexData = new List<string>();
-        string path;
-        public Latex(string pathparam)
+        private List<string> Note = new List<string>();
+        private List<string> TexData = new List<string>();
+        private string Path;
+
+        public Latex(string pathparam, Uri Lily)
         {
             string template = File.ReadAllText(@"D:\programmation\c#\TFE\python\LaTex\Template.tex");
             TexData = new List<string>(template.Split(new string[] { "\r\n" }, StringSplitOptions.None));
-            path = pathparam;
+            Path = pathparam;
+
+            Lily lilyFile = new Lily(Lily.AbsolutePath);
+            Note = lilyFile.GetNotes();
         }
 
         /// <summary>
@@ -24,7 +29,7 @@ namespace python
         {
 #if DEBUG
             string latexCompiler = @"D:\programmation\c#\TFE\python\LaTex\miktex\bin\miktex-pdflatex.exe";
-            string file = path;
+            string file = Path;
 #else
             string python = @"python\python.exe";
             string script = @"script\freqs.py";
@@ -43,14 +48,18 @@ namespace python
         /// </summary>
         public void BuildLaTex()
         {
-            File.WriteAllLines(path, TexData);  // write all the lignes in the lilypond files
+            File.WriteAllLines(Path, TexData);  // write all the lignes in the lilypond files
             CompileLaTexFile();
+        }
+
+        public void BuildRow() {
+            initRow();
         }
 
         /// <summary>
         /// write init latex code for a tablature
         /// </summary>
-        public void initRow(Uri Lilypath)
+        public void initRow()
         {
             TexData.InsertRange((FindLigneContaining("begin{center}") + 1).Value, new List<string>{ @"\begin{tikzpicture}",
                                                             @"\draw[thick] (0,0) -- (10,0) node[anchor=north west] {}; % main ligne",
@@ -59,8 +68,6 @@ namespace python
                                                             @"\draw [line width=0.5mm ] (0.5cm, 10pt) -- (0.5cm, -10pt) node {}; % thick vertical ligne",
                                                             @"\draw (0.55cm, 10pt) -- (0.55cm, -10pt) node {}; % second start vertical ligne",
                                                             @"\end{tikzpicture}" });
-            South();
-            BuildLaTex();
         }
 
         /// <summary>

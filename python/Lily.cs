@@ -141,6 +141,20 @@ namespace python
             return Save();
         }
 
+        public List<string> GetNotes() {
+            string temp = null;
+            for (int i = 0; i < _data.Count; i++)  // loop on each lignes
+            {
+                if (_data[i].Contains(@"\key"))
+                {
+
+                    temp = _data[i + 1];
+                    break;
+                }
+            }
+            return temp.Split(' ').ToList();
+        }
+
         public string Save(List<string> data = null)
         {
             if (data != null)

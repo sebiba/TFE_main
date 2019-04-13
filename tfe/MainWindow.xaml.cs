@@ -173,8 +173,8 @@ namespace tfe
             //saveFileDialog.InitialDirectory = @"D:\programmation\c#\TFE\python\Lily\";
             if (saveFileDialog.ShowDialog() != true) return;
 
-            Latex latex = new Latex(saveFileDialog.FileName);
-            latex.initRow(_LyliPath);
+            Latex latex = new Latex(saveFileDialog.FileName, _LyliPath);
+            latex.BuildLaTex();
         }
 
         /// <summary>

@@ -66,6 +66,7 @@
   <ItemGroup>
     <Compile Include="Latex.cs" />
     <Compile Include="Lily.cs" />
+    <Compile Include="Note.cs" />
     <Compile Include="pyUtils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
