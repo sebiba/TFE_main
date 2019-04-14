@@ -72,6 +72,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="tablature.csv" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Lily\template.ly" />

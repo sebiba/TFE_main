@@ -1,0 +1,53 @@
+Dieses Paket, geometry-de.dtx, ist eine geänderte Version des geometry Pakets
+in Version 5.6 2010/09/12
+von Hideo Umeki.
+
+Mit der Datei können Sie eine deutsche Dokumentation erzeugen, es ist aber
+auch möglich alle anderen geometry Dateien zu kompilieren.
+
+Dateien:
+  * README-DE         -  diese Datei
+  * geometry.ins      -  für die Installation, um die .sty Datei aus der .dtx zu erzeugen
+  * geometry-de.dtx   -  beinhaltet den Quelltext und die Dokumentation
+  * geometry-de.pdf   -  druckfertige deutsche Dokumentation
+
+Benutzen sie
+  tex geometry-de.tex
+um die geometry.ins, die geometry-de.drv und die geometry.sty Dateien zu kompilieren.
+
+Benutzen sie
+  latex geometry-de.dtx oder
+  latex geometry-de.drv oder
+  pdflatex geometry-de.dtx oder
+  pdflatex geometry-de.drv
+um die deutsche Dokumentation zu erzeugen.
+
+Die geometry.sty ist die gleiche, wie sie von der originalen .dtx Datei von
+Hideo Ukmeki angeboten wird.
+
+Wie man geometry installiert:
+Partielle Übersetzung der README Datei von Hideo Umeki
+Installation: 
+[manuelle Installation]
+  * Um geometry.sty aus geometry.dtx zu bekommen
+        $ tex geometry-de.dtx 
+    oder  $ (la)tex geometry.ins
+  * Um die Dokumentation zu erzeugen
+        $ latex geometry-de.dtx  
+    oder  $ latex geometry-de.drv
+  * Platzieren sie die abgeleiteten Dateien in den folgenden Verzeichnissen:
+      -  tex/latex/geometry/geometry.sty
+      -  doc/latex/geometry/geometry-de.pdf
+      -  source/latex/geometry/geometry-de.dtx
+
+[TeXLive]
+  * Benutzen sie das 'tlmgr' Kommando
+        $ tlmgr show geometry          -- um die Paketinformationen zu prüfen
+        $ sudo tlmgr update geometry   -- um das Paket zu aktualisieren
+  * Sie können das 'TeX Live Utility' anstelle von 'tlmgr' benutzen, wenn sie mit MacOSX arbeiten.
+
+[MikTeX]
+  * Benutzen sie den MikTeX Update Wizard, um das geometry Paket zu aktualisieren.
+
+
+Die Übersetzung wurde von Hans-Martin Haase angefertigt.

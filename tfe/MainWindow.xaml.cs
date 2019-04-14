@@ -18,7 +18,7 @@ namespace tfe
     {
         public WaveIn waveSource = null;
         public WaveFileWriter waveFile = null;
-        public List<string> _notes = new List<string>();
+        public List<Note> _notes = new List<Note>();
         private Uri _LyliPath;
         public MainWindow()
         {
@@ -94,18 +94,12 @@ namespace tfe
             if (openFileDialog.ShowDialog() != true) return;  // if no file is selected
 
             Impfile.Text = openFileDialog.FileName;
-            List<string> data = PyUtils.Getfreq(openFileDialog.FileName).Replace("||", "\n").Split('\n').ToList();  // get frequency
-            data.RemoveAt(data.Count - 1);
-            string freq = "";
-            foreach (string input in data) {  // loop on all notes
-                freq += input.Split(':').Last() + "\n";
-                _notes.Add(PyUtils.FreqToNote(Math.Abs(float.Parse(input.Split(':').Last(), CultureInfo.InvariantCulture))));  // get note
-            }
+            _notes = PyUtils.Getfreq(openFileDialog.FileName);  // get frequency
             for(int i= 0;i < _notes.Count;i++)  //remove alone note
             {
                 try
                 {
-                    if (_notes[i] != _notes[i + 1])
+                    if (_notes[i].value != _notes[i + 1].value)
                     {
                         _notes.RemoveAt(i + 1);
                     }
@@ -116,8 +110,8 @@ namespace tfe
                 }
             }
 
-            frequence.Text = freq;
-            notes.Text = string.Join("\n", _notes);
+            //frequence.Text = freq;
+            notes.Text = string.Join("\n", _notes.Select(note => note.value).ToList());
         }
         
         /// <summary>
@@ -174,6 +168,7 @@ namespace tfe
             if (saveFileDialog.ShowDialog() != true) return;
 
             Latex latex = new Latex(saveFileDialog.FileName, _LyliPath);
+            latex.BuildRow();
             latex.BuildLaTex();
         }
 

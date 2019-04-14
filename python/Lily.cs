@@ -61,7 +61,7 @@ namespace python
         /// </summary>
         /// <param name="input">list of all notes</param>
         /// <returns>list every notes with the right number for the time</returns>
-        public List<string> Tempo(List<string> input)
+        public List<string> Tempo(List<Note> input)
         {
             List<string> notes = new List<string>();
             int cpt = 1;
@@ -71,7 +71,7 @@ namespace python
             int i = 1;
             for ( i = 1; i < input.Count; i++)
             {
-                if (input[i] == input[i - 1]) cpt++;
+                if (input[i].value == input[i - 1].value) cpt++;
                 else
                 {
                     if (cpt != 1)
@@ -83,7 +83,7 @@ namespace python
                                 if (cpt % FreqLily.Keys.ElementAt(x) != cpt)
                                 {
                                     cpt = cpt % FreqLily.Keys.ElementAt(x);
-                                    notes.Add(string.Concat(input[i - 1], FreqLily.Values.ElementAt(x)));
+                                    notes.Add(string.Concat(input[i - 1].value, FreqLily.Values.ElementAt(x)));
                                 }
                             }
                         }
@@ -100,7 +100,7 @@ namespace python
                         if (cpt % FreqLily.Keys.ElementAt(x) != cpt)
                         {
                             cpt = cpt % FreqLily.Keys.ElementAt(x);
-                            notes.Add(string.Concat(input[i - 1], FreqLily.Values.ElementAt(x)));
+                            notes.Add(string.Concat(input[i - 1].value, FreqLily.Values.ElementAt(x)));
                         }
                     }
                 }
@@ -113,7 +113,7 @@ namespace python
         /// </summary>
         /// <param name="input">list of notes</param>
         /// <returns>list of notes in lilypond format</returns>
-        public string Format(List<string> input)
+        public string Format(List<Note> input)
         {
             string concat = "";
             foreach (string note in Tempo(input))  // loop on each notes
@@ -128,7 +128,7 @@ namespace python
         /// </summary>
         /// <param name="notes">notes to put in the file</param>
         /// <returns>what is written inside the lilypond files</returns>
-        public string SetNotes(List<string> notes)
+        public string SetNotes(List<Note> notes)
         {
             for(int i=0;i<_data.Count;i++)  // loop on each lignes
             {
@@ -141,18 +141,21 @@ namespace python
             return Save();
         }
 
-        public List<string> GetNotes() {
+        /// <summary>
+        /// Get all Notes from a lilypond file
+        /// </summary>
+        /// <returns>Notes from lilypond file</returns>
+        public List<Note> GetNotes() {
             string temp = null;
             for (int i = 0; i < _data.Count; i++)  // loop on each lignes
             {
                 if (_data[i].Contains(@"\key"))
                 {
-
-                    temp = _data[i + 1];
+                    temp = _data[i + 1].TrimStart('\t');
                     break;
                 }
             }
-            return temp.Split(' ').ToList();
+            return temp.Split(' ').ToList().Select(note => new Note(note)).ToList();
         }
 
         public string Save(List<string> data = null)
