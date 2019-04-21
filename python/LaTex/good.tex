@@ -13,23 +13,23 @@
 \begin{figure}[h!]
   \begin{center}
 \begin{tikzpicture}
-\newarray\NoteNorth
-\readarray{NoteNorth}{5p&7p&7p&7t&6p&7p&5p&5t&}
-\newarray\NoteSouthPush
-\readarray{NoteSouthPush}{5p&5p&4p&}
-\newarray\NoteSouthPull
-\readarray{NoteSouthPull}{3t&6t&6t&6t&3t&}
+\newarray\North
+\readarray{North}{3&6&6&6&5&5&6&3&}
+\newarray\South
+\readarray{South}{5&7&7&7&7&6&7&5&}
 \draw[thick] (0,0) -- (15,0) node[anchor=north west] {}; % main ligne
 \draw (0cm, 1pt) -- (0cm, -1pt) node [anchor=south] {$Do$};  % init ligne Do
 \draw (0cm, 1pt) -- (0cm, -1pt) node [anchor=north] {$Sol$};  % init ligne Sol
 \draw [line width=0.5mm ] (0.5cm, 10pt) -- (0.5cm, -10pt) node {}; % thick vertical ligne
 \draw (0.55cm, 10pt) -- (0.55cm, -10pt) node {}; % second start vertical ligne
-\foreach \x in {1,2,3,4,}
-\node[below] at (\x,-0.5){$\smash{\overline{\NoteSouthPull(\x)}}$};
-\foreach \x in {5,6,7,8}
-\node[below] at (\x+4,-0.5){$\NoteSouthPush(\x)$};
-\foreach \x in {1,2,3,4,5,6,7,8}
-\node[above] at (\x,0.25){$\NoteNorth(\x)$};
+\foreach \x in {5}
+\node[below] at (\x,-0.5){$\smash{\overline{\South(\x)}}$};
+\foreach \x in {1,2,3,4,6,7,8}
+\node[below] at (\x,-0.25){$\South(\x)$};
+\foreach \x in {1,2,3,4,7,8}
+\node[above] at (\x,0.25){$\smash{\overline{\North(\x)}}$};
+\foreach \x in {5,6}
+\node[above] at (\x,0.25){$\North(\x)$};
 \end{tikzpicture}
   \end{center}
 \end{figure}

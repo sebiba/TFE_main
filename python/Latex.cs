@@ -39,7 +39,7 @@ namespace python
 
             ProcessStartInfo startInfo = new ProcessStartInfo(latexCompiler)
             {
-                Arguments = "-aux-directory=D:\\jsp -output-directory=D:\\jsp " + file,
+                Arguments = @"-aux-directory=D:\jsp -output-directory=D:\jsp\tablature " + file,
                 UseShellExecute = false
             };
             Process.Start(startInfo);
@@ -54,16 +54,31 @@ namespace python
             CompileLaTexFile();
         }
 
+        /// <summary>
+        /// build a row of the tablature
+        /// </summary>
         public void BuildRow() {
-            initRow();
-            List<List<string>> NoteGesture = new List<List<string>>();
-            _Note.ForEach(delegate (Note elem)
+            List<List<string>> NoteGesture = new List<List<string>>();  // list with possible gesture for each notes
+            try
             {
-                Dictionary<string, string> gesture = elem.GetGesture();
-               NoteGesture.Add(gesture.Values.ToList());
-            });
-            South(NoteGesture);
-            North(NoteGesture);
+                _Note.ForEach(delegate (Note elem)
+                {
+                    Dictionary<string, string> gesture = elem.GetGesture();
+                    NoteGesture.Add(gesture.Values.ToList());
+                });
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            for (int i = 0; i < NoteGesture.Count % 16; i++)
+            {
+                initRow();
+                Dictionary<string, Dictionary<int, string>> formatedData = divideNotes(NoteGesture.GetRange(15*i,8));  // probleme range
+                South(formatedData["downTab"]);
+                North(formatedData["upTab"]);
+                if (NoteGesture.Count < 16) break;
+            }
         }
 
         /// <summary>
@@ -80,35 +95,82 @@ namespace python
                                                             @"\end{tikzpicture}" });
         }
 
+        public Dictionary<string, Dictionary<int, string>> divideNotes(List<List<string>> Gesture)
+        {
+            Dictionary<int, string> uptab = new Dictionary<int, string>();
+            Dictionary<int, string> downtab = new Dictionary<int, string>();
+            for(int i = 0;i < Gesture.Count;i++)
+            {
+                downtab.Add(i, Gesture[i].Last());
+                uptab.Add(i, Gesture[i].First());
+            }
+            return new Dictionary<string, Dictionary<int, string>>() { ["upTab"] =uptab , ["downTab"]=downtab};
+        }
         /// <summary>
         /// add notes for Do row
         /// </summary>
-        public void South(List<List<string>>Gesture)
+        public void South(Dictionary<int, string> Gesture)
         {
-            createArray("NoteSouthPull", Gesture.Where(x => x.First()[1] == 't').Select(x => x.First()).ToList());
-            createArray("NoteSouthPush", Gesture.Where(x => x.First()[1] == 'p').Select(x => x.First()).ToList());
+            Dictionary<int, string> noteTirre = Gesture.Where(x => x.Value.Reverse().ToArray()[0] == 't').ToDictionary(x => x.Key, x => x.Value);
+            Dictionary<int, string> notePousse = Gesture.Where(x => x.Value.Reverse().ToArray()[0] == 'p').ToDictionary(x => x.Key, x => x.Value);
+            createArray("South", Gesture.Values.ToList());
+            // pull notes loop
             List<string> text = new List<string> { @"\foreach \x in {" };
-
-            for (int cpt=1; cpt < 5; cpt++) text[0] += cpt + ",";
+            for (int cpt = 0; cpt < noteTirre.Keys.Count; cpt++)
+            {
+                text[0]+= (noteTirre.Keys.ElementAt(cpt)+1);
+                if (cpt < noteTirre.Keys.Count - 1) text[0] += ",";
+            }
+            //text[0] += string.Join(",", noteTirre.Keys);  // build the array for the loop
+            text[0].Substring(0, text[0].Length -1);
             text[0] += "}";
+            text.Add(@"\node[below] at (\x,-0.5){$\smash{\overline{\South(\x)}}$};");  // display all the node to pull
 
-            text.Add(@"\node[below] at (\x,-0.5){$\smash{\overline{\NoteSouthPull(\x)}}$};");
+            // push notes loop
             text.Add(@"\foreach \x in {");
-            for (int cpt = 5; cpt < Gesture.Count; cpt++) text[2] += cpt + ",";
-            text[2] += Gesture.Count + "}";
-            text.Add(@"\node[below] at (\x+4,-0.5){$\NoteSouthPush(\x)$};");
+            for (int cpt = 0; cpt < notePousse.Keys.Count; cpt++)
+            {
+                text[2] += (notePousse.Keys.ElementAt(cpt) + 1);
+                if (cpt < notePousse.Keys.Count - 1) text[2] += ",";
+            }
+            //text[2] += string.Join(",", notePousse.Keys);  // build the array for the loop
+            text[2].Substring(0, text[2].Length - 1);
+            text[2] += "}";
+            text.Add(@"\node[below] at (\x,-0.25){$\South(\x)$};");  // display all the node to push
             _TexData.InsertRange((FindLigneContaining(@"\end{tikzpicture}")).Value, text);
         }
 
-        public void North(List<List<string>> Gesture)
+        /// <summary>
+        /// add notes for Sol row
+        /// </summary>
+        public void North(Dictionary<int, string> Gesture)
         {
-            createArray("NoteNorth", Gesture.Select(x => x.Last()).ToList());
+            Dictionary<int, string> noteTirre = Gesture.Where(x => x.Value.Reverse().ToArray()[0] == 't').ToDictionary(x => x.Key, x => x.Value);
+            Dictionary<int, string> notePousse = Gesture.Where(x => x.Value.Reverse().ToArray()[0] == 'p').ToDictionary(x => x.Key, x => x.Value);
+            createArray("North", Gesture.Values.ToList());
+            // pull notes loop
             List<string> text = new List<string> { @"\foreach \x in {" };
+            for (int cpt = 0; cpt < noteTirre.Keys.Count; cpt++)
+            {
+                text[0] += (noteTirre.Keys.ElementAt(cpt) + 1);
+                if (cpt < noteTirre.Keys.Count - 1) text[0] += ",";
+            }
+            //text[0] += string.Join(",", noteTirre.Keys);  // build the array for the loop
+            text[0].Substring(0, text[0].Length - 1);
+            text[0] += "}";
+            text.Add(@"\node[above] at (\x,0.25){$\smash{\overline{\North(\x)}}$};");  // display all the node to pull
 
-            for (int cpt = 1; cpt < Gesture.Count; cpt++) text[0] += cpt + ",";
-            text[0] += Gesture.Count + "}";
-
-            text.Add(@"\node[above] at (\x,0.25){$\NoteNorth(\x)$};");
+            // push notes loop
+            text.Add(@"\foreach \x in {");
+            for (int cpt = 0; cpt < notePousse.Keys.Count; cpt++)
+            {
+                text[2] += (notePousse.Keys.ElementAt(cpt) + 1);
+                if (cpt < notePousse.Keys.Count - 1) text[2] += ",";
+            }
+            //text[2] += string.Join(",", notePousse.Keys);  // build the array for the loop
+            text[2].Substring(0, text[2].Length - 1);
+            text[2] += "}";
+            text.Add(@"\node[above] at (\x,0.25){$\North(\x)$};");  // display all the node to push
             _TexData.InsertRange((FindLigneContaining(@"\end{tikzpicture}")).Value, text);
         }
 
@@ -118,9 +180,9 @@ namespace python
             text.Add(@"\readarray{"+arrayName+"}{");  // add values in the array
             foreach(string data in array)
             {
-                text[1] += data + "&";  //arrayjob use & as separation charactere
+                text[1] += data.Substring(0,data.Length-1) + "&";  //arrayjob use & as separation charactere
             }
-            text[1].Remove(text[1].Length - 1);
+            text[1].Substring(0, text[1].Length - 1);
             text[1] += "}";
             _TexData.InsertRange((FindLigneContaining(@"\begin{tikzpicture}")).Value+1, text);
         }

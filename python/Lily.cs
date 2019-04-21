@@ -151,7 +151,7 @@ namespace python
             {
                 if (_data[i].Contains(@"\key"))
                 {
-                    temp = _data[i + 1].TrimStart('\t');
+                    temp = _data[i + 1].TrimStart(new char[]{ '\t',' '});
                     break;
                 }
             }

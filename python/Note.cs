@@ -24,18 +24,24 @@ namespace python
 
         public Dictionary<string, string> GetGesture()
         {
-            using (StreamReader sr = File.OpenText(@"D:\programmation\c#\TFE\python\tablature.csv"))  // load file from _path
+            try
             {
-                string s = "";
-                while ((s = sr.ReadLine()) != null)  // loop on all the ligne from the file
+                using (StreamReader sr = File.OpenText(@"D:\programmation\c#\TFE\python\tablature.csv"))  // load file from _path
                 {
-                    if(s.Split(';').First().ToLower() == value[0].ToString().ToLower())
+                    string s = "";
+                    while ((s = sr.ReadLine()) != null)  // loop on all the ligne from the file
                     {
-                        return new Dictionary<string, string>() { { "Do", s.Split(';').ElementAt(1) }, { "Sol", s.Split(';').Last() } };
+                        if (s.Split(';').First().ToLower() == value[0].ToString().ToLower())
+                        {
+                            return new Dictionary<string, string>() { { "Do", s.Split(';').ElementAt(1) }, { "Sol", s.Split(';').Last() } };
+                        }
                     }
                 }
+                throw new KeyNotFoundException();
+            }catch(IOException e)
+            {
+                throw e;
             }
-            throw new KeyNotFoundException();
         }
 
     }
