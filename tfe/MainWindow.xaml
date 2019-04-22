@@ -45,6 +45,7 @@
                 <TextBox Name="pdPage" HorizontalAlignment="Left" Height="25" Margin="134,141,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
                 <Image Source="img\LilyPond-logo.png" HorizontalAlignment="Left" Height="59" Margin="325,176,0,0" VerticalAlignment="Top" Width="61"/>
                 <Button Content="Générer le fichier Lilypond" HorizontalAlignment="Left" Margin="171,199,0,0" VerticalAlignment="Top" Width="150" Click="ToLilypond_Click"/>
+                <CheckBox Content="avec un fichier .midi" Checked="Midichanged" Unchecked="Midichanged" Name="midi" HorizontalAlignment="Left" Margin="196,218,0,0" VerticalAlignment="Top"/>
                 <Button Content="Générer la partition" HorizontalAlignment="Left" IsEnabled="False" ToolTip="Générer en premier un fichier Lilypond" Name="ToPdf" Margin="223,249,0,0" VerticalAlignment="Top" Width="150" Click="ToPdf_Click"/>
                 <Button Content="Générer la tablature" HorizontalAlignment="Left" IsEnabled="False" ToolTip="Générer en premier un fichier Lilypond" Name="ToLaTex" Margin="68,249,0,0" VerticalAlignment="Top" Width="150" Click="ToLaTex_Click"/>
             </Grid>

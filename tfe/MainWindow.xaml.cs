@@ -128,7 +128,7 @@ namespace tfe
 
             Lily Lilypond = new Lily(saveFileDialog.FileName);
             Lilypond.Customise(titre.Text, sTitre.Text, piece.Text, pdPage.Text);
-            lilypond.Text = Lilypond.SetNotes(_notes);
+            lilypond.Text = Lilypond.SetNotes(_notes, midi.IsChecked.Value);
             MessageBox.Show("Fichier lilypond généré avec succes","Génération Lylipond",MessageBoxButton.OK, MessageBoxImage.Information);
             ToLaTex.IsEnabled = true;
             ToPdf.IsEnabled = true;
@@ -150,7 +150,7 @@ namespace tfe
             openFileDialog.Filter = "Lilypond Files (*.ly)|*.ly";  // only ly files
             //openFileDialog.InitialDirectory = @"D:\programmation\c#\TFE\python\Lily\";
             if (openFileDialog.ShowDialog() != true) return;  // if no file is selected
-            string script = openFileDialog.FileName;
+            string script = @" --output=D:\jsp\partition "+openFileDialog.FileName;
             if (File.Exists(openFileDialog.SafeFileName.Split('.').First()+".pdf"))
             {
                 File.Delete(openFileDialog.SafeFileName.Split('.').First() + ".pdf");
@@ -225,7 +225,30 @@ namespace tfe
             MessageBox.Show("Fichier lilypond sauvegardé avec succes", "Génération Lylipond", MessageBoxButton.OK, MessageBoxImage.Information);
             ToLaTex.IsEnabled = true;
             ToPdf.IsEnabled = true;
+            midi.IsChecked = Lilypond.MidiGeneration;
             _LyliPath = new Uri(openFileDialog.FileName);
+        }
+
+        private void Midichanged(object sender, RoutedEventArgs e)
+        {
+            if (!midi.IsChecked.Value) {
+                string temp = lilypond.Text;
+                temp = temp.Replace("\\midi{}", "");
+                temp = temp.Replace("\\layout{}", "");
+                lilypond.Text = temp;
+            }
+            else
+            {
+                if (!lilypond.Text.Contains(@"\layout{}") && !lilypond.Text.Contains(@"\midi{}"))
+                {
+                    string temp = lilypond.Text;
+                    temp = temp.TrimEnd(Environment.NewLine.ToCharArray());
+                    temp += @"
+\midi{}
+\layout{}";
+                    lilypond.Text = temp;
+                }
+            }
         }
 
     }

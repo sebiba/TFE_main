@@ -14,5 +14,6 @@ tagline = "pure"
 \relative c' {
 	\time 6/8
 	\key c \major
-	d'8 b4 b8 b4 a8 g8 b8 d8 e4
+	c2
 }
+

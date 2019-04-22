@@ -11,6 +11,7 @@ namespace python
     {
         private string _File;
         private List<string> _data = new List<string>();
+        public bool MidiGeneration = false;
 
         public Lily(string path)
         {
@@ -51,6 +52,10 @@ namespace python
                         _data.Add(s);
                     }
                 }
+            }
+            if(FindLigneContaining(@"\midi{}") != null)  // set to true the flag if in the lylipond file midi generation is asked
+            {
+                MidiGeneration = true;
             }
             return _data;
         }
@@ -128,17 +133,10 @@ namespace python
         /// </summary>
         /// <param name="notes">notes to put in the file</param>
         /// <returns>what is written inside the lilypond files</returns>
-        public string SetNotes(List<Note> notes)
+        public string SetNotes(List<Note> notes, bool midi = false)
         {
-            for(int i=0;i<_data.Count;i++)  // loop on each lignes
-            {
-                if (_data[i].Contains(@"\key")) {
-                    
-                    _data[i+1] = "\t" + Format(notes);
-                    break;
-                }
-            }
-            return Save();
+            _data[FindLigneContaining(@"\key").Value+1] = "\t" + Format(notes);
+            return Save(null);
         }
 
         /// <summary>
@@ -158,6 +156,12 @@ namespace python
             return temp.Split(' ').ToList().Select(note => new Note(note)).ToList();
         }
 
+        /// <summary>
+        /// save lylipond data in file
+        /// </summary>
+        /// <param name="data">content of the file by line</param>
+        /// <param name="midi">true if user want a midi file otherwise false</param>
+        /// <returns></returns>
         public string Save(List<string> data = null)
         {
             if (data != null)
@@ -165,7 +169,7 @@ namespace python
                 File.WriteAllLines(_File, data);  // write all the lignes in the lilypond files
                 return string.Join("\n", data);
             }
-            else File.WriteAllLines(_File, _data);  // write all the lignes in the lilypond files
+            File.WriteAllLines(_File, _data);  // write all the lignes in the lilypond files
             return string.Join("\n", _data);
         }
 
@@ -185,6 +189,20 @@ namespace python
                 if (_data[i].Contains("\tpiece =") && piece != "") _data[i] = "\tpiece = \"" + piece + "\"";
                 if (_data[i].Contains("tagline =") && pdPage != "") _data[i] = "\ttagline = \"" + pdPage + "\"";
             }
+        }
+
+        /// <summary>
+        /// find ligne containing param
+        /// </summary>
+        /// <param name="contain">string to find in latex file</param>
+        /// <returns></returns>
+        public int? FindLigneContaining(string contain)
+        {
+            for (int ligne = 0; ligne < _data.Count; ligne++)
+            {
+                if (_data[ligne].Contains(contain)) return ligne;
+            }
+            return null;
         }
     }
 }
