@@ -70,7 +70,7 @@ namespace python
         {
             List<string> notes = new List<string>();
             int cpt = 1;
-            Dictionary<int, int> FreqLily = new Dictionary<int, int>() { { 16, 1 }, {8, 1}, {4, 4 }, {2, 8}};
+            Dictionary<int, int> FreqLily = new Dictionary<int, int>() { { 16, 1 }, {8, 2}, {4, 4 }, {2, 8}};
             List<int> Freqstep = new List<int> { 16, 8, 4, 2 };
             List<int> Lilystep = new List<int> { 1, 2, 4, 8 };
             int i = 1;

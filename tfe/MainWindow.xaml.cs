@@ -164,7 +164,7 @@ namespace tfe
             File.Copy(@"D:\jsp\partition\" + openFileDialog.SafeFileName.Split('.').First() + ".pdf", @"D:\jsp\"+ openFileDialog.SafeFileName.Split('.').First());
             pdfWebViewer.Navigate(@"D:\jsp\" + openFileDialog.SafeFileName.Split('.').First());  // display the new pdf on the screen
 #else
-            if(File.Exists(@"partition\"+ openFileDialog.SafeFileName.Split('.').First() + ".pdf") File.Delete(@"partition\"+ openFileDialog.SafeFileName.Split('.').First() + ".pdf");
+            if(File.Exists(@"partition\"+ openFileDialog.SafeFileName.Split('.').First() + ".pdf")) File.Delete(@"partition\"+ openFileDialog.SafeFileName.Split('.').First() + ".pdf");
             File.Move(Path.GetFullPath(openFileDialog.SafeFileName.Split('.').First() + ".pdf"), @"partition\"+ openFileDialog.SafeFileName.Split('.').First() + ".pdf");
             if(File.Exists(@"../temp/temp."+ openFileDialog.SafeFileName.Split('.').First()) File.Delete(@"../temp/temp."+ openFileDialog.SafeFileName.Split('.').First());
             File.Copy(@"D:\jsp\partition\" + openFileDialog.SafeFileName.Split('.').First() + ".pdf", @"../temp/temp."+ openFileDialog.SafeFileName.Split('.').First());
@@ -179,15 +179,15 @@ namespace tfe
             //saveFileDialog.InitialDirectory = @"D:\programmation\c#\TFE\python\Lily\";
             if (saveFileDialog.ShowDialog() != true) return;
 
-            try { 
+            //try { 
             Latex latex = new Latex(saveFileDialog.FileName, _LyliPath);
             latex.BuildRow();
             latex.BuildLaTex();
-            }
+            /*}
             catch(Exception exeption)
             {
                 MessageBox.Show(exeption.Message.ToString(), "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+            }*/
         }
 
         /// <summary>

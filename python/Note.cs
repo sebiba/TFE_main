@@ -33,7 +33,7 @@ namespace python
                     {
                         if (s.Split(';').First().ToLower() == value[0].ToString().ToLower())
                         {
-                            return new Dictionary<string, string>() { { "Do", s.Split(';').ElementAt(1) }, { "Sol", s.Split(';').Last() } };
+                            return new Dictionary<string, string>() { { "Do", s.Split(';').ElementAt(2) == "" ? "0" : s.Split(';').ElementAt(2) }, { "Sol", s.Split(';').Last() == "" ? "0" : s.Split(';').Last() } };
                         }
                     }
                 }
