@@ -166,7 +166,7 @@ namespace tfe
 #else
             if(File.Exists(@"partition\"+ openFileDialog.SafeFileName.Split('.').First() + ".pdf")) File.Delete(@"partition\"+ openFileDialog.SafeFileName.Split('.').First() + ".pdf");
             File.Move(Path.GetFullPath(openFileDialog.SafeFileName.Split('.').First() + ".pdf"), @"partition\"+ openFileDialog.SafeFileName.Split('.').First() + ".pdf");
-            if(File.Exists(@"../temp/temp."+ openFileDialog.SafeFileName.Split('.').First()) File.Delete(@"../temp/temp."+ openFileDialog.SafeFileName.Split('.').First());
+            if(File.Exists(@"../temp/temp."+ openFileDialog.SafeFileName.Split('.').First())) File.Delete(@"../temp/temp."+ openFileDialog.SafeFileName.Split('.').First());
             File.Copy(@"D:\jsp\partition\" + openFileDialog.SafeFileName.Split('.').First() + ".pdf", @"../temp/temp."+ openFileDialog.SafeFileName.Split('.').First());
             pdfWebViewer.Navigate(@"../temp/temp."+ openFileDialog.SafeFileName.Split('.').First());  // display the new pdf on the screen
 #endif
