@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:tfe"
         mc:Ignorable="d"
         Title="MainWindow" WindowState="Maximized"
-        Height="763.2" Width="1395.055">
+        Height="805.6" Width="1395.055">
     <Grid>
         <!---Record sound groupBox-->
         <GroupBox Header="Enregistrer" HorizontalAlignment="Left" Height="242" Margin="10,10,0,0" VerticalAlignment="Top" Width="198">
@@ -31,7 +31,8 @@
         <Button Content="Ouvrir un fichier Lilypond" Click="OpenLily" HorizontalAlignment="Left" Margin="687,31,0,0" VerticalAlignment="Top" Width="164"/>
         <TextBox Name="lilypond" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" HorizontalAlignment="Left" Margin="506,55,0,0" TextWrapping="Wrap" Text="Lilypond" VerticalAlignment="Top" Height="674" Width="345"/>
 
-        <WebBrowser Name="pdfWebViewer" Margin="856,0,-0.2,-0.4"></WebBrowser>
+        <WebBrowser Name="pdfWebViewer" Margin="856,0,-0.2,0" Height="708" VerticalAlignment="Top"></WebBrowser>
+        <Button Content="Partager ce pdf" HorizontalAlignment="Left" Margin="951,708,0,0" VerticalAlignment="Top" Width="115" Click="Partage_Click"/>
         <!---Lilypond file's settings-->
         <GroupBox Header="Lilypond" HorizontalAlignment="Left" Height="309" Margin="10,415,0,0" VerticalAlignment="Top" Width="397">
             <Grid HorizontalAlignment="Left" Height="279" Margin="0,10,-3,-2.6" VerticalAlignment="Top" Width="387">

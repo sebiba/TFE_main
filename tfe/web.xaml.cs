@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Requete;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,19 +11,24 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace tfe
 {
     /// <summary>
-    /// Logique d'interaction pour Parametre.xaml
+    /// Logique d'interaction pour web.xaml
     /// </summary>
-    public partial class Parametre : Page
+    public partial class web : Window
     {
-        public Parametre()
+        public string pdfPath { get; set; }
+        public web()
         {
             InitializeComponent();
+        }
+
+        private void Envois_Click(object sender, RoutedEventArgs e)
+        {
+            Request.Post(pdfPath, Request.GetToken(Username.Text, Password.Text));
         }
     }
 }

@@ -8,7 +8,6 @@ using System.Net;
 using System.Net.Http;
 using System.Web;
 using System.Web.Http;
-using WebApplication1.Providers;
 
 namespace WebApplication1.Controllers.Api
 {
@@ -40,29 +39,32 @@ namespace WebApplication1.Controllers.Api
             {
                 throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
             }
-            string root = HttpContext.Current.Server.MapPath("~/Data/"+ IdUser +"/");
-            //MultipartFormDataStreamProvider provider = new MultipartFormDataStreamProvider(root);
-            var provider = new CustomMultipartFormDataStreamProvider(root);
-            await Request.Content.ReadAsMultipartAsync(provider);
-            provider.ExtractValues();
+            string root = HttpContext.Current.Server.MapPath("~/Data/"+ IdUser +"/");  // path on server
+            MultipartFormDataStreamProvider provider = new MultipartFormDataStreamProvider(root);
 
             try
             {
-                //await Request.Content.ReadAsMultipartAsync(provider);
-                // Show all the key-value pairs.
-                foreach (var key in provider.FormData.AllKeys)
+                await Request.Content.ReadAsMultipartAsync(provider);
+                foreach (MultipartFileData fileData in provider.FileData)
                 {
-                    foreach (var val in provider.FormData.GetValues(key))
+                    if (string.IsNullOrEmpty(fileData.Headers.ContentDisposition.FileName))
                     {
-                        Trace.WriteLine(string.Format("{0}: {1}", key, val));
+                        return Request.CreateResponse(HttpStatusCode.NotAcceptable, "This request is not properly formatted");
                     }
-                }
-                foreach (var file in provider.FileData)
-                {
-                    FileInfo fileInfo = new FileInfo(file.LocalFileName);
-                    Trace.WriteLine(string.Format("Uploaded file: {0} ({1} bytes)\n", fileInfo.Name, fileInfo.Length));
+                    string fileName = fileData.Headers.ContentDisposition.FileName;
+                    if (fileName.StartsWith("\"") && fileName.EndsWith("\""))
+                    {
+                        fileName = fileName.Trim('"');
+                    }
+                    if (fileName.Contains(@"/") || fileName.Contains(@"\"))
+                    {
+                        fileName = Path.GetFileName(fileName);
+                    }
+                    if (File.Exists(Path.Combine(root, fileName))) File.Delete(Path.Combine(root, fileName));
+                    File.Move(fileData.LocalFileName, Path.Combine(root, fileName));  // move transmitted file to good path
                 }
 
+                if(provider.FileData.Count == 0)  return Request.CreateResponse(HttpStatusCode.BadRequest);
                 return Request.CreateResponse(HttpStatusCode.OK);
             }
             catch (Exception e)
