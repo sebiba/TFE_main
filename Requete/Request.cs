@@ -10,25 +10,7 @@ namespace Requete
 {
     public class Request
     {
-        public static string Post(string Url, string ContentType, string input)
-        {
-            WebRequest post = WebRequest.Create(Url);  // set url to post request
-            post.Method = "POST";
-            post.ContentType = ContentType;
-
-            // send data
-            StreamWriter dataStream = new StreamWriter(post.GetRequestStream());
-            dataStream.Write(input);
-            dataStream.Close();
-
-            // Get the response.  
-            WebResponse response = post.GetResponse();
-            if (response == null) return null;
-            StreamReader responseFromServer = new StreamReader(response.GetResponseStream());
-            return responseFromServer.ReadToEnd().Trim();
-        }
-
-        public static string Post(string path, string token)
+        public static string PostFile(string token, string path)
         {
             var webClient = new WebClient();
             string boundary = "------------------------" + DateTime.Now.Ticks.ToString("x");
@@ -43,9 +25,28 @@ namespace Requete
             return string.Empty;
         }
 
+        public static string Post(string token, string Url, string ContentType=null, string input=null)
+        {
+            WebRequest post = WebRequest.Create(Url);  // set url to post request
+            post.Method = "POST";
+            if(token!=null) post.Headers.Add("Authorization", "Bearer " + token);
+            post.ContentType = ContentType;
+
+            // send data
+            StreamWriter dataStream = new StreamWriter(post.GetRequestStream());
+            dataStream.Write(input);
+            dataStream.Close();
+
+            // Get the response.  
+            WebResponse response = post.GetResponse();
+            if (response == null) return null;
+            StreamReader responseFromServer = new StreamReader(response.GetResponseStream());
+            return responseFromServer.ReadToEnd().Trim();
+        }
+
         public static string GetToken(string username, string password)
         {
-            string test = Post("http://localhost:51727/Token", "text/plain", "grant_type=password&username="+username+"&password="+password);
+            string test = Post(null,"http://localhost:51727/Token", "text/plain", "grant_type=password&username="+username+"&password="+password);
             Dictionary<string, string> data = JsonConvert.DeserializeObject<Dictionary<string, string>>(test);
             return data["access_token"];
         }

@@ -72,5 +72,13 @@ namespace WebApplication1.Controllers.Api
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, e);
             }
         }
+
+        [HttpPost]
+        [Route("api/ApiApp/GetFiles")]
+        public List<string> GetFiles()
+        {
+            var id = User.Identity.GetUserId();
+            return helper.CustomHelper.GetFiles(User.Identity.GetUserId()).Select(delegate(string x) { return string.Join("\\",x.Split(new string[] { "\\" }, StringSplitOptions.None).Skip(1)); }).ToList();
+        }
     }
 }

@@ -28,7 +28,7 @@ namespace tfe
 
         private void Envois_Click(object sender, RoutedEventArgs e)
         {
-            Request.Post(pdfPath, Request.GetToken(Username.Text, Password.Text));
+            Request.PostFile(Request.GetToken(Username.Text, Password.Text), pdfPath);
         }
     }
 }

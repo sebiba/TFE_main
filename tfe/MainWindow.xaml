@@ -31,8 +31,9 @@
         <Button Content="Ouvrir un fichier Lilypond" Click="OpenLily" HorizontalAlignment="Left" Margin="687,31,0,0" VerticalAlignment="Top" Width="164"/>
         <TextBox Name="lilypond" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" HorizontalAlignment="Left" Margin="506,55,0,0" TextWrapping="Wrap" Text="Lilypond" VerticalAlignment="Top" Height="674" Width="345"/>
 
+        <!---Pdf Viewer-->
         <WebBrowser Name="pdfWebViewer" Margin="856,0,-0.2,0" Height="708" VerticalAlignment="Top"></WebBrowser>
-        <Button Content="Partager ce pdf" HorizontalAlignment="Left" Margin="951,708,0,0" VerticalAlignment="Top" Width="115" Click="Partage_Click"/>
+        <Button Content="Partager ce pdf" Name="partage"  HorizontalAlignment="Left" Margin="951,708,0,0" VerticalAlignment="Top" Width="115" Click="Partage_Click"/>
         <!---Lilypond file's settings-->
         <GroupBox Header="Lilypond" HorizontalAlignment="Left" Height="309" Margin="10,415,0,0" VerticalAlignment="Top" Width="397">
             <Grid HorizontalAlignment="Left" Height="279" Margin="0,10,-3,-2.6" VerticalAlignment="Top" Width="387">

@@ -13,9 +13,9 @@
                 <TextBox HorizontalAlignment="Left" Name="Username" Height="23" Margin="65,13,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="244"/>
                 <TextBox HorizontalAlignment="Left" Name="Password" Height="23" Margin="97,41,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="212"/>
                 <Label Content="mot de passe" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top"/>
+                <Button Content="envoie" HorizontalAlignment="Left" Margin="234,212,0,0" VerticalAlignment="Top" Width="75" Click="Envois_Click"/>
             </Grid>
         </GroupBox>
-        <Button Content="envoie" HorizontalAlignment="Left" Margin="442,244,0,0" VerticalAlignment="Top" Width="75" Click="Envois_Click"/>
 
     </Grid>
 </Window>

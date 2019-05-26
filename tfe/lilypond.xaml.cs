@@ -1,123 +1,50 @@
 ﻿using Microsoft.Win32;
-using NAudio.Wave;
 using python;
-using Requete;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
 
 namespace tfe
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Logique d'interaction pour lilypond.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class lilypond : Page
     {
-        public WaveIn waveSource = null;
-        public WaveFileWriter waveFile = null;
         public List<Note> _notes = new List<Note>();
         private Uri _LyliPath;
-        private string pdf;
 
-        public MainWindow()
+        private Frame _frame;
+        public lilypond(Frame nav, List<Note> ParamNote = null)
         {
+            _frame = nav;
             InitializeComponent();
-            pdfWebViewer.Navigate(new Uri("about:blank"));
-            partage.IsEnabled = false;
-        }
-        #region record
-        private void StartBtn_Click(object sender, EventArgs e)
-        {
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.Filter = "Wav Files Only (*.wav)|*.wav";
-            saveFileDialog.InitialDirectory = @"D:\programmation\python\TFE\";
-            if (saveFileDialog.ShowDialog() != true) return;
-
-            StartBtn.IsEnabled = false;
-            StopBtn.IsEnabled = true;
-
-            waveSource = new WaveIn();
-            waveSource.WaveFormat = new WaveFormat(44100, 1);
-
-            waveSource.DataAvailable += new EventHandler<WaveInEventArgs>(waveSource_DataAvailable);
-            waveSource.RecordingStopped += new EventHandler<StoppedEventArgs>(waveSource_RecordingStopped);
-
-            waveFile = new WaveFileWriter(saveFileDialog.FileName, waveSource.WaveFormat);
-
-            waveSource.StartRecording();
-        }
-
-        private void StopBtn_Click(object sender, EventArgs e)
-        {
-            StopBtn.IsEnabled = false;
-
-            waveSource.StopRecording();
-        }
-
-        void waveSource_DataAvailable(object sender, WaveInEventArgs e)
-        {
-            if (waveFile != null)
+            if (ParamNote == null)
+            {  // if no notes are imported no posibility to generate a lilypond file
+                ToPdf.IsEnabled = false;
+                ToLaTex.IsEnabled = false;
+            }
+            else
             {
-                waveFile.Write(e.Buffer, 0, e.BytesRecorded);
-                waveFile.Flush();
+                _notes = ParamNote;
+                ToPdf.IsEnabled = true;
+                ToLaTex.IsEnabled = true;
             }
         }
 
-        void waveSource_RecordingStopped(object sender, StoppedEventArgs e)
-        {
-            if (waveSource != null)
-            {
-                waveSource.Dispose();
-                waveSource = null;
-            }
-
-            if (waveFile != null)
-            {
-                waveFile.Dispose();
-                waveFile = null;
-            }
-
-            StartBtn.IsEnabled = true;
-        }
-        #endregion record
-
-        /// <summary>
-        /// importe a wav file an get all frequency, notes
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void ImporteBtn_Click(object sender, EventArgs e)
-        {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "Wav Files Only (*.wav)|*.wav";  // only wav files
-            //openFileDialog.InitialDirectory = @"D:\programmation\python\TFE\";
-            if (openFileDialog.ShowDialog() != true) return;  // if no file is selected
-
-            Impfile.Text = openFileDialog.FileName;
-            _notes = PyUtils.Getfreq(openFileDialog.FileName);  // get frequency
-            for(int i= 0;i < _notes.Count;i++)  //remove alone note
-            {
-                try
-                {
-                    if (_notes[i].value != _notes[i + 1].value)
-                    {
-                        _notes.RemoveAt(i + 1);
-                    }
-                }
-                catch
-                {
-
-                }
-            }
-
-            //frequence.Text = freq;
-            notes.Text = string.Join("\n", _notes.Select(note => note.value).ToList());
-        }
-        
         /// <summary>
         /// select a lilypond file and save note into it
         /// </summary>
@@ -132,8 +59,8 @@ namespace tfe
 
             Lily Lilypond = new Lily(saveFileDialog.FileName);
             Lilypond.Customise(titre.Text, sTitre.Text, piece.Text, pdPage.Text);
-            lilypond.Text = Lilypond.SetNotes(_notes, midi.IsChecked.Value);
-            MessageBox.Show("Fichier lilypond généré avec succes","Génération Lylipond",MessageBoxButton.OK, MessageBoxImage.Information);
+            lilyFile.Text = Lilypond.SetNotes(_notes, midi.IsChecked.Value);
+            MessageBox.Show("Fichier lilypond généré avec succes", "Génération Lylipond", MessageBoxButton.OK, MessageBoxImage.Information);
             ToLaTex.IsEnabled = true;
             ToPdf.IsEnabled = true;
             _LyliPath = new Uri(saveFileDialog.FileName);
@@ -144,7 +71,8 @@ namespace tfe
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void ToPdf_Click(object sender, RoutedEventArgs e) {
+        private void ToPdf_Click(object sender, RoutedEventArgs e)
+        {
 #if DEBUG
             string Lilypond = @"D:\Programme file(x86)\LilyPond\usr\bin\lilypond.exe";
 #else
@@ -154,8 +82,8 @@ namespace tfe
             openFileDialog.Filter = "Lilypond Files (*.ly)|*.ly";  // only ly files
             //openFileDialog.InitialDirectory = @"D:\programmation\c#\TFE\python\Lily\";
             if (openFileDialog.ShowDialog() != true) return;  // if no file is selected
-            string script = @" --output=D:\jsp\partition "+openFileDialog.FileName;
-            if (File.Exists(openFileDialog.SafeFileName.Split('.').First()+".pdf"))
+            string script = @" --output=D:\jsp\partition " + openFileDialog.FileName;
+            if (File.Exists(openFileDialog.SafeFileName.Split('.').First() + ".pdf"))
             {
                 File.Delete(openFileDialog.SafeFileName.Split('.').First() + ".pdf");
             }
@@ -163,9 +91,9 @@ namespace tfe
             process.WaitForExit();
             if (File.Exists(@"D:\jsp\" + openFileDialog.SafeFileName.Split('.').First())) File.Delete(@"D:\jsp\" + openFileDialog.SafeFileName.Split('.').First());
             File.Copy(@"D:\jsp\partition\" + openFileDialog.SafeFileName.Split('.').First() + ".pdf", @"D:\jsp\" + openFileDialog.SafeFileName.Split('.').First());
-            pdfWebViewer.Navigate(@"D:\jsp\" + openFileDialog.SafeFileName.Split('.').First());  // display the new pdf on the screen
-            pdf = @"D:\jsp\partition\" + openFileDialog.SafeFileName.Split('.').First() + ".pdf";
-            partage.IsEnabled = true;
+            //pdfWebViewer.Navigate(@"D:\jsp\" + openFileDialog.SafeFileName.Split('.').First());  // display the new pdf on the screen
+            //pdf = @"D:\jsp\partition\" + openFileDialog.SafeFileName.Split('.').First() + ".pdf";
+            _frame.Navigate(new PdfViewer(_frame, @"D:\jsp\partition\" + openFileDialog.SafeFileName.Split('.').First() + ".pdf"));
             /*#if DEBUG
                         if(File.Exists(@"D:\jsp\partition\" + openFileDialog.SafeFileName.Split('.').First() + ".pdf")) File.Delete(@"D:\jsp\partition\" + openFileDialog.SafeFileName.Split('.').First() + ".pdf");
                         File.Move(Path.GetFullPath(openFileDialog.SafeFileName.Split('.').First() + ".pdf"), @"D:\jsp\partition\"+ openFileDialog.SafeFileName.Split('.').First() + ".pdf");
@@ -181,19 +109,20 @@ namespace tfe
             #endif*/
         }
 
-        private void ToLaTex_Click (object sender, RoutedEventArgs e)
+        private void ToLaTex_Click(object sender, RoutedEventArgs e)
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             saveFileDialog.Filter = "LaTex Files (*.tex)|*.tex";
             //saveFileDialog.InitialDirectory = @"D:\programmation\c#\TFE\python\Lily\";
             if (saveFileDialog.ShowDialog() != true) return;
 
-            try { 
-            Latex latex = new Latex(saveFileDialog.FileName, _LyliPath);
-            latex.BuildRow();
-            latex.BuildLaTex();
+            try
+            {
+                Latex latex = new Latex(saveFileDialog.FileName, _LyliPath);
+                latex.BuildRow();
+                latex.BuildLaTex();
             }
-            catch(Exception exeption)
+            catch (Exception exeption)
             {
                 MessageBox.Show(exeption.Message.ToString(), "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
             }
@@ -212,8 +141,8 @@ namespace tfe
             if (saveFileDialog.ShowDialog() != true) return;
 
             Lily Lilypond = new Lily(saveFileDialog.FileName);
-            List<string> Data = lilypond.Text.Split('\n').ToList();
-            lilypond.Text = Lilypond.Save(Data);
+            List<string> Data = lilyFile.Text.Split('\n').ToList();
+            lilyFile.Text = Lilypond.Save(Data);
             MessageBox.Show("Fichier lilypond sauvegardé avec succes", "Génération Lylipond", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
@@ -230,7 +159,7 @@ namespace tfe
             if (openFileDialog.ShowDialog() != true) return;
 
             Lily Lilypond = new Lily(openFileDialog.FileName);
-            lilypond.Text = string.Join("\n",Lilypond.ReadFile());
+            lilyFile.Text = string.Join("\n", Lilypond.ReadFile());
             MessageBox.Show("Fichier lilypond sauvegardé avec succes", "Génération Lylipond", MessageBoxButton.OK, MessageBoxImage.Information);
             ToLaTex.IsEnabled = true;
             ToPdf.IsEnabled = true;
@@ -240,34 +169,25 @@ namespace tfe
 
         private void Midichanged(object sender, RoutedEventArgs e)
         {
-            if (!midi.IsChecked.Value) {
-                string temp = lilypond.Text;
+            if (!midi.IsChecked.Value)
+            {
+                string temp = lilyFile.Text;
                 temp = temp.Replace("\\midi{}", "");
                 temp = temp.Replace("\\layout{}", "");
-                lilypond.Text = temp;
+                lilyFile.Text = temp;
             }
             else
             {
-                if (!lilypond.Text.Contains(@"\layout{}") && !lilypond.Text.Contains(@"\midi{}"))
+                if (!lilyFile.Text.Contains(@"\layout{}") && !lilyFile.Text.Contains(@"\midi{}"))
                 {
-                    string temp = lilypond.Text;
+                    string temp = lilyFile.Text;
                     temp = temp.TrimEnd(Environment.NewLine.ToCharArray());
                     temp += @"
 \midi{}
 \layout{}";
-                    lilypond.Text = temp;
+                    lilyFile.Text = temp;
                 }
             }
-        }
-
-        private void Partage_Click(object sender, RoutedEventArgs e)
-        {
-            /*web partage = new web();
-            partage.pdfPath = pdf;
-            partage.ShowDialog();*/
-
-            testDesign partage = new testDesign();
-            partage.ShowDialog();
         }
     }
 }

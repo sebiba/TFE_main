@@ -5,7 +5,7 @@
 	subtitle = "test"
 }
 
-tagline = "pure"
+	tagline = "test"
 
 \header{
 	piece = "test"
@@ -14,5 +14,5 @@ tagline = "pure"
 \relative c' {
 	\time 4/4
 	\key c \major
-	d8' b4 b8 b4 a4 g8 b16 d8 e2
+	 ees8 d4 b4 b8 a8 g8 d8 e2 e4 e8
 }

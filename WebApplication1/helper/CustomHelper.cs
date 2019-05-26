@@ -24,8 +24,8 @@ namespace WebApplication1.helper
             return output + "</ul>";
         }
 
-        public static List<string> GetFiles(){
-            var id = HttpContext.Current.Session["user"];
+        public static List<string> GetFiles(string id = null){
+            if(id==null) id = HttpContext.Current.Session["user"].ToString();
             DirectoryInfo d = new DirectoryInfo(@"D:\programmation\c#\TFE\WebApplication1\Data");  //root folder for datas
             DirectoryInfo[] Ids = d.GetDirectories();
             FileInfo[] Files = Ids.Where(x => x.Name == id.ToString()).First().GetFiles("*.pdf");  // Getting pdf files
