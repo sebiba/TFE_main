@@ -7,50 +7,15 @@
         mc:Ignorable="d"
         Title="MainWindow" WindowState="Maximized"
         Height="805.6" Width="1395.055">
-    <Grid>
-        <!---Record sound groupBox-->
-        <GroupBox Header="Enregistrer" HorizontalAlignment="Left" Height="242" Margin="10,10,0,0" VerticalAlignment="Top" Width="198">
-            <Grid HorizontalAlignment="Left" Height="215" Margin="-5,4,-4.4,-4.6" VerticalAlignment="Top" Width="195">
-                <Button Content="record" Click="StartBtn_Click" x:Name="StartBtn" IsEnabled="True"  HorizontalAlignment="Left" Margin="10,38,0,0" VerticalAlignment="Top" Width="75"/>
-                <Button Content="stop" Click="StopBtn_Click" x:Name="StopBtn" IsEnabled="False"  HorizontalAlignment="Left" Margin="10,84,0,0" VerticalAlignment="Top" Width="75"/>
+    <Grid Margin="0,0,3.6,-3.2">
+        <GroupBox Header="Menu" HorizontalAlignment="Left" Height="723" Margin="10,10,0,0" VerticalAlignment="Top" Width="246">
+            <Grid HorizontalAlignment="Left" Height="700" Margin="0,10,-1.6,-150" VerticalAlignment="Top" Width="236">
+                <Button Name="Audio" Content="Audio" Click="Audio_Click" HorizontalAlignment="Left" Margin="0,20,0,0" VerticalAlignment="Top" Width="227"/>
+                <Button Name="PDF" Content="PDF" Click="PDF_Click" HorizontalAlignment="Left" Margin="0,67,0,0" VerticalAlignment="Top" Width="227"/>
+                <Button Name="Lilypond" Content="Lilypond" Click="Lily_Click" HorizontalAlignment="Left" Margin="0,44,0,0" VerticalAlignment="Top" Width="227"/>
+                <Button Name="param" Content="Paramètres" Click="Param_Click" HorizontalAlignment="Left" Margin="0,111,0,0" VerticalAlignment="Top" Width="227"/>
             </Grid>
         </GroupBox>
-        <!---import audio file-->
-        <GroupBox Header="importer un fichier" HorizontalAlignment="Left" Height="153" Margin="10,257,0,0" VerticalAlignment="Top" Width="397">
-            <Grid HorizontalAlignment="Left" Height="117" Margin="4,10,-3,0" VerticalAlignment="Top" Width="383">
-                <Button Content="importer" Click="ImporteBtn_Click" x:Name="TestBtn" HorizontalAlignment="Left" Margin="298,88,0,0" VerticalAlignment="Top" Width="75"/>
-                <TextBox Name="Impfile" GotFocus="ImporteBtn_Click" HorizontalAlignment="Left" Height="19" Margin="10,88,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="288"/>
-            </Grid>
-        </GroupBox>
-        <!---note and frequencies and lilypond-->
-        <TextBox Name="frequence" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" HorizontalAlignment="Left" Margin="225,15,0,0" TextWrapping="Wrap" Text="Fréquences" VerticalAlignment="Top" Height="237" Width="182"/>
-
-        <TextBox Name="notes" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" HorizontalAlignment="Left" Margin="412,15,0,0" TextWrapping="Wrap" Text="Notes" VerticalAlignment="Top" Height="714" Width="89"/>
-
-        <Button Content="sauvergader les changement" Click="SvgLily" HorizontalAlignment="Left" Margin="506,31,0,0" VerticalAlignment="Top" Width="164"/>
-        <Button Content="Ouvrir un fichier Lilypond" Click="OpenLily" HorizontalAlignment="Left" Margin="687,31,0,0" VerticalAlignment="Top" Width="164"/>
-        <TextBox Name="lilypond" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" HorizontalAlignment="Left" Margin="506,55,0,0" TextWrapping="Wrap" Text="Lilypond" VerticalAlignment="Top" Height="674" Width="345"/>
-
-        <!---Pdf Viewer-->
-        <WebBrowser Name="pdfWebViewer" Margin="856,0,-0.2,0" Height="708" VerticalAlignment="Top"></WebBrowser>
-        <Button Content="Partager ce pdf" Name="partage"  HorizontalAlignment="Left" Margin="951,708,0,0" VerticalAlignment="Top" Width="115" Click="Partage_Click"/>
-        <!---Lilypond file's settings-->
-        <GroupBox Header="Lilypond" HorizontalAlignment="Left" Height="309" Margin="10,415,0,0" VerticalAlignment="Top" Width="397">
-            <Grid HorizontalAlignment="Left" Height="279" Margin="0,10,-3,-2.6" VerticalAlignment="Top" Width="387">
-                <Label Content="Titre" HorizontalAlignment="Left" Margin="30,51,0,0" VerticalAlignment="Top" Width="99" Height="25"/>
-                <TextBox Name="titre" HorizontalAlignment="Left" Height="25" Margin="134,51,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-                <Label Content="Sous-titre" HorizontalAlignment="Left" Margin="30,81,0,0" VerticalAlignment="Top" Width="99" Height="25"/>
-                <TextBox Name="sTitre" HorizontalAlignment="Left" Height="25" Margin="134,81,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-                <Label Content="Pièce" HorizontalAlignment="Left" Margin="30,111,0,0" VerticalAlignment="Top" Width="99" Height="25"/>
-                <TextBox Name="piece" HorizontalAlignment="Left" Height="25" Margin="134,111,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-                <Label Content="Pied de page" HorizontalAlignment="Left" Margin="30,141,0,0" VerticalAlignment="Top" Width="99" Height="30"/>
-                <TextBox Name="pdPage" HorizontalAlignment="Left" Height="25" Margin="134,141,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-                <Image Source="img\LilyPond-logo.png" HorizontalAlignment="Left" Height="59" Margin="325,176,0,0" VerticalAlignment="Top" Width="61"/>
-                <Button Content="Générer le fichier Lilypond" HorizontalAlignment="Left" Margin="171,199,0,0" VerticalAlignment="Top" Width="150" Click="ToLilypond_Click"/>
-                <CheckBox Content="avec un fichier .midi" Checked="Midichanged" Unchecked="Midichanged" Name="midi" HorizontalAlignment="Left" Margin="196,218,0,0" VerticalAlignment="Top"/>
-                <Button Content="Générer la partition" HorizontalAlignment="Left" IsEnabled="False" ToolTip="Générer en premier un fichier Lilypond" Name="ToPdf" Margin="223,249,0,0" VerticalAlignment="Top" Width="150" Click="ToPdf_Click"/>
-                <Button Content="Générer la tablature" HorizontalAlignment="Left" IsEnabled="False" ToolTip="Générer en premier un fichier Lilypond" Name="ToLaTex" Margin="68,249,0,0" VerticalAlignment="Top" Width="150" Click="ToLaTex_Click"/>
-            </Grid>
-        </GroupBox>
+        <Frame Content="Frame" Name="nav" NavigationUIVisibility="Hidden" Height="710" Margin="261,23,-0.4,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="1041"/>
     </Grid>
 </Window>

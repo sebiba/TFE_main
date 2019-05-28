@@ -1,0 +1,34 @@
+﻿<Window x:Class="tfe.Config"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:tfe"
+        mc:Ignorable="d"
+        Title="Config" Height="450" Width="800">
+    <Grid>
+        <GroupBox Header="Connection Réseaux" HorizontalAlignment="Left" Height="306" Margin="10,10,0,0" VerticalAlignment="Top" Width="308">
+            <Grid HorizontalAlignment="Left" Height="275" Margin="0,10,-2,-1.8" VerticalAlignment="Top" Width="298">
+                <Label Content="Pseudo" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="27" Width="68"/>
+                <TextBox HorizontalAlignment="Left" Height="23" Margin="83,14,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="205"/>
+                <Label Content="Mot de passe" HorizontalAlignment="Left" Margin="0,38,0,0" VerticalAlignment="Top" Height="27" Width="83"/>
+                <TextBox HorizontalAlignment="Left" Height="23" Margin="83,42,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="205"/>
+                <Button Content="Tester et enregistrer" HorizontalAlignment="Left" Margin="159,246,0,0" VerticalAlignment="Top" Width="129"/>
+            </Grid>
+        </GroupBox>
+        <GroupBox Header="Dossiers Favoris" HorizontalAlignment="Left" Height="306" Margin="323,10,0,0" VerticalAlignment="Top" Width="461">
+            <Grid HorizontalAlignment="Left" Height="280" Margin="4,3,-3,0" VerticalAlignment="Top" Width="447">
+                <Label Name="Wav" Content="Fichier Wav" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="86"/>
+                <TextBox Name="WavFolder" GotFocus="WavFolder_GotFocus" HorizontalAlignment="Left" Height="23" Margin="101,14,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="336"/>
+                <Label Name="Lily" Content="Fichier Lilypond" HorizontalAlignment="Left" Margin="10,38,0,0" VerticalAlignment="Top" Width="86"/>
+                <TextBox Name="LilyFolder" GotFocus="LilyFolder_GotFocus"  HorizontalAlignment="Left" Height="23" Margin="101,42,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="336"/>
+                <Label Name="Latex" Content="Fichier Latex" HorizontalAlignment="Left" Margin="10,66,0,0" VerticalAlignment="Top" Width="86"/>
+                <TextBox Name="LatexFolder" GotFocus="LatexFolder_GotFocus"  HorizontalAlignment="Left" Height="23" Margin="101,70,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="336"/>
+                <Label Name="Tab" Content="Fichier tablature" HorizontalAlignment="Left" Margin="10,94,0,0" VerticalAlignment="Top" Width="86"/>
+                <TextBox Name="TabFolder" GotFocus="TabFolder_GotFocus"  HorizontalAlignment="Left" Height="23" Margin="101,98,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="336"/>
+                <Label Name="Parti" Content="Fichier partition" HorizontalAlignment="Left" Margin="10,122,0,0" VerticalAlignment="Top" Width="86"/>
+                <TextBox Name="PartiFolder" GotFocus="PartiFolder_GotFocus"  HorizontalAlignment="Left" Height="23" Margin="101,126,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="336"/>
+            </Grid>
+        </GroupBox>
+    </Grid>
+</Window>

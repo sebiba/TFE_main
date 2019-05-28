@@ -1,4 +1,5 @@
-﻿using Requete;
+﻿using Newtonsoft.Json;
+using Requete;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,12 +29,24 @@ namespace tfe
             _frame = nav;
             _pathPdf = path;
             InitializeComponent();
+            listServer.ItemsSource = GetPdf();
             pdfWebViewer.Navigate(new Uri(path));
         }
 
-        public void GetPdf()
+        public List<string> GetPdf()
         {
-            var test = Request.Post(Request.GetToken("sebiba@gmail.com", "Sebiba1330#"), "http://localhost:51727/api/ApiApp/GetFiles");
+            return JsonConvert.DeserializeObject<List<string>>(Request.Post(Request.GetToken("sebiba@gmail.com", "Sebiba1330#"), "http://localhost:51727/api/ApiApp/GetFiles"));
+        }
+
+        private void UploadPdf(object sender, EventArgs e)
+        {
+            Request.PostFile(Request.GetToken("sebiba@gmail.com", "Sebiba1330#"), _pathPdf);
+            listServer.ItemsSource = GetPdf();
+        }
+
+        private void DownloadPdf(object sender, EventArgs e)
+        {
+            var test = Request.DownloadFile(Request.GetToken("sebiba@gmail.com", "Sebiba1330#"), listServer.SelectedItem.ToString());
         }
     }
 }

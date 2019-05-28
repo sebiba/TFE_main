@@ -4,15 +4,15 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:tfe"
-      mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
-      Title="PdfViewer">
+      mc:Ignorable="d"
+      Title="PdfViewer" Height="596.4" Width="915.2">
 
-    <Grid>
-        <WebBrowser x:Name="pdfWebViewer" Margin="8,10,507,0" Height="430" VerticalAlignment="Top"/>
-        <Button Content="Partager ce pdf" HorizontalAlignment="Left" Margin="489,298,0,0" VerticalAlignment="Top" Width="140" Height="24"/>
-        <ListBox HorizontalAlignment="Left" Height="283" Margin="489,10,0,0" VerticalAlignment="Top" Width="276"/>
-        <Button Content="Télécharger ce pdf" HorizontalAlignment="Left" Margin="634,298,0,0" VerticalAlignment="Top" Width="131" Height="24"/>
+    <Grid Margin="0,0,0,0.8">
+        <WebBrowser Name="pdfWebViewer" Margin="8,10,0,0" Height="511" VerticalAlignment="Top" HorizontalAlignment="Left" Width="460"/>
+        <ListBox Name="listServer"  HorizontalAlignment="Left" Height="283" Margin="607,10,0,0" VerticalAlignment="Top" Width="276"/>
+        <Button Content="Partager ce pdf" Click="UploadPdf" HorizontalAlignment="Left" Margin="607,298,0,0" VerticalAlignment="Top" Width="140" Height="24"/>
+        <Button Content="Télécharger ce pdf" Click="DownloadPdf" HorizontalAlignment="Left" Margin="752,298,0,0" VerticalAlignment="Top" Width="131" Height="24"/>
+        <Button Content="Enregistrer ce pdf en ligne" Click="UploadPdf" HorizontalAlignment="Left" Margin="215,567,0,0" VerticalAlignment="Top" Width="124"/>
 
     </Grid>
 </Page>

@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Requete
 {
@@ -42,6 +44,25 @@ namespace Requete
             if (response == null) return null;
             StreamReader responseFromServer = new StreamReader(response.GetResponseStream());
             return responseFromServer.ReadToEnd().Trim();
+        }
+
+        public static async Task<bool> DownloadFile(string token, string file)
+        {
+            var uri = new Uri("http://localhost:51727/api/FileAPI/GetFile?fileName="+file);
+            var request = WebRequest.CreateHttp(uri);
+            request.Headers.Add("Authorization", "Bearer " + token);
+            var response = await request.GetResponseAsync();
+
+            ContentDispositionHeaderValue contentDisposition;
+            var fileName = ContentDispositionHeaderValue.TryParse(response.Headers["Content-Disposition"], out contentDisposition)
+                ? contentDisposition.FileName
+                : "noname.dat";
+            using (var fs = new FileStream(@"D:\jsp\" + fileName, FileMode.Create, FileAccess.Write, FileShare.None))
+            {
+                await response.GetResponseStream().CopyToAsync(fs);
+            }
+
+            return true;
         }
 
         public static string GetToken(string username, string password)
