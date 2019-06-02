@@ -2,6 +2,8 @@
 using Requete;
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -35,18 +37,38 @@ namespace tfe
 
         public List<string> GetPdf()
         {
-            return JsonConvert.DeserializeObject<List<string>>(Request.Post(Request.GetToken("sebiba@gmail.com", "Sebiba1330#"), "http://localhost:51727/api/ApiApp/GetFiles"));
+            return JsonConvert.DeserializeObject<List<string>>(Request.Post(Request.GetToken(ReadConf("pseudo"), ReadConf("password")), "http://localhost:51727/api/ApiApp/GetFiles"));
         }
 
         private void UploadPdf(object sender, EventArgs e)
         {
-            Request.PostFile(Request.GetToken("sebiba@gmail.com", "Sebiba1330#"), _pathPdf);
+            Request.PostFile(Request.GetToken(ReadConf("pseudo"), ReadConf("password")), _pathPdf);
             listServer.ItemsSource = GetPdf();
+            MessageBox.Show("Le pdf a bien été envoyé dans votre espace personnel enligne");
         }
 
         private void DownloadPdf(object sender, EventArgs e)
         {
-            var test = Request.DownloadFile(Request.GetToken("sebiba@gmail.com", "Sebiba1330#"), listServer.SelectedItem.ToString());
+            var test = Request.DownloadFile(Request.GetToken(ReadConf("pseudo"), ReadConf("password")), listServer.SelectedItem.ToString(), ReadConf("PartiFolder"));
+        }
+
+        private void SharePdf(object sender, EventArgs e)
+        {
+        }
+
+        private string ReadConf(string key)
+        {
+            try
+            {
+                NameValueCollection appSettings = ConfigurationManager.AppSettings;
+
+                string[] arr = appSettings.GetValues(key);
+                return arr[0];
+            }
+            catch
+            {
+                throw;
+            }
         }
     }
 }

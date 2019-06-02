@@ -24,7 +24,7 @@ namespace WebApplication1
             // Autoriser l’application à utiliser un cookie pour stocker des informations pour l’utilisateur connecté
             // et pour utiliser un cookie à des fins de stockage temporaire des informations sur la connexion utilisateur avec un fournisseur de connexion tiers
             // Configurer le cookie de connexion
-            app.UseCookieAuthentication(new CookieAuthenticationOptions
+            /*app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
                 AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
                 LoginPath = new PathString("/Account/Login"),
@@ -37,7 +37,7 @@ namespace WebApplication1
                         regenerateIdentity: (manager, user) => user.GenerateUserIdentityAsync(manager))
                 }
             });  
-            app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
+            app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);*/
 
             // Permet à l'application de stocker temporairement les informations utilisateur lors de la vérification du second facteur dans le processus d'authentification à 2 facteurs.
             app.UseTwoFactorSignInCookie(DefaultAuthenticationTypes.TwoFactorCookie, TimeSpan.FromMinutes(5));
@@ -53,7 +53,7 @@ namespace WebApplication1
                 AuthorizeEndpointPath = new PathString("/Account/Authorize"),
                 Provider = new ApplicationOAuthProvider("self", () => new UserManager<IdentityUser>(new UserStore<IdentityUser>())),
                 AccessTokenExpireTimeSpan = TimeSpan.FromDays(14),
-                AllowInsecureHttp = true
+                AllowInsecureHttp = true,
             });
 
             // Supprimer les commentaires des lignes suivantes pour autoriser la connexion avec des fournisseurs de connexions tiers

@@ -46,9 +46,9 @@ namespace Requete
             return responseFromServer.ReadToEnd().Trim();
         }
 
-        public static async Task<bool> DownloadFile(string token, string file)
+        public static async Task<bool> DownloadFile(string token, string file, string destination)
         {
-            var uri = new Uri("http://localhost:51727/api/FileAPI/GetFile?fileName="+file);
+            var uri = new Uri("http://localhost:51727/api/ApiApp/GetFile?fileName=" + file);
             var request = WebRequest.CreateHttp(uri);
             request.Headers.Add("Authorization", "Bearer " + token);
             var response = await request.GetResponseAsync();
@@ -57,7 +57,7 @@ namespace Requete
             var fileName = ContentDispositionHeaderValue.TryParse(response.Headers["Content-Disposition"], out contentDisposition)
                 ? contentDisposition.FileName
                 : "noname.dat";
-            using (var fs = new FileStream(@"D:\jsp\" + fileName, FileMode.Create, FileAccess.Write, FileShare.None))
+            using (var fs = new FileStream(destination + @"\" + fileName, FileMode.Create, FileAccess.Write, FileShare.None))
             {
                 await response.GetResponseStream().CopyToAsync(fs);
             }

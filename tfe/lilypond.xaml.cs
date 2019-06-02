@@ -2,6 +2,8 @@
 using python;
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Configuration;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -54,7 +56,7 @@ namespace tfe
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             saveFileDialog.Filter = "Lilypond Files (*.ly)|*.ly";
-            //saveFileDialog.InitialDirectory = @"D:\programmation\c#\TFE\python\Lily\";
+            saveFileDialog.InitialDirectory = ReadConf("LilyFolder");
             if (saveFileDialog.ShowDialog() != true) return;
 
             Lily Lilypond = new Lily(saveFileDialog.FileName);
@@ -80,9 +82,9 @@ namespace tfe
 #endif
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "Lilypond Files (*.ly)|*.ly";  // only ly files
-            //openFileDialog.InitialDirectory = @"D:\programmation\c#\TFE\python\Lily\";
+            openFileDialog.InitialDirectory = ReadConf("LilyFolder");
             if (openFileDialog.ShowDialog() != true) return;  // if no file is selected
-            string script = @" --output=D:\jsp\partition " + openFileDialog.FileName;
+            string script = @" --output="+ReadConf("PartiFolder")+" " + openFileDialog.FileName;
             if (File.Exists(openFileDialog.SafeFileName.Split('.').First() + ".pdf"))
             {
                 File.Delete(openFileDialog.SafeFileName.Split('.').First() + ".pdf");
@@ -90,30 +92,15 @@ namespace tfe
             var process = Process.Start(Lilypond, script);
             process.WaitForExit();
             if (File.Exists(@"D:\jsp\" + openFileDialog.SafeFileName.Split('.').First())) File.Delete(@"D:\jsp\" + openFileDialog.SafeFileName.Split('.').First());
-            File.Copy(@"D:\jsp\partition\" + openFileDialog.SafeFileName.Split('.').First() + ".pdf", @"D:\jsp\" + openFileDialog.SafeFileName.Split('.').First());
-            //pdfWebViewer.Navigate(@"D:\jsp\" + openFileDialog.SafeFileName.Split('.').First());  // display the new pdf on the screen
-            //pdf = @"D:\jsp\partition\" + openFileDialog.SafeFileName.Split('.').First() + ".pdf";
-            _frame.Navigate(new PdfViewer(_frame, @"D:\jsp\partition\" + openFileDialog.SafeFileName.Split('.').First() + ".pdf"));
-            /*#if DEBUG
-                        if(File.Exists(@"D:\jsp\partition\" + openFileDialog.SafeFileName.Split('.').First() + ".pdf")) File.Delete(@"D:\jsp\partition\" + openFileDialog.SafeFileName.Split('.').First() + ".pdf");
-                        File.Move(Path.GetFullPath(openFileDialog.SafeFileName.Split('.').First() + ".pdf"), @"D:\jsp\partition\"+ openFileDialog.SafeFileName.Split('.').First() + ".pdf");
-                        if(File.Exists(@"D:\jsp\" + openFileDialog.SafeFileName.Split('.').First())) File.Delete(@"D:\jsp\" + openFileDialog.SafeFileName.Split('.').First());
-                        File.Copy(@"D:\jsp\partition\" + openFileDialog.SafeFileName.Split('.').First() + ".pdf", @"D:\jsp\"+ openFileDialog.SafeFileName.Split('.').First());
-                        pdfWebViewer.Navigate(@"D:\jsp\" + openFileDialog.SafeFileName.Split('.').First());  // display the new pdf on the screen
-            #else
-                        if(File.Exists(@"partition\"+ openFileDialog.SafeFileName.Split('.').First() + ".pdf")) File.Delete(@"partition\"+ openFileDialog.SafeFileName.Split('.').First() + ".pdf");
-                        File.Move(Path.GetFullPath(openFileDialog.SafeFileName.Split('.').First() + ".pdf"), @"partition\"+ openFileDialog.SafeFileName.Split('.').First() + ".pdf");
-                        if(File.Exists(@"../temp/temp."+ openFileDialog.SafeFileName.Split('.').First())) File.Delete(@"../temp/temp."+ openFileDialog.SafeFileName.Split('.').First());
-                        File.Copy(@"D:\jsp\partition\" + openFileDialog.SafeFileName.Split('.').First() + ".pdf", @"../temp/temp."+ openFileDialog.SafeFileName.Split('.').First());
-                        pdfWebViewer.Navigate(@"../temp/temp."+ openFileDialog.SafeFileName.Split('.').First());  // display the new pdf on the screen
-            #endif*/
+            File.Copy(ReadConf("PartiFolder") +@"\"+ openFileDialog.SafeFileName.Split('.').First() + ".pdf", @"D:\jsp\" + openFileDialog.SafeFileName.Split('.').First());
+            _frame.Navigate(new PdfViewer(_frame, ReadConf("PartiFolder") + @"\" + openFileDialog.SafeFileName.Split('.').First() + ".pdf"));
         }
 
         private void ToLaTex_Click(object sender, RoutedEventArgs e)
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             saveFileDialog.Filter = "LaTex Files (*.tex)|*.tex";
-            //saveFileDialog.InitialDirectory = @"D:\programmation\c#\TFE\python\Lily\";
+            saveFileDialog.InitialDirectory = ReadConf("LatexFolder");
             if (saveFileDialog.ShowDialog() != true) return;
 
             try
@@ -137,7 +124,7 @@ namespace tfe
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             saveFileDialog.Filter = "Lilypond Files (*.ly)|*.ly";
-            //saveFileDialog.InitialDirectory = @"D:\programmation\c#\TFE\python\Lily\";
+            saveFileDialog.InitialDirectory = ReadConf("LilyFolder");
             if (saveFileDialog.ShowDialog() != true) return;
 
             Lily Lilypond = new Lily(saveFileDialog.FileName);
@@ -155,7 +142,7 @@ namespace tfe
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "Lilypond Files (*.ly)|*.ly";
-            //openFileDialog.InitialDirectory = @"D:\programmation\c#\TFE\python\Lily\";
+            openFileDialog.InitialDirectory = ReadConf("LilyFolder");
             if (openFileDialog.ShowDialog() != true) return;
 
             Lily Lilypond = new Lily(openFileDialog.FileName);
@@ -187,6 +174,21 @@ namespace tfe
 \layout{}";
                     lilyFile.Text = temp;
                 }
+            }
+        }
+
+        private string ReadConf(string key)
+        {
+            try
+            {
+                NameValueCollection appSettings = ConfigurationManager.AppSettings;
+
+                string[] arr = appSettings.GetValues(key);
+                return arr[0];
+            }
+            catch
+            {
+                throw;
             }
         }
     }

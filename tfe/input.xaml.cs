@@ -3,6 +3,8 @@ using NAudio.Wave;
 using python;
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -39,7 +41,7 @@ namespace tfe
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             saveFileDialog.Filter = "Wav Files Only (*.wav)|*.wav";
-            saveFileDialog.InitialDirectory = @"D:\programmation\python\TFE\";
+            saveFileDialog.InitialDirectory = ReadConf("WavFolder");
             if (saveFileDialog.ShowDialog() != true) return;
 
             StartBtn.IsEnabled = false;
@@ -98,7 +100,7 @@ namespace tfe
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "Wav Files Only (*.wav)|*.wav";  // only wav files
-            //openFileDialog.InitialDirectory = @"D:\programmation\python\TFE\";
+            openFileDialog.InitialDirectory = ReadConf("WavFolder");
             if (openFileDialog.ShowDialog() != true) return;  // if no file is selected
 
             Impfile.Text = openFileDialog.FileName;
@@ -119,6 +121,21 @@ namespace tfe
             }
 
             _frame.Navigate(new lilypond( _frame, _notes));
+        }
+
+        private string ReadConf(string key)
+        {
+            try
+            {
+                NameValueCollection appSettings = ConfigurationManager.AppSettings;
+
+                string[] arr = appSettings.GetValues(key);
+                return arr[0];
+            }
+            catch
+            {
+                throw;
+            }
         }
     }
 }

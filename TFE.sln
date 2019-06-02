@@ -13,7 +13,7 @@ Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup1", "Setup1\Setup1.vdp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication1", "WebApplication1\WebApplication1.csproj", "{4FAD5161-8730-4170-9A92-B6ECC71DACB4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Requete", "Requete\Requete.csproj", "{7CF88D9B-D7B0-4008-9474-0C8E0E8BC0E6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Requete", "Requete\Requete.csproj", "{7CF88D9B-D7B0-4008-9474-0C8E0E8BC0E6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

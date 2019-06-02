@@ -31,6 +31,43 @@ namespace WebApplication1.Controllers.Api
             return "value";
         }
 
+        [HttpGet]
+        [Route("api/ApiApp/GetFile")]
+        public HttpResponseMessage GetFile(string fileName)
+        {
+            //Create HTTP Response.
+            HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK);
+
+            //Set the File Path.
+            string filePath = HttpContext.Current.Server.MapPath("~/Data/"+ User.Identity.GetUserId()+"/") + fileName;
+
+            //Check whether File exists.
+            if (!File.Exists(filePath))
+            {
+                //Throw 404 (Not Found) exception if File not found.
+                response.StatusCode = HttpStatusCode.NotFound;
+                response.ReasonPhrase = string.Format("File not found: {0} .", fileName);
+                throw new HttpResponseException(response);
+            }
+
+            //Read the File into a Byte Array.
+            byte[] bytes = File.ReadAllBytes(filePath);
+
+            //Set the Response Content.
+            response.Content = new ByteArrayContent(bytes);
+
+            //Set the Response Content Length.
+            response.Content.Headers.ContentLength = bytes.LongLength;
+
+            //Set the Content Disposition Header Value and FileName.
+            response.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment");
+            response.Content.Headers.ContentDisposition.FileName = fileName;
+
+            //Set the File Content Type.
+            response.Content.Headers.ContentType = new MediaTypeHeaderValue(MimeMapping.GetMimeMapping(fileName));
+            return response;
+        }
+
         // POST: api/ApiApp
         [HttpPost]
         public async System.Threading.Tasks.Task<HttpResponseMessage> PostAsync()
@@ -74,42 +111,6 @@ namespace WebApplication1.Controllers.Api
             }
         }
 
-        [HttpGet]
-        [Route("api/FileAPI/GetFile")]
-        public HttpResponseMessage GetFile(string fileName)
-        {
-            //Create HTTP Response.
-            HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK);
-
-            //Set the File Path.
-            string filePath = HttpContext.Current.Server.MapPath("~/Data/"+ User.Identity.GetUserId()+"/") + fileName;
-
-            //Check whether File exists.
-            if (!File.Exists(filePath))
-            {
-                //Throw 404 (Not Found) exception if File not found.
-                response.StatusCode = HttpStatusCode.NotFound;
-                response.ReasonPhrase = string.Format("File not found: {0} .", fileName);
-                throw new HttpResponseException(response);
-            }
-
-            //Read the File into a Byte Array.
-            byte[] bytes = File.ReadAllBytes(filePath);
-
-            //Set the Response Content.
-            response.Content = new ByteArrayContent(bytes);
-
-            //Set the Response Content Length.
-            response.Content.Headers.ContentLength = bytes.LongLength;
-
-            //Set the Content Disposition Header Value and FileName.
-            response.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment");
-            response.Content.Headers.ContentDisposition.FileName = fileName;
-
-            //Set the File Content Type.
-            response.Content.Headers.ContentType = new MediaTypeHeaderValue(MimeMapping.GetMimeMapping(fileName));
-            return response;
-        }
 
         [HttpPost]
         [Route("api/ApiApp/GetFiles")]
@@ -117,6 +118,31 @@ namespace WebApplication1.Controllers.Api
         {
             var id = User.Identity.GetUserId();
             return helper.CustomHelper.GetFiles(User.Identity.GetUserId()).Select(delegate(string x) { return string.Join("\\",x.Split(new string[] { "\\" }, StringSplitOptions.None).Skip(1)); }).ToList();
+        }
+
+        [HttpGet]
+        [Route("api/ApiApp/Share")]
+        public void Share(string toShare, string dest)
+        {
+            string id = User.Identity.GetUserId();
+            try
+            {
+                // Will not overwrite if the destination file already exists.
+                File.Copy(Path.Combine("~/Data/"+id, toShare), Path.Combine("~/Data/" + dest, toShare));
+            }
+
+            // Catch exception if the file was already copied.
+            catch (IOException copyError)
+            {
+                Console.WriteLine(copyError.Message);
+            }
+        }
+
+        [HttpPost]
+        [Route("api/ApiApp/Register")]
+        public bool RegisterUser()
+        {
+            return false;
         }
     }
 }

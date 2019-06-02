@@ -82,6 +82,7 @@ namespace WebApplication1.Controllers
             {
                 case SignInStatus.Success:
                     //return RedirectToLocal(returnUrl);
+                    Session["user"] = User.Identity.Name;
                     Session["user"] = UserManager.FindByName(model.Email).Id;  // keep in memory user id
                     return View("mainAccount");
                 case SignInStatus.LockedOut:
