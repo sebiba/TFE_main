@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data.OleDb;
+using System.Data.SqlClient;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -8,6 +11,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using WebApplication1.Models;
@@ -74,6 +78,17 @@ namespace WebApplication1.Controllers
             {
                 return View(model);
             }
+            try
+            {
+                var conn = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
+                //ModelState.AddModelError("", "connection accepté");
+                //return View(model);
+            }
+            catch (Exception)
+            {
+                ModelState.AddModelError("", "connection à la base de donnée refusé");
+                return View(model);
+            }
 
             // Ceci ne comptabilise pas les échecs de connexion pour le verrouillage du compte
             // Pour que les échecs de mot de passe déclenchent le verrouillage du compte, utilisez shouldLockout: true
@@ -82,8 +97,8 @@ namespace WebApplication1.Controllers
             {
                 case SignInStatus.Success:
                     //return RedirectToLocal(returnUrl);
-                    Session["user"] = User.Identity.Name;
                     Session["user"] = UserManager.FindByName(model.Email).Id;  // keep in memory user id
+                    Session["name"] = model.Email;  // keep in memory user name
                     return View("mainAccount");
                 case SignInStatus.LockedOut:
                     return View("Lockout");
@@ -393,10 +408,13 @@ namespace WebApplication1.Controllers
         //
         // POST: /Account/LogOff
         [HttpPost]
+        [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            Session.Clear();
+            Session.Abandon();
             return RedirectToAction("Index", "Home");
         }
 
@@ -414,6 +432,27 @@ namespace WebApplication1.Controllers
         public ActionResult MainAccount()
         {
             return View();
+        }
+        public bool Share(string id, string toShare, string dest)
+        {
+            try
+            {
+                DirectoryInfo d = new DirectoryInfo(@"D:\programmation\c#\TFE\WebApplication1\Data");  //root folder for datas
+                DirectoryInfo[] Ids = d.GetDirectories();
+                // Will not overwrite if the destination file already exists.
+                var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
+
+                Directory.CreateDirectory(@"D:\programmation\c#\TFE\WebApplication1\Data\" + UserManager.FindByName(dest).Id);
+                System.IO.File.Copy(Path.Combine(@"D:\programmation\c#\TFE\WebApplication1\Data\" + id, toShare), Path.Combine(@"D:\programmation\c#\TFE\WebApplication1\Data\" + UserManager.FindByName(dest).Id, toShare));
+                return true;
+            }
+
+            // Catch exception if the file was already copied.
+            catch (IOException copyError)
+            {
+                Console.WriteLine(copyError.Message);
+                return false;
+            }
         }
 
         protected override void Dispose(bool disposing)

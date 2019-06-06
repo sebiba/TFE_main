@@ -9,8 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "python", "python\python.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestProject1", "UnitTestProject1\UnitTestProject1.csproj", "{F92E6C03-8E69-4A87-90A1-D78CB515D6A7}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup1", "Setup1\Setup1.vdproj", "{C89EED87-296F-4888-9205-CB740D7F898B}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication1", "WebApplication1\WebApplication1.csproj", "{4FAD5161-8730-4170-9A92-B6ECC71DACB4}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Requete", "Requete\Requete.csproj", "{7CF88D9B-D7B0-4008-9474-0C8E0E8BC0E6}"
@@ -33,8 +31,6 @@ Global
 		{F92E6C03-8E69-4A87-90A1-D78CB515D6A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F92E6C03-8E69-4A87-90A1-D78CB515D6A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F92E6C03-8E69-4A87-90A1-D78CB515D6A7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C89EED87-296F-4888-9205-CB740D7F898B}.Debug|Any CPU.ActiveCfg = Debug
-		{C89EED87-296F-4888-9205-CB740D7F898B}.Release|Any CPU.ActiveCfg = Release
 		{4FAD5161-8730-4170-9A92-B6ECC71DACB4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4FAD5161-8730-4170-9A92-B6ECC71DACB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4FAD5161-8730-4170-9A92-B6ECC71DACB4}.Release|Any CPU.ActiveCfg = Release|Any CPU

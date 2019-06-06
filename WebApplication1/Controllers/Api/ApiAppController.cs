@@ -122,20 +122,11 @@ namespace WebApplication1.Controllers.Api
 
         [HttpGet]
         [Route("api/ApiApp/Share")]
-        public void Share(string toShare, string dest)
+        public bool Share(string toShare, string dest)
         {
+            
             string id = User.Identity.GetUserId();
-            try
-            {
-                // Will not overwrite if the destination file already exists.
-                File.Copy(Path.Combine("~/Data/"+id, toShare), Path.Combine("~/Data/" + dest, toShare));
-            }
-
-            // Catch exception if the file was already copied.
-            catch (IOException copyError)
-            {
-                Console.WriteLine(copyError.Message);
-            }
+            return new AccountController().Share(id,toShare, dest);
         }
 
         [HttpPost]

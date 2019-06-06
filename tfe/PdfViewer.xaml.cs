@@ -37,7 +37,14 @@ namespace tfe
 
         public List<string> GetPdf()
         {
-            return JsonConvert.DeserializeObject<List<string>>(Request.Post(Request.GetToken(ReadConf("pseudo"), ReadConf("password")), "http://localhost:51727/api/ApiApp/GetFiles"));
+            try { 
+                return JsonConvert.DeserializeObject<List<string>>(Request.Post(Request.GetToken(ReadConf("pseudo"), ReadConf("password")), "http://localhost:51727/api/ApiApp/GetFiles"));
+            }
+            catch
+            {
+                MessageBox.Show("une erreur de connection avec le serveur est survenue", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+                return new List<string>();
+            }
         }
 
         private void UploadPdf(object sender, EventArgs e)
@@ -54,6 +61,14 @@ namespace tfe
 
         private void SharePdf(object sender, EventArgs e)
         {
+            if ("True" == Request.Get(Request.GetToken(ReadConf("pseudo"), ReadConf("password")), "http://localhost:51727/api/ApiApp/Share", new Dictionary<string, string> { { "toShare", listServer.SelectedItem.ToString() }, { "dest", ShareTo.Text } }))
+            {
+                MessageBox.Show("partage", "votre fichier à bien été partagé avec: " + ShareTo.Text, MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else
+            {
+                MessageBox.Show("partage", "Une erreur est survenue lors du partage.", MessageBoxButton.OK, MessageBoxImage.Error);
+            };
         }
 
         private string ReadConf(string key)

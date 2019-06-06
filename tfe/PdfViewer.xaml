@@ -13,7 +13,8 @@
 
         <Label Content="Sauvegardé sur votre compte" HorizontalAlignment="Left" Margin="606,15,0,0" VerticalAlignment="Top" Width="276"/>
         <ListBox Name="listServer"  HorizontalAlignment="Left" Height="494" Margin="606,41,0,0" VerticalAlignment="Top" Width="324"/>
-        <Button Content="Télécharger ce pdf" Click="DownloadPdf" HorizontalAlignment="Left" Margin="751,582,0,0" VerticalAlignment="Top" Width="131" Height="24"/>
-        <Button Content="Partager ce pdf" Click="SharePdf" HorizontalAlignment="Left" Margin="606,582,0,0" VerticalAlignment="Top" Width="140" Height="24"/>
+        <Button Content="Télécharger ce pdf" Click="DownloadPdf" HorizontalAlignment="Left" Margin="751,540,0,0" VerticalAlignment="Top" Width="131" Height="24"/>
+        <Button Content="Partager ce pdf" Click="SharePdf" HorizontalAlignment="Left" Margin="751,583,0,0" VerticalAlignment="Top" Width="140" Height="24"/>
+        <TextBox Name="ShareTo" HorizontalAlignment="Left" Height="23" Margin="563,584,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="183"/>
     </Grid>
 </Page>

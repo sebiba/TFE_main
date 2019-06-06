@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -70,6 +71,26 @@ namespace Requete
             string test = Post(null,"http://localhost:51727/Token", "text/plain", "grant_type=password&username="+username+"&password="+password);
             Dictionary<string, string> data = JsonConvert.DeserializeObject<Dictionary<string, string>>(test);
             return data["access_token"];
+        }
+
+        public static string Get(string token, string url,Dictionary<string, string> param)
+        {
+            string requete = url +"?";
+            for(int i=0;i<param.Values.Count;i++)
+            {
+                requete += param.Keys.ToList().ElementAt(i)+"="+ param.Values.ToList().ElementAt(i)+"&";
+            }
+            requete = requete.TrimEnd('&');
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(requete);
+            request.Method = "GET";
+            if (token != null) request.Headers.Add("Authorization", "Bearer " + token);
+
+            var webResponse = request.GetResponse();
+            var webStream = webResponse.GetResponseStream();
+            var responseReader = new StreamReader(webStream);
+            var response = responseReader.ReadToEnd();
+            responseReader.Close();
+            return response;
         }
     }
 }

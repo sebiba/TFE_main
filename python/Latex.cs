@@ -33,8 +33,8 @@ namespace python
             string latexCompiler = @"D:\programmation\c#\TFE\python\LaTex\miktex\bin\miktex-pdflatex.exe";
             string file = _Path;
 #else
-            string python = @"python\python.exe";
-            string script = @"script\freqs.py";
+            string latexCompiler = @"D:\LaTex\miktex\bin\miktex-pdflatex.exe";
+            string file = _Path;
 #endif
 
             ProcessStartInfo startInfo = new ProcessStartInfo(latexCompiler)

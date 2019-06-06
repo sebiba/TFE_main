@@ -11,7 +11,13 @@ namespace WebApplication1.helper
     {
         public static string Bibli()
         {
-            return MakeList(GetFiles());
+            try
+            {
+                return MakeList(GetFiles());
+            }
+            catch {
+                return "<p>Problème</p>";
+            }
         }
 
         public static string MakeList(List<string> value)
@@ -26,7 +32,7 @@ namespace WebApplication1.helper
 
         public static List<string> GetFiles(string id = null){
             if(id==null) id = HttpContext.Current.Session["user"].ToString();
-            DirectoryInfo d = new DirectoryInfo(@"D:\programmation\c#\TFE\WebApplication1\Data");  //root folder for datas
+            DirectoryInfo d = new DirectoryInfo(@"E:\TFE\WebApp\Data\");  //root folder for datas
             DirectoryInfo[] Ids = d.GetDirectories();
             FileInfo[] Files = Ids.Where(x => x.Name == id.ToString()).First().GetFiles("*.pdf");  // Getting pdf files
             List<string> str = new List<string>();
