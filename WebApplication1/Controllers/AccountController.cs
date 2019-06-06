@@ -433,25 +433,25 @@ namespace WebApplication1.Controllers
         {
             return View();
         }
-        public bool Share(string id, string toShare, string dest)
+        public string Share(string id, string toShare, string dest)
         {
             try
             {
-                DirectoryInfo d = new DirectoryInfo(@"D:\programmation\c#\TFE\WebApplication1\Data");  //root folder for datas
+                DirectoryInfo d = new DirectoryInfo(@"E:\TFE\WebApp\Data");  //root folder for datas
                 DirectoryInfo[] Ids = d.GetDirectories();
                 // Will not overwrite if the destination file already exists.
                 var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
 
-                Directory.CreateDirectory(@"D:\programmation\c#\TFE\WebApplication1\Data\" + UserManager.FindByName(dest).Id);
-                System.IO.File.Copy(Path.Combine(@"D:\programmation\c#\TFE\WebApplication1\Data\" + id, toShare), Path.Combine(@"D:\programmation\c#\TFE\WebApplication1\Data\" + UserManager.FindByName(dest).Id, toShare));
-                return true;
+                Directory.CreateDirectory(@"E:\TFE\WebApp\Data\" + UserManager.FindByName(dest).Id);
+                System.IO.File.Copy(Path.Combine(@"E:\TFE\WebApp\Data\" + id, toShare), Path.Combine(@"E:\TFE\WebApp\Data\" + UserManager.FindByName(dest).Id, toShare));
+                return "True";
             }
 
             // Catch exception if the file was already copied.
             catch (IOException copyError)
             {
                 Console.WriteLine(copyError.Message);
-                return false;
+                return copyError.Message;
             }
         }
 

@@ -38,7 +38,7 @@ namespace tfe
         public List<string> GetPdf()
         {
             try { 
-                return JsonConvert.DeserializeObject<List<string>>(Request.Post(Request.GetToken(ReadConf("pseudo"), ReadConf("password")), "http://localhost:51727/api/ApiApp/GetFiles"));
+                return JsonConvert.DeserializeObject<List<string>>(Request.Post(Request.GetToken(ReadConf("pseudo"), ReadConf("password")), "http://tfe.moovego.be/api/ApiApp/GetFiles"));
             }
             catch
             {
@@ -61,13 +61,13 @@ namespace tfe
 
         private void SharePdf(object sender, EventArgs e)
         {
-            if ("True" == Request.Get(Request.GetToken(ReadConf("pseudo"), ReadConf("password")), "http://localhost:51727/api/ApiApp/Share", new Dictionary<string, string> { { "toShare", listServer.SelectedItem.ToString() }, { "dest", ShareTo.Text } }))
+            if ("\"True\"" == Request.Get(Request.GetToken(ReadConf("pseudo"), ReadConf("password")), "http://tfe.moovego.be/api/ApiApp/Share", new Dictionary<string, string> { { "toShare", listServer.SelectedItem.ToString() }, { "dest", ShareTo.Text } }))
             {
-                MessageBox.Show("partage", "votre fichier à bien été partagé avec: " + ShareTo.Text, MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("votre fichier à bien été partagé avec: " + ShareTo.Text, "partage", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             else
             {
-                MessageBox.Show("partage", "Une erreur est survenue lors du partage.", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Une erreur est survenue lors du partage.", "partage", MessageBoxButton.OK, MessageBoxImage.Error);
             };
         }
 

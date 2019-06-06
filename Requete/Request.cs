@@ -24,7 +24,7 @@ namespace Requete
 
             var nfile = webClient.Encoding.GetBytes(package);
 
-            byte[] resp = webClient.UploadData("http://localhost:51727/api/ApiApp", "POST", nfile);
+            byte[] resp = webClient.UploadData("http://tfe.moovego.be/api/ApiApp", "POST", nfile);
             return string.Empty;
         }
 
@@ -49,7 +49,7 @@ namespace Requete
 
         public static async Task<bool> DownloadFile(string token, string file, string destination)
         {
-            var uri = new Uri("http://localhost:51727/api/ApiApp/GetFile?fileName=" + file);
+            var uri = new Uri("http://tfe.moovego.be/api/ApiApp/GetFile?fileName=" + file);
             var request = WebRequest.CreateHttp(uri);
             request.Headers.Add("Authorization", "Bearer " + token);
             var response = await request.GetResponseAsync();
@@ -68,7 +68,7 @@ namespace Requete
 
         public static string GetToken(string username, string password)
         {
-            string test = Post(null,"http://localhost:51727/Token", "text/plain", "grant_type=password&username="+username+"&password="+password);
+            string test = Post(null, "http://tfe.moovego.be/Token", "text/plain", "grant_type=password&username="+username+"&password="+password);
             Dictionary<string, string> data = JsonConvert.DeserializeObject<Dictionary<string, string>>(test);
             return data["access_token"];
         }

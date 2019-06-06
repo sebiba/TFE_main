@@ -122,7 +122,7 @@ namespace WebApplication1.Controllers.Api
 
         [HttpGet]
         [Route("api/ApiApp/Share")]
-        public bool Share(string toShare, string dest)
+        public string Share(string toShare, string dest)
         {
             
             string id = User.Identity.GetUserId();

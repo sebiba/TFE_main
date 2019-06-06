@@ -85,15 +85,15 @@ namespace tfe
             openFileDialog.InitialDirectory = ReadConf("LilyFolder");
             if (openFileDialog.ShowDialog() != true) return;  // if no file is selected
             string script = @" --output="+ReadConf("PartiFolder")+" " + openFileDialog.FileName;
-            if (File.Exists(openFileDialog.SafeFileName.Split('.').First() + ".pdf"))
+            if (File.Exists(ReadConf("PartiFolder") + @"\" + openFileDialog.SafeFileName.Split('.').First() + ".pdf"))
             {
-                File.Delete(openFileDialog.SafeFileName.Split('.').First() + ".pdf");
+                File.Delete(ReadConf("PartiFolder") + @"\" + openFileDialog.SafeFileName.Split('.').First() + ".pdf");
             }
             var process = Process.Start(Lilypond, script);
             process.WaitForExit();
-            if (File.Exists(@"D:\jsp\" + openFileDialog.SafeFileName.Split('.').First())) File.Delete(@"D:\jsp\" + openFileDialog.SafeFileName.Split('.').First());
-            File.Copy(ReadConf("PartiFolder") +@"\"+ openFileDialog.SafeFileName.Split('.').First() + ".pdf", @"D:\jsp\" + openFileDialog.SafeFileName.Split('.').First());
-            _frame.Navigate(new PdfViewer(_frame, ReadConf("PartiFolder") + @"\" + openFileDialog.SafeFileName.Split('.').First() + ".pdf"));
+            if (File.Exists(ReadConf("PartiFolder") + @"\" + openFileDialog.SafeFileName.Split('.').First())) File.Delete(ReadConf("PartiFolder") + @"\" + openFileDialog.SafeFileName.Split('.').First());
+            File.Copy(ReadConf("PartiFolder") +@"\"+ openFileDialog.SafeFileName.Split('.').First() + ".pdf", ReadConf("PartiFolder") + @"\" + openFileDialog.SafeFileName.Split('.').First());
+            _frame.Navigate(new PdfViewer(_frame, ReadConf("PartiFolder") + @"\" + openFileDialog.SafeFileName.Split('.').First()));
         }
 
         private void ToLaTex_Click(object sender, RoutedEventArgs e)
