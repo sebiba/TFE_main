@@ -1,6 +1,7 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    min-width:600px;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -24,5 +25,32 @@ textarea {
 }
 .jumbotron{
     background-image:url("/download/head.png");
-    height:23em;
+    background-position:center;
+    height:20em;
+    margin-bottom:0;
+}
+
+.info-descriptif{
+    margin-top:2.5em;
+}
+.title-blue {
+    color:cornflowerblue;
+    font-style:italic;
+    text-align:center;
+}
+.card{
+    min-height:20em;
+}
+.bottom{
+    position:absolute;
+    bottom:0;
+}
+.card-title{
+    text-align:center;
+}
+.PageContent {
+    margin-top: 1em;
+}
+li{
+    cursor:pointer;
 }

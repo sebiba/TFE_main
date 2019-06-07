@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication1", "WebAppli
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Requete", "Requete\Requete.csproj", "{7CF88D9B-D7B0-4008-9474-0C8E0E8BC0E6}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup1", "Setup1\Setup1.vdproj", "{F3C6B370-D21C-45E7-83AD-93D1E17750A0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,8 @@ Global
 		{7CF88D9B-D7B0-4008-9474-0C8E0E8BC0E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7CF88D9B-D7B0-4008-9474-0C8E0E8BC0E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7CF88D9B-D7B0-4008-9474-0C8E0E8BC0E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F3C6B370-D21C-45E7-83AD-93D1E17750A0}.Debug|Any CPU.ActiveCfg = Debug
+		{F3C6B370-D21C-45E7-83AD-93D1E17750A0}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

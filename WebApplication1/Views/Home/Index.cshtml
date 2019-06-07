@@ -1,38 +1,68 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
-
-<div class="jumbotron">
-    <h3>Transcripteur de mélodie audio provenant d’un accordéon diatonique en notes de musique et tablature</h3>
-</div>
-
-<div class="row">
-    <div class="col">
-        <h2>L'application</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-primary" href="/download/Setup2.msi" target="_blank">Download</a></p>
+<main>
+    <div class="jumbotron">
     </div>
-    <div class="col">
-        <h2>La plateforme Web</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-primary" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
-</div>
-<div class="info">
-    <hr />
+    <h2 class="title-blue">Transcripteur de mélodie audio provenant d’un accordéon diatonique en notes de musique et tablature</h2>
+
     <div class="row">
         <div class="col">
-            <img src="~/download/lilypond.png" />
+            <div class="card">
+                <div class="card-title"><h2>L'application</h2></div>
+                <div class="card-body">
+                    <p>
+                        Cette application vous permet de vous enregistrer jouant de votre accordéon diatonique. Ensuite, vous
+                        pourrez obtenir une tablature du morceau que vous venez de jouer ou si vous avez besoin, une tablature (sol/do).
+                    </p>
+                </div>
+                <div class="card-footer">
+                    <p class="card-link"><a class="btn btn-primary" href="/download/Setup2.msi" target="_blank">Download &raquo;</a></p>
+                </div>
+            </div>
         </div>
-        <div class="col-sm">LilyPond est un logiciel de gravure musicale, destiné à produire des partitions de qualité optimale. Ce projet apporte à l’édition musicale informatisée l’esthétique typographique de la gravure traditionnelle. LilyPond est un logiciel libre rattaché au projet GNU.</div>
+        <div class="col">
+            <div class="card">
+                <div class="card-title">
+                    <h2>La plateforme Web</h2>
+                </div>
+                <div class="card-body">
+                    <p>
+                        Une fois connecté, cette plateforme web vous permet de pouvoir partager vos création musical avec le monde.
+                    </p>
+                </div>
+                <div class="card-footer">
+                    <p><a class="btn btn-primary" href="~/Account/Login">Learn more &raquo;</a></p>
+                </div>
+            </div>
+        </div>
     </div>
-    <hr />
-    <div class="row">
-        <div class="col"></div>
-        <div class="col"></div>
+    <div class="info">
+        <hr />
+        <div class="row">
+            <div class="col">
+                <h5>Les partitions</h5>
+                <img src="~/download/lilypond.png" />
+            </div>
+            <div class="col-sm info-descriptif">
+                LilyPond est un logiciel de gravure musicale, destiné à produire des partitions de qualité optimale. Ce projet apporte à l’édition musicale informatisée l’esthétique typographique de la gravure traditionnelle. LilyPond est un logiciel libre rattaché au projet GNU.
+                <br /><br /><a class="btn btn-outline-secondary" href="https://www.lilypong.org" target="_blank">Vers le site de Lilypond &raquo;</a>
+            </div>
+        </div>
+        <hr />
+        <div class="row">
+            <div class="col-sm info-descriptif">
+                LaTeX est un système open-source, multi-plateforme, permettant de créer facilement un document pdf personnalisé  sur base d’un langage de script.
+                <br /><br /><a class="btn btn-outline-secondary" href="https://www.latex-project.org/" target="_blank">Vers le site de Latex &raquo;</a>
+            </div>
+            <div class="col">
+                <h5>Les tablatures</h5>
+                <img src="~/download/latex.png" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col"></div>
+            <div class="col"></div>
+        </div>
     </div>
-</div>
+</main>

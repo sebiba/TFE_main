@@ -22,10 +22,10 @@ namespace WebApplication1.helper
 
         public static string MakeList(List<string> value)
         {
-            string output = "<ul>";
+            string output = "<ul class=\"list-group list-group-flush\">";
             value.ForEach(delegate (string text)
             {
-                output += "<li onclick=\"ViewFile(this)\" data-value=\""+text+"\">" + string.Join("\\", text.Split(new string[] { "\\" }, StringSplitOptions.None).Skip(1)) + "</li>";
+                output += "<li class=\"list-group-item\" onclick=\"ViewFile(this)\" data-value=\"" + text+"\">" + string.Join("\\", text.Split(new string[] { "\\" }, StringSplitOptions.None).Skip(1)) + "</li>";
             });
             return output + "</ul>";
         }
