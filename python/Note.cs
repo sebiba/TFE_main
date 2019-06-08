@@ -18,7 +18,14 @@ namespace python
         }
         public Note(float Frequence)
         {
-            value = PyUtils.FreqToNote(Frequence);
+            try
+            {
+                value = PyUtils.FreqToNote(Frequence);
+            }
+            catch(Exception e)
+            {
+                throw e;
+            }
         }
 #endregion constructeur
 
@@ -26,17 +33,22 @@ namespace python
         {
             try
             {
-                using (StreamReader sr = File.OpenText(@"D:\programmation\c#\TFE\python\tablature.csv"))  // load file from _path
-                {
-                    string s = "";
-                    while ((s = sr.ReadLine()) != null)  // loop on all the ligne from the file
+                    List<string> Lines = File.ReadAllLines(@"D:\programmation\c#\TFE\python\tablature.csv").ToList();
+                    for(int i = 0;i < Lines.Count();i++)  // loop on all the ligne from the file
                     {
-                        if (s.Split(';').First().ToLower() == value[0].ToString().ToLower())
+                        if (Lines[i].Split(';').First().ToLower() == value[0].ToString().ToLower() && Lines[i].Split(';').ElementAt(1) == "2")
                         {
-                            return new Dictionary<string, string>() { { "Do", s.Split(';').ElementAt(2) == "" ? "0" : s.Split(';').ElementAt(2) }, { "Sol", s.Split(';').Last() == "" ? "0" : s.Split(';').Last() } };
+                            if ((value.Contains("is") || value.Contains("#")) && Lines[i+1].Split(';').First() == "")
+                            {
+                                return new Dictionary<string, string>() { { "Do", Lines[i+1].Split(';').ElementAt(2) == "" ? "0" : Lines[i+1].Split(';').ElementAt(2) }, { "Sol", Lines[i+1].Split(';').Last() == "" ? "0" : Lines[i+1].Split(';').Last() } };
+                            }
+                            else if((value.Contains("es") || value.Contains("b")) && Lines[i-1].Split(';').First() == "")
+                            {
+                                return new Dictionary<string, string>() { { "Do", Lines[i-1].Split(';').ElementAt(2) == "" ? "0" : Lines[i-1].Split(';').ElementAt(2) }, { "Sol", Lines[i-1].Split(';').Last() == "" ? "0" : Lines[i-1].Split(';').Last() } };
+                            }
+                            return new Dictionary<string, string>() { { "Do", Lines[i].Split(';').ElementAt(2) == "" ? "0" : Lines[i].Split(';').ElementAt(2) }, { "Sol", Lines[i].Split(';').Last() == "" ? "0" : Lines[i].Split(';').Last() } };
                         }
                     }
-                }
                 throw new KeyNotFoundException();
             }catch(IOException e)
             {
@@ -44,5 +56,10 @@ namespace python
             }
         }
 
+        public bool Equals(Note obj)
+        {
+            if (this.value == obj.value) return true;
+            return false;
+        }
     }
 }

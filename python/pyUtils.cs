@@ -27,7 +27,7 @@ namespace python
                 return python.freqToData((int)frequence);
             }catch(Exception e)
             {
-                return e.Message;
+                throw e;
             }
         }
 
@@ -55,15 +55,23 @@ namespace python
             myProcessStartInfo.RedirectStandardOutput = true;
             myProcessStartInfo.Arguments = script + " " + file;
 
-            Process myProcess = new Process();
-            myProcess.StartInfo = myProcessStartInfo;
+            Process myProcess = new Process
+            {
+                StartInfo = myProcessStartInfo
+            };
 
             myProcess.Start();
             StreamReader myStreamReader = myProcess.StandardOutput;
             List<Note> Notes = new List<Note>();
-            myStreamReader.ReadLine().TrimEnd('|').Replace("||", "\n").Split('\n').ToList().ForEach(delegate(string note) {
-                Notes.Add(new Note(Math.Abs(float.Parse(note.Split(':').Last(), CultureInfo.InvariantCulture))));
-            });
+            try { 
+                myStreamReader.ReadLine().TrimEnd('|').Replace("||", "\n").Split('\n').ToList().ForEach(delegate(string note) {
+                    Notes.Add(new Note(Math.Abs(float.Parse(note.Split(':').Last(), CultureInfo.InvariantCulture))));
+                });
+            }
+            catch(Exception e)
+            {
+                throw e;
+            }
 
             myProcess.WaitForExit();
             myProcess.Close();

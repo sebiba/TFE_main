@@ -104,7 +104,13 @@ namespace tfe
             if (openFileDialog.ShowDialog() != true) return;  // if no file is selected
 
             Impfile.Text = openFileDialog.FileName;
+            try { 
             _notes = PyUtils.Getfreq(openFileDialog.FileName);  // get frequency
+            }
+            catch
+            {
+                MessageBox.Show("Une erreur est survenue lors du traitement de votre fichier audio.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
             for (int i = 0; i < _notes.Count; i++)  //remove alone note
             {
                 try

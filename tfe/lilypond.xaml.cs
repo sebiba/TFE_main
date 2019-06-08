@@ -188,7 +188,7 @@ namespace tfe
             }
             catch
             {
-                throw;
+                throw new KeyNotFoundException();
             }
         }
     }

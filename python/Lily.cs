@@ -25,7 +25,7 @@ namespace python
         /// <param name="path">path to selected file</param>
         public List<string> ReadFile()
         {
-            if (Path.GetExtension(_File) != ".ly") return new List<string> { "Erreur", "File with wrong extension" };  // if file is wrong extension
+            if (Path.GetExtension(_File) != ".ly") throw new IOException();  // if file is wrong extension
             if (File.Exists(_File))
             {
                 if (_data.Count > 0) return _data;

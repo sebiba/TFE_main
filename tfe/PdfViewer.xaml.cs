@@ -1,21 +1,12 @@
 ﻿using Newtonsoft.Json;
+using python;
 using Requete;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Configuration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace tfe
 {
@@ -25,43 +16,32 @@ namespace tfe
     public partial class PdfViewer : Page
     {
         private Frame _frame;
-        private string _pathPdf;
+        private Pdf _pdf;
         public PdfViewer(Frame nav, string path = "about:blank")
         {
             _frame = nav;
-            _pathPdf = path;
+            _pdf = new Pdf(path); 
             InitializeComponent();
-            listServer.ItemsSource = GetPdf();
+            listServer.ItemsSource = _pdf.GetPdf(ReadConf("pseudo"), ReadConf("password"));
+            if(listServer.ItemsSource == new List<string>()) MessageBox.Show("une erreur de connection avec le serveur est survenue", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
             pdfWebViewer.Navigate(new Uri(path));
-        }
-
-        public List<string> GetPdf()
-        {
-            try { 
-                return JsonConvert.DeserializeObject<List<string>>(Request.Post(Request.GetToken(ReadConf("pseudo"), ReadConf("password")), "http://tfe.moovego.be/api/ApiApp/GetFiles"));
-            }
-            catch
-            {
-                MessageBox.Show("une erreur de connection avec le serveur est survenue", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
-                return new List<string>();
-            }
         }
 
         private void UploadPdf(object sender, EventArgs e)
         {
-            Request.PostFile(Request.GetToken(ReadConf("pseudo"), ReadConf("password")), _pathPdf);
-            listServer.ItemsSource = GetPdf();
+            _pdf.UploadPdf(ReadConf("pseudo"), ReadConf("password"));
+            listServer.ItemsSource = _pdf.GetPdf(ReadConf("pseudo"), ReadConf("password"));
             MessageBox.Show("Le pdf a bien été envoyé dans votre espace personnel enligne");
         }
 
         private void DownloadPdf(object sender, EventArgs e)
         {
-            var test = Request.DownloadFile(Request.GetToken(ReadConf("pseudo"), ReadConf("password")), listServer.SelectedItem.ToString(), ReadConf("PartiFolder"));
+            _pdf.DownloadPdf(ReadConf("pseudo"), ReadConf("password"), listServer.SelectedItem.ToString(), ReadConf("PartiFolder"));
         }
 
         private void SharePdf(object sender, EventArgs e)
         {
-            if ("\"True\"" == Request.Get(Request.GetToken(ReadConf("pseudo"), ReadConf("password")), "http://tfe.moovego.be/api/ApiApp/Share", new Dictionary<string, string> { { "toShare", listServer.SelectedItem.ToString() }, { "dest", ShareTo.Text } }))
+            if (_pdf.SharePdf(ReadConf("pseudo"), ReadConf("password"), listServer.SelectedItem.ToString(), ShareTo.Text))
             {
                 MessageBox.Show("votre fichier à bien été partagé avec: " + ShareTo.Text, "partage", MessageBoxButton.OK, MessageBoxImage.Information);
             }
