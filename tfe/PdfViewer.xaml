@@ -8,8 +8,8 @@
       Title="PdfViewer" Height="661.2" Width="954.8">
 
     <Grid Margin="0,0,0.2,-0.2">
-        <WebBrowser Name="pdfWebViewer" Margin="8,10,0,0" Height="525" VerticalAlignment="Top" HorizontalAlignment="Left" Width="460"/>
-        <Button Content="Enregistrer ce pdf en ligne" Click="UploadPdf" HorizontalAlignment="Left" Margin="312,632,0,0" VerticalAlignment="Top" Width="156"/>
+        <WebBrowser Name="pdfWebViewer" Margin="8,10,0,0" Height="572" VerticalAlignment="Top" HorizontalAlignment="Left" Width="460"/>
+        <Button Content="Enregistrer ce pdf &#xD;&#xA;en ligne" Click="UploadPdf" HorizontalAlignment="Left" Margin="489,63,0,0" VerticalAlignment="Top" Width="112" Height="45"/>
 
         <Label Content="Sauvegardé sur votre compte" HorizontalAlignment="Left" Margin="606,15,0,0" VerticalAlignment="Top" Width="276"/>
         <ListBox Name="listServer"  HorizontalAlignment="Left" Height="494" Margin="606,41,0,0" VerticalAlignment="Top" Width="324"/>

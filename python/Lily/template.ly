@@ -3,12 +3,8 @@
 \header{
 	title = "pure"
 	subtitle = "pure"
-}
-
-tagline = "pure"
-
-\header{
 	piece = "pure"
+	tagline = "pure"
 }
 
 \relative c' {

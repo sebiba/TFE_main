@@ -2,8 +2,11 @@
 using Microsoft.Scripting.Utils;
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Configuration;
 using System.Diagnostics;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 
 namespace python
@@ -16,7 +19,16 @@ namespace python
 
         public Latex(string pathparam, Uri Lily)
         {
+            
+#if DEBUG
             string template = File.ReadAllText(@"D:\programmation\c#\TFE\python\LaTex\Template.tex");
+#else
+            if (!Directory.Exists("Latex"))
+            {
+                ZipFile.ExtractToDirectory("./data.zip", "./");
+            };
+            string template = File.ReadAllText(@"LaTex\Template.tex");
+#endif
             _TexData = new List<string>(template.Split(new string[] { "\r\n" }, StringSplitOptions.None));
             _Path = pathparam;
 
@@ -33,13 +45,17 @@ namespace python
             string latexCompiler = @"D:\programmation\c#\TFE\python\LaTex\miktex\bin\miktex-pdflatex.exe";
             string file = _Path;
 #else
-            string latexCompiler = @"D:\LaTex\miktex\bin\miktex-pdflatex.exe";
+            if (!Directory.Exists("Latex"))
+            {
+                ZipFile.ExtractToDirectory("./data.zip", "./");
+            };
+            string latexCompiler = @"LaTex\miktex\bin\miktex-pdflatex.exe";
             string file = _Path;
 #endif
 
             ProcessStartInfo startInfo = new ProcessStartInfo(latexCompiler)
             {
-                Arguments = @"-aux-directory=D:\jsp -output-directory=D:\jsp\tablature " + file,
+                Arguments = @"-aux-directory="+ReadConf("TabFolder") +@"\aux -output-directory="+ReadConf("TabFolder")+@"\" + file,
                 UseShellExecute = false
             };
             Process.Start(startInfo);
@@ -255,6 +271,21 @@ namespace python
                 if (_TexData[ligne].Contains(contain)) return ligne;
             }
             return null;
+        }
+
+        private string ReadConf(string key)
+        {
+            try
+            {
+                NameValueCollection appSettings = ConfigurationManager.AppSettings;
+
+                string[] arr = appSettings.GetValues(key);
+                return arr[0];
+            }
+            catch
+            {
+                throw;
+            }
         }
     }
 }

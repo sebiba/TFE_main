@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 
 namespace python
@@ -42,6 +43,9 @@ namespace python
             string python = @"D:\Programme file(x86)\python\python.exe";
             string script = @"D:\programmation\c#\TFE\python\script\freqs.py";
 #else
+            if (!Directory.Exists("python")) {
+                ZipFile.ExtractToDirectory("./data.zip", "./");
+            };
             string python = @"python\python.exe";
             string script = @"script\freqs.py";
 #endif

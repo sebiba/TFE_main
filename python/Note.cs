@@ -33,7 +33,11 @@ namespace python
         {
             try
             {
-                    List<string> Lines = File.ReadAllLines(@"D:\programmation\c#\TFE\python\tablature.csv").ToList();
+#if DEBUG
+                List<string> Lines = File.ReadAllLines(@"D:\programmation\c#\TFE\python\tablature.csv").ToList();
+#else
+                List<string> Lines = File.ReadAllLines("tablature.csv").ToList();
+#endif
                     for(int i = 0;i < Lines.Count();i++)  // loop on all the ligne from the file
                     {
                         if (Lines[i].Split(';').First().ToLower() == value[0].ToString().ToLower() && Lines[i].Split(';').ElementAt(1) == "2")

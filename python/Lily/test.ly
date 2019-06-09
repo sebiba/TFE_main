@@ -14,5 +14,5 @@
 \relative c' {
 	\time 4/4
 	\key c \major
-	 f4 c8
+	 f4 d8 g2 ees8
 }

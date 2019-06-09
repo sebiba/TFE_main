@@ -6,6 +6,7 @@ using System.Collections.Specialized;
 using System.Configuration;
 using System.Diagnostics;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -78,6 +79,9 @@ namespace tfe
 #if DEBUG
             string Lilypond = @"D:\Programme file(x86)\LilyPond\usr\bin\lilypond.exe";
 #else
+            if (!Directory.Exists("Lilypond")) {
+                ZipFile.ExtractToDirectory("./data.zip", "./");
+            };
             string Lilypond = @"LilyPond\usr\bin\lilypond.exe";
 #endif
             OpenFileDialog openFileDialog = new OpenFileDialog();

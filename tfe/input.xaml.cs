@@ -36,7 +36,7 @@ namespace tfe
             _frame = nav;
             InitializeComponent();
         }
-
+#region record
         private void StartBtn_Click(object sender, EventArgs e)
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
@@ -60,9 +60,31 @@ namespace tfe
 
         private void StopBtn_Click(object sender, EventArgs e)
         {
-            StopBtn.IsEnabled = false;
-
             waveSource.StopRecording();
+            StopBtn.IsEnabled = false;
+            try
+            {
+                _notes = PyUtils.Getfreq(waveFile.Filename);  // get frequency
+            }
+            catch
+            {
+                MessageBox.Show("Une erreur est survenue lors du traitement de votre fichier audio.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            for (int i = 0; i < _notes.Count; i++)  //remove alone note
+            {
+                try
+                {
+                    if (_notes[i].value != _notes[i + 1].value)
+                    {
+                        _notes.RemoveAt(i + 1);
+                    }
+                }
+                catch
+                {
+
+                }
+            }
+            _frame.Navigate(new lilypond(_frame, _notes));
         }
 
         void waveSource_DataAvailable(object sender, WaveInEventArgs e)
@@ -90,6 +112,7 @@ namespace tfe
 
             StartBtn.IsEnabled = true;
         }
+#endregion record
 
         /// <summary>
         /// importe a wav file an get all frequency, notes
