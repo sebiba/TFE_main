@@ -89,15 +89,29 @@ namespace tfe
             openFileDialog.InitialDirectory = ReadConf("LilyFolder");
             if (openFileDialog.ShowDialog() != true) return;  // if no file is selected
             string script = @" --output="+ReadConf("PartiFolder")+" " + openFileDialog.FileName;
-            if (File.Exists(ReadConf("PartiFolder") + @"\" + openFileDialog.SafeFileName.Split('.').First() + ".pdf"))
-            {
-                File.Delete(ReadConf("PartiFolder") + @"\" + openFileDialog.SafeFileName.Split('.').First() + ".pdf");
+            if(ReadConf("PartiFolder")+ @"\" == @"\"){  // if param for folder of partitions is empty
+                if (File.Exists(openFileDialog.SafeFileName.Split('.').First() + ".pdf"))
+                {
+                    File.Delete(openFileDialog.SafeFileName.Split('.').First() + ".pdf");
+                }
+                var process = Process.Start(Lilypond, script);
+                process.WaitForExit();
+                if (File.Exists(openFileDialog.SafeFileName.Split('.').First())) File.Delete(openFileDialog.SafeFileName.Split('.').First());
+                File.Copy(openFileDialog.SafeFileName.Split('.').First() + ".pdf", openFileDialog.SafeFileName.Split('.').First());
+                _frame.Navigate(new PdfViewer(_frame, System.IO.Path.GetFullPath(openFileDialog.SafeFileName.Split('.').First())));
             }
-            var process = Process.Start(Lilypond, script);
-            process.WaitForExit();
-            if (File.Exists(ReadConf("PartiFolder") + @"\" + openFileDialog.SafeFileName.Split('.').First())) File.Delete(ReadConf("PartiFolder") + @"\" + openFileDialog.SafeFileName.Split('.').First());
-            File.Copy(ReadConf("PartiFolder") +@"\"+ openFileDialog.SafeFileName.Split('.').First() + ".pdf", ReadConf("PartiFolder") + @"\" + openFileDialog.SafeFileName.Split('.').First());
-            _frame.Navigate(new PdfViewer(_frame, ReadConf("PartiFolder") + @"\" + openFileDialog.SafeFileName.Split('.').First()));
+            else
+            {
+                if (File.Exists(ReadConf("PartiFolder") + @"\" + openFileDialog.SafeFileName.Split('.').First() + ".pdf"))
+                {
+                    File.Delete(ReadConf("PartiFolder") + @"\" + openFileDialog.SafeFileName.Split('.').First() + ".pdf");
+                }
+                var process = Process.Start(Lilypond, script);
+                process.WaitForExit();
+                if (File.Exists(ReadConf("PartiFolder") + @"\" + openFileDialog.SafeFileName.Split('.').First())) File.Delete(ReadConf("PartiFolder") + @"\" + openFileDialog.SafeFileName.Split('.').First());
+                File.Copy(ReadConf("PartiFolder") + @"\" + openFileDialog.SafeFileName.Split('.').First() + ".pdf", ReadConf("PartiFolder") + @"\" + openFileDialog.SafeFileName.Split('.').First());
+                _frame.Navigate(new PdfViewer(_frame, ReadConf("PartiFolder") + @"\" + openFileDialog.SafeFileName.Split('.').First()));
+            }            
         }
 
         private void ToLaTex_Click(object sender, RoutedEventArgs e)

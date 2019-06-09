@@ -37,6 +37,7 @@ namespace tfe
         private void DownloadPdf(object sender, EventArgs e)
         {
             _pdf.DownloadPdf(ReadConf("pseudo"), ReadConf("password"), listServer.SelectedItem.ToString(), ReadConf("PartiFolder"));
+            MessageBox.Show("Votre pdf a bien été downloadé.", "Download", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void SharePdf(object sender, EventArgs e)
