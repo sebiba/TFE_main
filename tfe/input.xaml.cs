@@ -61,6 +61,7 @@ namespace tfe
         private void StopBtn_Click(object sender, EventArgs e)
         {
             waveSource.StopRecording();
+            Cursor = Cursors.Wait;
             StopBtn.IsEnabled = false;
             try
             {
@@ -84,6 +85,7 @@ namespace tfe
 
                 }
             }
+            Cursor = Cursors.Arrow;
             _frame.Navigate(new lilypond(_frame, _notes));
         }
 

@@ -76,6 +76,7 @@ namespace tfe
         /// <param name="e"></param>
         private void ToPdf_Click(object sender, RoutedEventArgs e)
         {
+            Cursor = Cursors.Wait;
 #if DEBUG
             string Lilypond = @"D:\Programme file(x86)\LilyPond\usr\bin\lilypond.exe";
 #else
@@ -88,34 +89,41 @@ namespace tfe
             openFileDialog.Filter = "Lilypond Files (*.ly)|*.ly";  // only ly files
             openFileDialog.InitialDirectory = ReadConf("LilyFolder");
             if (openFileDialog.ShowDialog() != true) return;  // if no file is selected
-            string script = @" --output="+ReadConf("PartiFolder")+" " + openFileDialog.FileName;
+            string script = @" --output=" + ReadConf("PartiFolder") + " " + openFileDialog.FileName;
+            Cursor = Cursors.Arrow;
+            TraitePdf(openFileDialog.SafeFileName, Lilypond, script);
+        }
+
+
+        private void TraitePdf(string name, string Lilypond, string script) { 
             if(ReadConf("PartiFolder")+ @"\" == @"\"){  // if param for folder of partitions is empty
-                if (File.Exists(openFileDialog.SafeFileName.Split('.').First() + ".pdf"))
+                if (File.Exists(name.Split('.').First() + ".pdf"))
                 {
-                    File.Delete(openFileDialog.SafeFileName.Split('.').First() + ".pdf");
+                    File.Delete(name.Split('.').First() + ".pdf");
                 }
                 var process = Process.Start(Lilypond, script);
                 process.WaitForExit();
-                if (File.Exists(openFileDialog.SafeFileName.Split('.').First())) File.Delete(openFileDialog.SafeFileName.Split('.').First());
-                File.Copy(openFileDialog.SafeFileName.Split('.').First() + ".pdf", openFileDialog.SafeFileName.Split('.').First());
-                _frame.Navigate(new PdfViewer(_frame, System.IO.Path.GetFullPath(openFileDialog.SafeFileName.Split('.').First())));
+                if (File.Exists(name.Split('.').First())) File.Delete(name.Split('.').First());
+                File.Copy(name.Split('.').First() + ".pdf", name.Split('.').First());
+                _frame.Navigate(new PdfViewer(_frame, System.IO.Path.GetFullPath(name.Split('.').First())));
             }
             else
             {
-                if (File.Exists(ReadConf("PartiFolder") + @"\" + openFileDialog.SafeFileName.Split('.').First() + ".pdf"))
+                if (File.Exists(ReadConf("PartiFolder") + @"\" + name.Split('.').First() + ".pdf"))
                 {
-                    File.Delete(ReadConf("PartiFolder") + @"\" + openFileDialog.SafeFileName.Split('.').First() + ".pdf");
+                    File.Delete(ReadConf("PartiFolder") + @"\" + name.Split('.').First() + ".pdf");
                 }
                 var process = Process.Start(Lilypond, script);
                 process.WaitForExit();
-                if (File.Exists(ReadConf("PartiFolder") + @"\" + openFileDialog.SafeFileName.Split('.').First())) File.Delete(ReadConf("PartiFolder") + @"\" + openFileDialog.SafeFileName.Split('.').First());
-                File.Copy(ReadConf("PartiFolder") + @"\" + openFileDialog.SafeFileName.Split('.').First() + ".pdf", ReadConf("PartiFolder") + @"\" + openFileDialog.SafeFileName.Split('.').First());
-                _frame.Navigate(new PdfViewer(_frame, ReadConf("PartiFolder") + @"\" + openFileDialog.SafeFileName.Split('.').First()));
+                if (File.Exists(ReadConf("PartiFolder") + @"\" + name.Split('.').First())) File.Delete(ReadConf("PartiFolder") + @"\" + name.Split('.').First());
+                File.Copy(ReadConf("PartiFolder") + @"\" + name.Split('.').First() + ".pdf", ReadConf("PartiFolder") + @"\" + name.Split('.').First());
+                _frame.Navigate(new PdfViewer(_frame, ReadConf("PartiFolder") + @"\" + name.Split('.').First()));
             }            
         }
 
         private void ToLaTex_Click(object sender, RoutedEventArgs e)
         {
+            Cursor = Cursors.Wait;
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             saveFileDialog.Filter = "LaTex Files (*.tex)|*.tex";
             saveFileDialog.InitialDirectory = ReadConf("LatexFolder");
@@ -131,6 +139,7 @@ namespace tfe
             {
                 MessageBox.Show(exeption.Message.ToString(), "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+            Cursor = Cursors.Arrow;
         }
 
         /// <summary>

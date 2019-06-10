@@ -19,7 +19,6 @@ namespace python
 
         public Latex(string pathparam, Uri Lily)
         {
-            
 #if DEBUG
             string template = File.ReadAllText(@"D:\programmation\c#\TFE\python\LaTex\Template.tex");
 #else
