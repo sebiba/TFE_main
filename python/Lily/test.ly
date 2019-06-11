@@ -1,14 +1,14 @@
 \version "2.16.0"  % necessary for upgrading to future LilyPond versions.
 
 \header{
-	title = "test"
-	subtitle = "test"
+	title = "2.0"
+	subtitle = "2.0"
 }
 
-	tagline = "test"
+	tagline = "2.0"
 
 \header{
-	piece = "test"
+	piece = "2.0"
 }
 
 \relative c' {

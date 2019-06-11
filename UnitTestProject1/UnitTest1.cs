@@ -109,7 +109,7 @@ namespace UnitTestProject1
         [TestMethod]
         public void ReadFile1()
         {
-            CollectionAssert.AreEqual(new Lily(@"D:\programmation\c#\TFE\python\Lily\template.ly").ReadFile(), new List<string> { "\\version \"2.16.0\"  % necessary for upgrading to future LilyPond versions.", "", "\\header{", "\ttitle = \"pure\"", "\tsubtitle = \"pure\"", "}", "", "tagline = \"pure\"", "", "\\header{", "\tpiece = \"pure\"", "}", "", "\\relative c' {", "\t\\time 4/4", "\t\\key c \\major", "\tc1", "}" });
+            CollectionAssert.AreEqual(new Lily(@"D:\programmation\c#\TFE\python\Lily\template.ly").ReadFile(), new List<string> { "\\version \"2.16.0\"  % necessary for upgrading to future LilyPond versions.", "", "\\header{", "\ttitle = \"pure\"", "\tsubtitle = \"pure\"", "\tpiece = \"pure\"", "\ttagline = \"pure\"", "}", "", "\\relative c' {", "\t\\time 4/4", "\t\\key c \\major", "\tc1", "}" });
         }
 #endregion Lecture fichier Lilypond
 

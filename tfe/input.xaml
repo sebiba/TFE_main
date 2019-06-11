@@ -16,7 +16,7 @@
             </Grid>
         </GroupBox>
         <!---import audio file-->
-        <GroupBox Header="importer un fichier" HorizontalAlignment="Left" Height="153" Margin="10,10,0,0" VerticalAlignment="Top" Width="397">
+        <GroupBox Header="Importer un fichier" HorizontalAlignment="Left" Height="153" Margin="10,100,0,0" VerticalAlignment="Top" Width="397">
             <Grid HorizontalAlignment="Left" Height="117" Margin="4,10,-3,0" VerticalAlignment="Top" Width="383">
                 <Button Content="importer" Click="ImporteBtn_Click" x:Name="TestBtn" HorizontalAlignment="Left" Margin="298,88,0,0" VerticalAlignment="Top" Width="75"/>
                 <TextBox Name="Impfile" GotFocus="ImporteBtn_Click" HorizontalAlignment="Left" Height="19" Margin="10,88,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="288"/>

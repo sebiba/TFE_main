@@ -28,7 +28,10 @@ namespace python
             }
         }
 #endregion constructeur
-
+        /// <summary>
+        /// get the physical gesture to make the note
+        /// </summary>
+        /// <returns>the sol and do solution to make the note</returns>
         public Dictionary<string, string> GetGesture()
         {
             try
@@ -58,12 +61,6 @@ namespace python
             {
                 throw e;
             }
-        }
-
-        public bool Equals(Note obj)
-        {
-            if (this.value == obj.value) return true;
-            return false;
         }
     }
 }

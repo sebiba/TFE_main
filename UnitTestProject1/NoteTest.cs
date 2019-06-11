@@ -111,37 +111,5 @@ namespace UnitTestProject1
             }
         }
         #endregion GetGesture
-
-        #region equals
-        [TestMethod]
-        public void Equals1()
-        {
-            Assert.IsTrue(new Note("A").Equals(new Note("A")));
-        }
-
-        [TestMethod]
-        public void Equalsis()
-        {
-            Assert.IsTrue(new Note("B#").Equals(new Note("B#")));
-        }
-
-        [TestMethod]
-        public void Equalses()
-        {
-            Assert.IsTrue(new Note("Bb").Equals(new Note("Bb")));
-        }
-
-        [TestMethod]
-        public void EqualWrong()
-        {
-            Assert.IsFalse(new Note("Bb").Equals(new Note("B#")));
-        }
-
-        [TestMethod]
-        public void EqualWrong2()
-        {
-            Assert.IsFalse(new Note("B").Equals(new List<string>()));
-        }
-        #endregion equals
     }
 }

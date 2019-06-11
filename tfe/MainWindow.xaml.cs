@@ -20,22 +20,25 @@ namespace tfe
         public MainWindow()
         {
             InitializeComponent();
-            nav.Navigate(new input(nav));
+            Audio_Click();
         }
 
         private void Audio_Click(object sender = null, RoutedEventArgs e = null)
         {
             nav.Navigate(new input(nav));
+            TitleMenu.Content = "Gestion de l'audio";
         }
 
         private void Lily_Click(object sender, RoutedEventArgs e)
         {
             nav.Navigate(new lilypond(nav));
+            TitleMenu.Content = "Lilypond";
         }
 
         private void PDF_Click(object sender, RoutedEventArgs e)
         {
             nav.Navigate(new PdfViewer(nav));
+            TitleMenu.Content = "Gestion des PDF";
         }
 
         private void Param_Click(object sender, RoutedEventArgs e)

@@ -245,6 +245,12 @@ namespace python
             throw new KeyNotFoundException();
         }
 
+        /// <summary>
+        /// create an array in the latex file
+        /// </summary>
+        /// <param name="arrayName">Name to give to the array</param>
+        /// <param name="array">Values for the array</param>
+        /// <returns>array of the latex file</returns>
         public List<string> createArray(string arrayName, List<string> array)
         {
             List<string> text = new List<string> { @"\newarray\"+ arrayName };  // define the array
@@ -272,6 +278,11 @@ namespace python
             return null;
         }
 
+        /// <summary>
+        /// read Configuration's file
+        /// </summary>
+        /// <param name="key">key to look for in the configuration</param>
+        /// <returns>value for the key</returns>
         private string ReadConf(string key)
         {
             try

@@ -174,14 +174,13 @@ namespace tfe
 
             Lily Lilypond = new Lily(openFileDialog.FileName);
             lilyFile.Text = string.Join("\n", Lilypond.ReadFile());
-            MessageBox.Show("Fichier lilypond sauvegardé avec succes", "Génération Lylipond", MessageBoxButton.OK, MessageBoxImage.Information);
             ToLaTex.IsEnabled = true;
             ToPdf.IsEnabled = true;
             midi.IsChecked = Lilypond.MidiGeneration;
             _LyliPath = new Uri(openFileDialog.FileName);
         }
 
-        private void Midichanged(object sender, RoutedEventArgs e)
+        private void MidiChanged(object sender, RoutedEventArgs e)
         {
             if (!midi.IsChecked.Value)
             {

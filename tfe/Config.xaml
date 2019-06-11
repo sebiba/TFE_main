@@ -13,9 +13,9 @@
                 <Label Content="Pseudo" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="27" Width="68"/>
                 <TextBox Name="pseudo" HorizontalAlignment="Left" Height="23" Margin="83,14,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="205"/>
                 <Label Content="Mot de passe" HorizontalAlignment="Left" Margin="0,38,0,0" VerticalAlignment="Top" Height="27" Width="83"/>
-                <TextBox Name="password" HorizontalAlignment="Left" Height="23" Margin="83,42,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="205"/>
+                <PasswordBox Name="password" HorizontalAlignment="Left" Height="23" Margin="83,42,0,0" VerticalAlignment="Top" Width="205"/>
                 <Button Content="Tester et enregistrer" Click="Connection_Click"  HorizontalAlignment="Left" Margin="159,246,0,0" VerticalAlignment="Top" Width="129"/>
-                <Button Content="créer le compte" Click="Register_Click"  HorizontalAlignment="Left" Margin="25,245,0,0" VerticalAlignment="Top" Width="129"/>
+                <Button Content="Créer le compte" Click="Register_Click"  HorizontalAlignment="Left" Margin="25,246,0,0" VerticalAlignment="Top" Width="129"/>
             </Grid>
         </GroupBox>
         

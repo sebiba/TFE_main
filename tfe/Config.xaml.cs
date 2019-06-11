@@ -2,18 +2,8 @@
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Configuration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Forms;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace tfe
 {
@@ -24,11 +14,12 @@ namespace tfe
     {
         public Config()
         {
-            List<string> param = new List<string>() {"WavFolder", "LilyFolder", "LatexFolder", "TabFolder", "PartiFolder", "pseudo", "password"};
+            List<string> param = new List<string>() {"WavFolder", "LilyFolder", "LatexFolder", "TabFolder", "PartiFolder", "pseudo"};
             InitializeComponent();
             param.ForEach(delegate(string x) {
                 ((System.Windows.Controls.TextBox)this.FindName(x)).Text = ReadConf(x);
             });
+            password.Password = ReadConf("password");
         }
 
         private void WavFolder_GotFocus(object sender, RoutedEventArgs e)
@@ -98,17 +89,21 @@ namespace tfe
 
         private void Connection_Click(object sender, RoutedEventArgs e)
         {
-            if (Requete.Request.GetToken(pseudo.Text, password.Text) == "invalid_grant") {
-                System.Windows.MessageBox.Show("Erreur lors du test d'authentification à l'api. Verifier Votre mot de passe et votre connection internet.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
-            };
-            WriteConf("pseudo", pseudo.Text);
-            WriteConf("password", password.Text);
-            System.Windows.MessageBox.Show("Identification Correct, identifiant enregistré", "Validation", MessageBoxButton.OK, MessageBoxImage.Information);
+            try
+            {
+                Requete.Request.GetToken(pseudo.Text, password.Password);
+                WriteConf("pseudo", pseudo.Text);
+                WriteConf("password", password.Password);
+                System.Windows.MessageBox.Show("Identification Correct, identifiant enregistré", "Validation", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (Requete.IdentificationException){
+                System.Windows.MessageBox.Show("Erreur lors du test d'authentification à l'api. Verifier Votre mot de passe et votre connection internet.\n", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+            };            
         }
 
         private void Register_Click(object sender, RoutedEventArgs e)
         {
-            System.Windows.MessageBox.Show("Pour vous créer un compte, il faut vous rendre à cette addresse https://localhost:44371", "connection", MessageBoxButton.OK, MessageBoxImage.Hand);
+            System.Windows.MessageBox.Show("Pour vous créer un compte, il faut vous rendre à cette addresse https://tfe.moovego.be/Account/Register", "connection", MessageBoxButton.OK, MessageBoxImage.Hand);
         }
 
         private void WriteConf(string key, string value)

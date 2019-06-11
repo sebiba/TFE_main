@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:tfe"
         mc:Ignorable="d"
-        Title="MainWindow" WindowState="Maximized"
+        Title="DiaTab" WindowState="Normal"
         Height="805.6" Width="1395.055">
     <Grid Margin="0,0,3.6,-3.2">
         <GroupBox Header="Menu" HorizontalAlignment="Left" Height="723" Margin="10,10,0,0" VerticalAlignment="Top" Width="246">
@@ -16,6 +16,7 @@
                 <Button Name="param" Content="Paramètres" Click="Param_Click" HorizontalAlignment="Left" Margin="0,111,0,0" VerticalAlignment="Top" Width="227"/>
             </Grid>
         </GroupBox>
-        <Frame Content="Frame" Name="nav" NavigationUIVisibility="Hidden" Height="710" Margin="261,23,-0.4,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="1041"/>
+        <Label Content="Gestion de l'audio" Name="TitleMenu" HorizontalAlignment="Left" Margin="261,10,0,0" VerticalAlignment="Top" Height="44" Width="624" FontSize="20" FontWeight="Bold"/>
+        <Frame Content="Frame" Name="nav" NavigationUIVisibility="Hidden" Height="710" Margin="261,59,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="1041"/>
     </Grid>
 </Window>
