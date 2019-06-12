@@ -115,7 +115,15 @@ namespace tfe
                 }
                 var process = Process.Start(Lilypond, script);
                 process.WaitForExit();
-                if (File.Exists(ReadConf("PartiFolder") + @"\" + name.Split('.').First())) File.Delete(ReadConf("PartiFolder") + @"\" + name.Split('.').First());
+                if (File.Exists(ReadConf("PartiFolder") + @"\" + name.Split('.').First())) {
+                    try
+                    {
+                        File.Delete(ReadConf("PartiFolder") + @"\" + name.Split('.').First());
+                    }
+                    catch {
+                        //log
+                    }
+                }
                 File.Copy(ReadConf("PartiFolder") + @"\" + name.Split('.').First() + ".pdf", ReadConf("PartiFolder") + @"\" + name.Split('.').First());
                 _frame.Navigate(new PdfViewer(_frame, ReadConf("PartiFolder") + @"\" + name.Split('.').First()));
             }            
@@ -184,21 +192,29 @@ namespace tfe
         {
             if (!midi.IsChecked.Value)
             {
-                string temp = lilyFile.Text;
+                List<string> temp = lilyFile.Text.Split(new string[] { "\n" }, StringSplitOptions.None).ToList();
+                lilyFile.Text = string.Join("\n", temp.Where(x => !x.Contains("\\midi{}") && !x.Contains("\\layout{}")).ToList());
+                
+                /*string temp = lilyFile.Text;
                 temp = temp.Replace("\\midi{}", "");
                 temp = temp.Replace("\\layout{}", "");
-                lilyFile.Text = temp;
+                lilyFile.Text = temp;*/
             }
             else
             {
                 if (!lilyFile.Text.Contains(@"\layout{}") && !lilyFile.Text.Contains(@"\midi{}"))
                 {
-                    string temp = lilyFile.Text;
-                    temp = temp.TrimEnd(Environment.NewLine.ToCharArray());
-                    temp += @"
-\midi{}
-\layout{}";
-                    lilyFile.Text = temp;
+                    List<string> temp = lilyFile.Text.Split(new string[] { "\n" }, StringSplitOptions.None).ToList();
+                    if (!lilyFile.Text.Contains(@"\score{"))
+                    {
+                        temp.Insert(1, @"\score{");
+                        temp.AddRange(new List<string> { @"\layout{}", @"\midi{}", "}"});
+                    }
+                    else
+                    {
+                        temp.InsertRange(temp.Count-1, new List<string> { @"\layout{}", @"\midi{}"});
+                    }
+                    lilyFile.Text = string.Join("\n", temp);
                 }
             }
         }

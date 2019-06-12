@@ -54,7 +54,7 @@ namespace python
 
             ProcessStartInfo startInfo = new ProcessStartInfo(latexCompiler)
             {
-                Arguments = @"-aux-directory="+ReadConf("TabFolder") +@"\aux -output-directory="+ReadConf("TabFolder")+@"\" + file,
+                Arguments = @"-output-directory="+ReadConf("TabFolder")+@"\ " + file,
                 UseShellExecute = false
             };
             Process.Start(startInfo);
@@ -129,7 +129,7 @@ namespace python
                 throw new KeyNotFoundException();
             }
             else { 
-                _TexData.InsertRange((FindLigneContaining("begin{center}") + 1).Value, new List<string>{ @"\begin{tikzpicture}",
+                _TexData.InsertRange((FindLigneContaining("begin{center}", 1) + 1).Value, new List<string>{ @"\begin{tikzpicture}",
                                                             @"\draw[thick] (0,0) -- (15,0) node[anchor=north west] {}; % main ligne",
                                                             @"\draw (0cm, 1pt) -- (0cm, -1pt) node [anchor=south] {$Do$};  % init ligne Do",
                                                             @"\draw (0cm, 1pt) -- (0cm, -1pt) node [anchor=north] {$Sol$};  % init ligne Sol",
@@ -268,12 +268,17 @@ namespace python
         /// find ligne containing param
         /// </summary>
         /// <param name="contain">string to find in latex file</param>
+        /// <param name="forget">number of time to pass an occurance of the ligne containing the 1st param</param>
         /// <returns></returns>
-        public int? FindLigneContaining(string contain)
+        public int? FindLigneContaining(string contain, int forget=0)
         {
+            int pass = 0;
             for (int ligne = 0; ligne < _TexData.Count; ligne++)
             {
-                if (_TexData[ligne].Contains(contain)) return ligne;
+                if (_TexData[ligne].Contains(contain)) {
+                    if(pass == forget) return ligne;
+                    pass++;
+                } 
             }
             return null;
         }

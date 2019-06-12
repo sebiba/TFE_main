@@ -42,14 +42,14 @@ namespace WebApplication1.Models
     public class ForgotViewModel
     {
         [Required]
-        [Display(Name = "Courrier électronique")]
+        [Display(Name = "Identifiant")]
         public string Email { get; set; }
     }
 
     public class LoginViewModel
     {
         [Required]
-        [Display(Name = "Courrier électronique")]
+        [Display(Name = "Identifiant")]
         [EmailAddress]
         public string Email { get; set; }
 
@@ -66,7 +66,7 @@ namespace WebApplication1.Models
     {
         [Required]
         [EmailAddress]
-        [Display(Name = "Courrier électronique")]
+        [Display(Name = "Identifiant")]
         public string Email { get; set; }
 
         [Required]

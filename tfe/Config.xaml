@@ -12,7 +12,7 @@
         <!--Connection to the api-->
         <GroupBox Header="Connection Réseaux" HorizontalAlignment="Left" Height="306" Margin="10,10,0,0" VerticalAlignment="Top" Width="308">
             <Grid HorizontalAlignment="Left" Height="275" Margin="0,10,-2,-1.8" VerticalAlignment="Top" Width="298">
-                <Label Content="Pseudo" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="27" Width="68"/>
+                <Label Content="Identifiant" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="27" Width="68"/>
                 <TextBox Name="pseudo" HorizontalAlignment="Left" Height="23" Margin="83,14,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="205"/>
                 <Label Content="Mot de passe" HorizontalAlignment="Left" Margin="0,38,0,0" VerticalAlignment="Top" Height="27" Width="83"/>
                 <PasswordBox Name="password" HorizontalAlignment="Left" Height="23" Margin="83,42,0,0" VerticalAlignment="Top" Width="205"/>

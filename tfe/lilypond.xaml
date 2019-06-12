@@ -26,7 +26,7 @@
                 <Button Content="Générer la tablature" HorizontalAlignment="Left" IsEnabled="False" ToolTip="Générer en premier un fichier Lilypond" Name="ToLaTex" Click="ToLaTex_Click" Margin="13,249,0,0" VerticalAlignment="Top" Width="150"/>
             </Grid>
         </GroupBox>
-        <Button Content="Sauvergader les changement" Click="SvgLily" HorizontalAlignment="Left" Margin="445,571,0,0" VerticalAlignment="Top" Width="164"/>
+        <Button Content="Sauvegarder les changement" Click="SvgLily" HorizontalAlignment="Left" Margin="445,571,0,0" VerticalAlignment="Top" Width="164"/>
         <Button Content="Ouvrir un fichier Lilypond" Click="OpenLily"  HorizontalAlignment="Left" Margin="626,571,0,0" VerticalAlignment="Top" Width="164"/>
         <TextBox Name="lilyFile" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" HorizontalAlignment="Left" Margin="360,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="556" Width="430"/>
     </Grid>

@@ -16,7 +16,7 @@ namespace WebApplication1.helper
                 return MakeList(GetFiles());
             }
             catch {
-                return "<p>Problème</p>";
+                return "<p>Votre bibliotheque est probablement vide... Vous devez d'habord enregistrer un pdf depuis votre application avant de pouvoir le voir ici.</p>";
             }
         }
 
