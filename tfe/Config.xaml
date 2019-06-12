@@ -5,7 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:tfe"
         mc:Ignorable="d"
-        Title="Config" Height="450" Width="800">
+        Title="Config" Icon="img\logo_short.ico" 
+        Height="450" Width="800"
+        MinHeight="380" MinWidth="800">
     <Grid>
         <!--Connection to the api-->
         <GroupBox Header="Connection Réseaux" HorizontalAlignment="Left" Height="306" Margin="10,10,0,0" VerticalAlignment="Top" Width="308">
