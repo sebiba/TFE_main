@@ -8,13 +8,13 @@
       Title="PdfViewer" Height="661.2" Width="954.8">
 
     <Grid Margin="0,0,0.2,-0.2">
-        <WebBrowser Name="pdfWebViewer" Margin="10,41,0,0" Height="610" VerticalAlignment="Top" HorizontalAlignment="Left" Width="460"/>
-        <Button Content="Enregistrer ce pdf &#xD;&#xA;en ligne" Click="UploadPdf" HorizontalAlignment="Left" Margin="489,63,0,0" VerticalAlignment="Top" Width="112" Height="45"/>
+        <WebBrowser Name="pdfWebViewer" Margin="10,41,0,0" Height="610" VerticalAlignment="Top" HorizontalAlignment="Left" Width="455"/>
+        <Button Content="Enregistrer ce pdf &#xD;&#xA;en ligne" Click="UploadPdf" HorizontalAlignment="Left" Margin="470,124,0,0" VerticalAlignment="Top" Width="131" Height="45"/>
 
         <Label Content="Sauvegardé sur votre compte" HorizontalAlignment="Left" Margin="606,15,0,0" VerticalAlignment="Top" Width="276"/>
         <ListBox Name="listServer"  HorizontalAlignment="Left" Height="494" Margin="606,41,0,0" VerticalAlignment="Top" Width="324"/>
-        <Button Content="Télécharger ce pdf" Click="DownloadPdf" HorizontalAlignment="Left" Margin="751,540,0,0" VerticalAlignment="Top" Width="131" Height="24"/>
-        <Button Content="Partager ce pdf" Click="SharePdf" HorizontalAlignment="Left" Margin="751,583,0,0" VerticalAlignment="Top" Width="140" Height="24"/>
-        <TextBox Name="ShareTo" HorizontalAlignment="Left" Height="23" Margin="563,584,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="183"/>
+        <Button Content="Télécharger ce pdf" Click="DownloadPdf" HorizontalAlignment="Left" Margin="789,550,0,0" VerticalAlignment="Top" Width="140" Height="24"/>
+        <Button Content="Partager ce pdf" Click="SharePdf" HorizontalAlignment="Left" Margin="789,593,0,0" VerticalAlignment="Top" Width="140" Height="24"/>
+        <TextBox Name="ShareTo" HorizontalAlignment="Left" Height="23" Margin="601,594,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="183"/>
     </Grid>
 </Page>

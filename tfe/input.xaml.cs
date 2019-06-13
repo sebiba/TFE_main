@@ -21,7 +21,7 @@ namespace tfe
         public List<Note> _notes = new List<Note>();
 
         private Frame _frame;
-        private log4net.ILog _log;
+        private readonly log4net.ILog _log;
 
         public input(Frame nav, log4net.ILog logParam)
         {

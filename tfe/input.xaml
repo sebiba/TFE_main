@@ -9,17 +9,17 @@
       Title="input">
 
     <Grid>
-        <GroupBox Header="Enregistrer" HorizontalAlignment="Left" Height="242" Margin="453,10,0,0" VerticalAlignment="Top" Width="198">
-            <Grid HorizontalAlignment="Left" Height="215" Margin="-5,4,-4.4,-4.6" VerticalAlignment="Top" Width="195">
+        <GroupBox Header="Enregistrer" HorizontalAlignment="Left" Height="153" Margin="412,11,0,0" VerticalAlignment="Top" Width="198">
+            <Grid HorizontalAlignment="Left" Height="139" Margin="-5,4,-4.4,-12.6" VerticalAlignment="Top" Width="195">
                 <Button Content="Record" Click="StartBtn_Click" x:Name="StartBtn" IsEnabled="True"  HorizontalAlignment="Left" Margin="10,38,0,0" VerticalAlignment="Top" Width="75"/>
                 <Button Content="Stop" Click="StopBtn_Click" x:Name="StopBtn" IsEnabled="False"  HorizontalAlignment="Left" Margin="10,84,0,0" VerticalAlignment="Top" Width="75"/>
             </Grid>
         </GroupBox>
         <!---import audio file-->
-        <GroupBox Header="Importer un fichier" HorizontalAlignment="Left" Height="153" Margin="10,100,0,0" VerticalAlignment="Top" Width="397">
+        <GroupBox Header="Importer un fichier" HorizontalAlignment="Left" Height="153" Margin="10,11,0,0" VerticalAlignment="Top" Width="397">
             <Grid HorizontalAlignment="Left" Height="117" Margin="4,10,-3,0" VerticalAlignment="Top" Width="383">
-                <Button Content="Importer" Click="ImporteBtn_Click" x:Name="TestBtn" HorizontalAlignment="Left" Margin="298,88,0,0" VerticalAlignment="Top" Width="75"/>
-                <TextBox Name="Impfile" GotFocus="ImporteBtn_Click" HorizontalAlignment="Left" Height="19" Margin="10,88,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="288"/>
+                <Button Content="Importer" Click="ImporteBtn_Click" x:Name="TestBtn" HorizontalAlignment="Left" Margin="298,30,0,0" VerticalAlignment="Top" Width="75"/>
+                <TextBox Name="Impfile" GotFocus="ImporteBtn_Click" HorizontalAlignment="Left" Height="19" Margin="10,30,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="288"/>
             </Grid>
         </GroupBox>
     </Grid>

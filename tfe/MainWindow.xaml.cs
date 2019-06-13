@@ -18,7 +18,7 @@ namespace tfe
     /// </summary>
     public partial class MainWindow : Window
     {
-        private static readonly log4net.ILog _log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private readonly log4net.ILog _log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         public MainWindow()
         {
             SplashScreen Splash = new SplashScreen(@"img\logo.png");

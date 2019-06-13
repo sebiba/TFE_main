@@ -12,7 +12,7 @@ namespace tfe
     /// </summary>
     public partial class Config : Window
     {
-        private log4net.ILog _log;
+        private readonly log4net.ILog _log;
 
         public Config(log4net.ILog logParam)
         {
@@ -28,11 +28,13 @@ namespace tfe
 
         private void WavFolder_GotFocus(object sender, RoutedEventArgs e)
         {
-            FolderBrowserDialog folder = new FolderBrowserDialog();
-            folder.RootFolder = Environment.SpecialFolder.Desktop;
-            folder.Description = "Selectionner le dossier qui contiendra les fichiers audio";
-            folder.ShowNewFolderButton = true;
-            if(folder.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            FolderBrowserDialog folder = new FolderBrowserDialog
+            {
+                RootFolder = Environment.SpecialFolder.Desktop,
+                Description = "Selectionner le dossier qui contiendra les fichiers audio",
+                ShowNewFolderButton = true
+            };
+            if (folder.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 WavFolder.Text = folder.SelectedPath;
                 WriteConf("WavFolder", folder.SelectedPath);
@@ -42,10 +44,12 @@ namespace tfe
 
         private void LilyFolder_GotFocus(object sender, RoutedEventArgs e)
         {
-            FolderBrowserDialog folder = new FolderBrowserDialog();
-            folder.RootFolder = Environment.SpecialFolder.Desktop;
-            folder.Description = "Selectionner le dossier qui contiendra les fichiers Lilypond";
-            folder.ShowNewFolderButton = true;
+            FolderBrowserDialog folder = new FolderBrowserDialog
+            {
+                RootFolder = Environment.SpecialFolder.Desktop,
+                Description = "Selectionner le dossier qui contiendra les fichiers Lilypond",
+                ShowNewFolderButton = true
+            };
             if (folder.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 LilyFolder.Text = folder.SelectedPath;
@@ -56,10 +60,12 @@ namespace tfe
 
         private void LatexFolder_GotFocus(object sender, RoutedEventArgs e)
         {
-            FolderBrowserDialog folder = new FolderBrowserDialog();
-            folder.RootFolder = Environment.SpecialFolder.Desktop;
-            folder.Description = "Selectionner le dossier qui contiendra les fichiers Latex";
-            folder.ShowNewFolderButton = true;
+            FolderBrowserDialog folder = new FolderBrowserDialog
+            {
+                RootFolder = Environment.SpecialFolder.Desktop,
+                Description = "Selectionner le dossier qui contiendra les fichiers Latex",
+                ShowNewFolderButton = true
+            };
             if (folder.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 LatexFolder.Text = folder.SelectedPath;
@@ -70,10 +76,12 @@ namespace tfe
 
         private void TabFolder_GotFocus(object sender, RoutedEventArgs e)
         {
-            FolderBrowserDialog folder = new FolderBrowserDialog();
-            folder.RootFolder = Environment.SpecialFolder.Desktop;
-            folder.Description = "Selectionner le dossier qui contiendra les tablatures";
-            folder.ShowNewFolderButton = true;
+            FolderBrowserDialog folder = new FolderBrowserDialog
+            {
+                RootFolder = Environment.SpecialFolder.Desktop,
+                Description = "Selectionner le dossier qui contiendra les tablatures",
+                ShowNewFolderButton = true
+            };
             if (folder.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 TabFolder.Text = folder.SelectedPath;
@@ -84,10 +92,12 @@ namespace tfe
 
         private void PartiFolder_GotFocus(object sender, RoutedEventArgs e)
         {
-            FolderBrowserDialog folder = new FolderBrowserDialog();
-            folder.RootFolder = Environment.SpecialFolder.Desktop;
-            folder.Description = "Selectionner le dossier qui contiendra les partitions";
-            folder.ShowNewFolderButton = true;
+            FolderBrowserDialog folder = new FolderBrowserDialog
+            {
+                RootFolder = Environment.SpecialFolder.Desktop,
+                Description = "Selectionner le dossier qui contiendra les partitions",
+                ShowNewFolderButton = true
+            };
             if (folder.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 PartiFolder.Text = folder.SelectedPath;

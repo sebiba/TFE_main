@@ -31,7 +31,7 @@ namespace tfe
         private Uri _LyliPath;
 
         private Frame _frame;
-        private log4net.ILog _log;
+        private readonly log4net.ILog _log;
         public lilypond(Frame nav, log4net.ILog logParam, List<Note> ParamNote = null)
         {
             _frame = nav;

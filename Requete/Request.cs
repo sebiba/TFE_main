@@ -81,8 +81,7 @@ namespace Requete
             request.Headers.Add("Authorization", "Bearer " + token);
             var response = await request.GetResponseAsync();
 
-            ContentDispositionHeaderValue contentDisposition;
-            var fileName = ContentDispositionHeaderValue.TryParse(response.Headers["Content-Disposition"], out contentDisposition)
+            var fileName = ContentDispositionHeaderValue.TryParse(response.Headers["Content-Disposition"], out ContentDispositionHeaderValue contentDisposition)
                 ? contentDisposition.FileName
                 : "noname.dat";
             using (var fs = new FileStream(destination + @"\" + fileName, FileMode.Create, FileAccess.Write, FileShare.None))

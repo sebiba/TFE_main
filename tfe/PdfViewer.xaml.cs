@@ -17,7 +17,7 @@ namespace tfe
     {
         private Frame _frame;
         private Pdf _pdf;
-        private log4net.ILog _log;
+        private readonly log4net.ILog _log;
         public PdfViewer(Frame nav, log4net.ILog logParam,  string path = "about:blank")
         {
             _frame = nav;
@@ -32,10 +32,10 @@ namespace tfe
                 _log.Warn("Failed to connect to the session on server");
                 MessageBox.Show("une erreur d'authentification est survenue. Connecter vous depuis la page paramètres.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            catch
+            catch (Exception ex)
             {
-                _log.Error("Error no accès to the server");
-                MessageBox.Show("une erreur d'accès est survenue sur le serveur.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+                _log.Error("Error no accès to the server. "+ex.Message);
+                MessageBox.Show("une erreur d'accès est survenue sur le serveur."+ex.Message, "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             _log.Info("Show PDF page with the pdf: "+path);
             pdfWebViewer.Navigate(new Uri(path));
