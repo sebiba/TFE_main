@@ -6,8 +6,8 @@
         xmlns:local="clr-namespace:tfe"
         mc:Ignorable="d"
         Title="DiaTab" WindowState="Normal" Icon="img\logo_short.ico"
-        Height="806.8" Width="1395.055" 
-        MinHeight="400" MinWidth="950" Background="#FFF9FEFF">
+        Height="806.8" Width="1335.855" 
+        MinHeight="400" MinWidth="1335" Background="#FFF9FEFF">
     <Grid Margin="0,0,3.6,-3.2">
         <GroupBox Header="Menu" HorizontalAlignment="Left" Margin="10,10,0,46.2" Width="246">
             <GroupBox.Background>
@@ -26,5 +26,6 @@
         </GroupBox>
         <Label Content="Gestion de l'audio" Name="TitleMenu" HorizontalAlignment="Left" Margin="261,10,0,0" VerticalAlignment="Top" Height="44" Width="624" FontSize="20" FontWeight="Bold"/>
         <Frame Content="Frame" Name="nav" NavigationUIVisibility="Hidden" Margin="261,59,0,0" HorizontalAlignment="Left" Width="1041" Height="710" VerticalAlignment="Top"/>
+        <Button Content="?" Click="Help_Click" HorizontalAlignment="Left" Margin="1280,8,0,0" VerticalAlignment="Top" Width="22" Height="22"/>
     </Grid>
 </Window>

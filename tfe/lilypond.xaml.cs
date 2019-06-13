@@ -194,11 +194,6 @@ namespace tfe
             {
                 List<string> temp = lilyFile.Text.Split(new string[] { "\n" }, StringSplitOptions.None).ToList();
                 lilyFile.Text = string.Join("\n", temp.Where(x => !x.Contains("\\midi{}") && !x.Contains("\\layout{}")).ToList());
-                
-                /*string temp = lilyFile.Text;
-                temp = temp.Replace("\\midi{}", "");
-                temp = temp.Replace("\\layout{}", "");
-                lilyFile.Text = temp;*/
             }
             else
             {
@@ -207,7 +202,7 @@ namespace tfe
                     List<string> temp = lilyFile.Text.Split(new string[] { "\n" }, StringSplitOptions.None).ToList();
                     if (!lilyFile.Text.Contains(@"\score{"))
                     {
-                        temp.Insert(1, @"\score{");
+                        temp.Insert(temp.FindIndex(x => x.Contains(@"\relative"))-1, @"\score{");
                         temp.AddRange(new List<string> { @"\layout{}", @"\midi{}", "}"});
                     }
                     else

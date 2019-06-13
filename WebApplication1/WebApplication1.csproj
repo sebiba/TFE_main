@@ -217,6 +217,7 @@
     <Content Include="download\lilypond.png" />
     <Content Include="download\logo.png" />
     <Content Include="download\logo_short.ico" />
+    <Content Include="download\setup.exe" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />

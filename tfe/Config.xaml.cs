@@ -96,8 +96,17 @@ namespace tfe
                 WriteConf("password", password.Password);
                 System.Windows.MessageBox.Show("Identification Correct, identifiant enregistré", "Validation", MessageBoxButton.OK, MessageBoxImage.Information);
             }
-            catch (Requete.IdentificationException){
-                System.Windows.MessageBox.Show("Erreur lors du test d'authentification à l'api. Verifier Votre mot de passe et votre connection internet.\n", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+            catch (Requete.IdentificationException)
+            {
+                System.Windows.MessageBox.Show("Erreur lors du test d'authentification avec le server. Verifier Votre mot de passe et votre connection internet.\n", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch (Exception ex)
+            {
+                using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"D:\log.txt", true))
+                {
+                    file.WriteLine(ex.Message);
+                }
+                System.Windows.MessageBox.Show("Erreur est survenue.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
             };            
         }
 
