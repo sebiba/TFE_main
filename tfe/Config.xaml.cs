@@ -12,14 +12,18 @@ namespace tfe
     /// </summary>
     public partial class Config : Window
     {
-        public Config()
+        private log4net.ILog _log;
+
+        public Config(log4net.ILog logParam)
         {
+            _log = logParam;
             List<string> param = new List<string>() {"WavFolder", "LilyFolder", "LatexFolder", "TabFolder", "PartiFolder", "pseudo"};
             InitializeComponent();
             param.ForEach(delegate(string x) {
                 ((System.Windows.Controls.TextBox)this.FindName(x)).Text = ReadConf(x);
             });
             password.Password = ReadConf("password");
+            _log.Info("Show Configuration window");
         }
 
         private void WavFolder_GotFocus(object sender, RoutedEventArgs e)
@@ -32,6 +36,7 @@ namespace tfe
             {
                 WavFolder.Text = folder.SelectedPath;
                 WriteConf("WavFolder", folder.SelectedPath);
+                _log.Debug("Change configuration value: WavFolder->"+ folder.SelectedPath);
             }
         }
 
@@ -45,6 +50,7 @@ namespace tfe
             {
                 LilyFolder.Text = folder.SelectedPath;
                 WriteConf("LilyFolder", folder.SelectedPath);
+                _log.Debug("Change configuration value: LilyFolder->"+ folder.SelectedPath);
             }
         }
 
@@ -58,6 +64,7 @@ namespace tfe
             {
                 LatexFolder.Text = folder.SelectedPath;
                 WriteConf("LatexFolder", folder.SelectedPath);
+                _log.Debug("Change configuration value: LatexFolder->"+ folder.SelectedPath);
             }
         }
 
@@ -71,6 +78,7 @@ namespace tfe
             {
                 TabFolder.Text = folder.SelectedPath;
                 WriteConf("TabFolder", folder.SelectedPath);
+                _log.Debug("Change configuration value: TabFolder->"+ folder.SelectedPath);
             }
         }
 
@@ -84,6 +92,7 @@ namespace tfe
             {
                 PartiFolder.Text = folder.SelectedPath;
                 WriteConf("PartiFolder", folder.SelectedPath);
+                _log.Debug("Change configuration value: PartFolder->"+ folder.SelectedPath);
             }
         }
 
@@ -94,18 +103,17 @@ namespace tfe
                 Requete.Request.GetToken(pseudo.Text, password.Password);
                 WriteConf("pseudo", pseudo.Text);
                 WriteConf("password", password.Password);
+                _log.Debug("Test connection successfull pseudo:"+pseudo.Text);
                 System.Windows.MessageBox.Show("Identification Correct, identifiant enregistré", "Validation", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Requete.IdentificationException)
             {
+                _log.Warn("Test connection error: Wrong password");
                 System.Windows.MessageBox.Show("Erreur lors du test d'authentification avec le server. Verifier Votre mot de passe et votre connection internet.\n", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             catch (Exception ex)
             {
-                using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"D:\log.txt", true))
-                {
-                    file.WriteLine(ex.Message);
-                }
+                _log.Error("Error test connection: " + ex.Message);
                 System.Windows.MessageBox.Show("Erreur est survenue.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
             };            
         }
@@ -125,6 +133,7 @@ namespace tfe
             // Save the configuration file.
             config.Save(ConfigurationSaveMode.Modified);
             ConfigurationManager.RefreshSection("appSettings");
+            _log.Debug("Write New Configuration Value: "+key+"->"+value);
         }
 
         private string ReadConf(string key)
@@ -136,8 +145,9 @@ namespace tfe
                 string[] arr = appSettings.GetValues(key);
                 return arr[0];
             }
-            catch
+            catch (Exception ex)
             {
+                _log.Error("Error key not found:" + key + "\tMessage:" + ex.Message);
                 throw;
             }
         }

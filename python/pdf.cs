@@ -7,7 +7,7 @@ namespace python
 {
     public class Pdf
     {
-        private string _path;
+        public string _path;
 
         public Pdf(string pathParam){
             _path = pathParam;

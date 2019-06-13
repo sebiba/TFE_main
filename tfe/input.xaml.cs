@@ -21,10 +21,13 @@ namespace tfe
         public List<Note> _notes = new List<Note>();
 
         private Frame _frame;
+        private log4net.ILog _log;
 
-        public input(Frame nav)
+        public input(Frame nav, log4net.ILog logParam)
         {
             _frame = nav;
+            _log = logParam;
+            _log.Info("Show Audio page");
             InitializeComponent();
         }
 #region record
@@ -47,20 +50,24 @@ namespace tfe
             waveFile = new WaveFileWriter(saveFileDialog.FileName, waveSource.WaveFormat);
 
             waveSource.StartRecording();
+            _log.Debug("Start recording in file: " + saveFileDialog.FileName);
         }
 
         private void StopBtn_Click(object sender, EventArgs e)
         {
             waveSource.StopRecording();
+            _log.Debug("End of recording in file");
             Cursor = Cursors.Wait;
             StopBtn.IsEnabled = false;
             try
             {
                 _notes = PyUtils.Getfreq(waveFile.Filename);  // get frequency
+                _log.Debug(_notes.Count + " Notes get from the file: '" + waveFile.Filename);
             }
-            catch
+            catch(Exception ex)
             {
                 MessageBox.Show("Une erreur est survenue lors du traitement de votre fichier audio.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+                _log.Error("Error while getting frequences of the audio file: "+ex.Message);
             }
             for (int i = 0; i < _notes.Count; i++)  //remove alone note
             {
@@ -77,7 +84,7 @@ namespace tfe
                 }
             }
             Cursor = Cursors.Arrow;
-            _frame.Navigate(new lilypond(_frame, _notes));
+            _frame.Navigate(new lilypond(_frame, _log, _notes));
         }
 
         void waveSource_DataAvailable(object sender, WaveInEventArgs e)
@@ -122,9 +129,11 @@ namespace tfe
             Impfile.Text = openFileDialog.FileName;
             try { 
             _notes = PyUtils.Getfreq(openFileDialog.FileName);  // get frequency
+                _log.Info("Get frequencies of the audio file: " + openFileDialog.FileName);
             }
-            catch
+            catch(Exception ex)
             {
+                _log.Error("Error while trying to get frequencies of the audio file: " + openFileDialog.FileName + "\tMessage: " + ex.Message);
                 MessageBox.Show("Une erreur est survenue lors du traitement de votre fichier audio.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             for (int i = 0; i < _notes.Count; i++)  //remove alone note
@@ -142,7 +151,7 @@ namespace tfe
                 }
             }
             Cursor = Cursors.Arrow;
-            _frame.Navigate(new lilypond( _frame, _notes));
+            _frame.Navigate(new lilypond( _frame, _log, _notes));
         }
 
         private string ReadConf(string key)
@@ -154,8 +163,9 @@ namespace tfe
                 string[] arr = appSettings.GetValues(key);
                 return arr[0];
             }
-            catch
+            catch (Exception ex)
             {
+                _log.Error("Error key not found:" + key + "\tMessage:" + ex.Message);
                 throw;
             }
         }

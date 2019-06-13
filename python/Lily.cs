@@ -133,7 +133,7 @@ namespace python
         /// </summary>
         /// <param name="notes">notes to put in the file</param>
         /// <returns>what is written inside the lilypond files</returns>
-        public string SetNotes(List<Note> notes, bool midi = false)
+        public string SetNotes(List<Note> notes)
         {
             _data[FindLigneContaining(@"\key").Value+1] = "\t" + Format(notes);
             return Save(null);

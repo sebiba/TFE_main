@@ -31,17 +31,22 @@ namespace tfe
         private Uri _LyliPath;
 
         private Frame _frame;
-        public lilypond(Frame nav, List<Note> ParamNote = null)
+        private log4net.ILog _log;
+        public lilypond(Frame nav, log4net.ILog logParam, List<Note> ParamNote = null)
         {
             _frame = nav;
+            _log = logParam;
+            _log.Info("Show Lilypond page");
             InitializeComponent();
             if (ParamNote == null)
             {  // if no notes are imported no posibility to generate a lilypond file
+                _log.Info("ParamNote is null");
                 ToPdf.IsEnabled = false;
                 ToLaTex.IsEnabled = false;
             }
             else
             {
+                _log.Info("ParamNote has " + ParamNote.Count + " elements");
                 _notes = ParamNote;
                 ToPdf.IsEnabled = true;
                 ToLaTex.IsEnabled = true;
@@ -62,7 +67,8 @@ namespace tfe
 
             Lily Lilypond = new Lily(saveFileDialog.FileName);
             Lilypond.Customise(titre.Text, sTitre.Text, piece.Text, pdPage.Text);
-            lilyFile.Text = Lilypond.SetNotes(_notes, midi.IsChecked.Value);
+            lilyFile.Text = Lilypond.SetNotes(_notes);
+            _log.Debug("Create lilypond file: "+saveFileDialog.FileName);
             MessageBox.Show("Fichier lilypond généré avec succes", "Génération Lylipond", MessageBoxButton.OK, MessageBoxImage.Information);
             ToLaTex.IsEnabled = true;
             ToPdf.IsEnabled = true;
@@ -81,7 +87,15 @@ namespace tfe
             string Lilypond = @"D:\Programme file(x86)\LilyPond\usr\bin\lilypond.exe";
 #else
             if (!Directory.Exists("Lilypond")) {
-                ZipFile.ExtractToDirectory("./data.zip", "./");
+                try { 
+                    ZipFile.ExtractToDirectory("./data.zip", "./");
+                    _log.Info("Data.zip has been unzipped");
+                }
+                catch(Exception ex)
+                {
+                    _log.Error("ToPdf_Click() -> Erreur while unzip data.zip: "+ex.Message);
+                    MessageBox.Show("Un élément inconnue à empèché le traitement de donner dans le dossier de l'application. Certaine fonctionnalités risque de ne pas fonctionner correctement.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             };
             string Lilypond = @"LilyPond\usr\bin\lilypond.exe";
 #endif
@@ -91,6 +105,7 @@ namespace tfe
             if (openFileDialog.ShowDialog() != true) return;  // if no file is selected
             string script = @" --output=" + ReadConf("PartiFolder") + " " + openFileDialog.FileName;
             Cursor = Cursors.Arrow;
+            _log.Debug("Lilypond arguments: "+script);
             TraitePdf(openFileDialog.SafeFileName, Lilypond, script);
         }
 
@@ -103,9 +118,10 @@ namespace tfe
                 }
                 var process = Process.Start(Lilypond, script);
                 process.WaitForExit();
+                _log.Info("Lilypond compilation success: "+ System.IO.Path.GetFullPath(name.Split('.').First()));
                 if (File.Exists(name.Split('.').First())) File.Delete(name.Split('.').First());
                 File.Copy(name.Split('.').First() + ".pdf", name.Split('.').First());
-                _frame.Navigate(new PdfViewer(_frame, System.IO.Path.GetFullPath(name.Split('.').First())));
+                _frame.Navigate(new PdfViewer(_frame, _log, System.IO.Path.GetFullPath(name.Split('.').First())));
             }
             else
             {
@@ -115,17 +131,18 @@ namespace tfe
                 }
                 var process = Process.Start(Lilypond, script);
                 process.WaitForExit();
+                _log.Info("Lilypond compilation success: "+ System.IO.Path.GetFullPath(name.Split('.').First()));
                 if (File.Exists(ReadConf("PartiFolder") + @"\" + name.Split('.').First())) {
                     try
                     {
                         File.Delete(ReadConf("PartiFolder") + @"\" + name.Split('.').First());
                     }
                     catch {
-                        //log
+                        _log.Error("TraitePdf() -> Error delete file:"+ ReadConf("PartiFolder") + @"\" + name.Split('.').First());
                     }
                 }
                 File.Copy(ReadConf("PartiFolder") + @"\" + name.Split('.').First() + ".pdf", ReadConf("PartiFolder") + @"\" + name.Split('.').First());
-                _frame.Navigate(new PdfViewer(_frame, ReadConf("PartiFolder") + @"\" + name.Split('.').First()));
+                _frame.Navigate(new PdfViewer(_frame, _log, ReadConf("PartiFolder") + @"\" + name.Split('.').First()));
             }            
         }
 
@@ -142,10 +159,12 @@ namespace tfe
                 Latex latex = new Latex(saveFileDialog.FileName, _LyliPath);
                 latex.BuildRow();
                 latex.BuildLaTex();
+                _log.Debug("Create and Compile latex file: " + saveFileDialog.FileName);
             }
             catch (Exception exeption)
             {
                 MessageBox.Show(exeption.Message.ToString(), "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+                _log.Error("Error Latex: "+exeption.Message);
             }
             Cursor = Cursors.Arrow;
         }
@@ -165,6 +184,7 @@ namespace tfe
             Lily Lilypond = new Lily(saveFileDialog.FileName);
             List<string> Data = lilyFile.Text.Split('\n').ToList();
             lilyFile.Text = Lilypond.Save(Data);
+            _log.Info("Save Lilypond file: "+ saveFileDialog.FileName);
             MessageBox.Show("Fichier lilypond sauvegardé avec succes", "Génération Lylipond", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
@@ -182,6 +202,7 @@ namespace tfe
 
             Lily Lilypond = new Lily(openFileDialog.FileName);
             lilyFile.Text = string.Join("\n", Lilypond.ReadFile());
+            _log.Info("Load lilypond file: "+ openFileDialog.FileName);
             ToLaTex.IsEnabled = true;
             ToPdf.IsEnabled = true;
             midi.IsChecked = Lilypond.MidiGeneration;
@@ -194,9 +215,11 @@ namespace tfe
             {
                 List<string> temp = lilyFile.Text.Split(new string[] { "\n" }, StringSplitOptions.None).ToList();
                 lilyFile.Text = string.Join("\n", temp.Where(x => !x.Contains("\\midi{}") && !x.Contains("\\layout{}")).ToList());
+                _log.Info("Don't ask for midi génération");
             }
             else
             {
+                _log.Info("Ask for midi génération");
                 if (!lilyFile.Text.Contains(@"\layout{}") && !lilyFile.Text.Contains(@"\midi{}"))
                 {
                     List<string> temp = lilyFile.Text.Split(new string[] { "\n" }, StringSplitOptions.None).ToList();
@@ -223,9 +246,10 @@ namespace tfe
                 string[] arr = appSettings.GetValues(key);
                 return arr[0];
             }
-            catch
+            catch(Exception ex)
             {
-                throw new KeyNotFoundException();
+                _log.Error("Error key not found:" + key+"\tMessage:"+ ex.Message);
+                throw;
             }
         }
     }
