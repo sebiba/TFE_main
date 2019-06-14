@@ -32,7 +32,7 @@ namespace tfe
 
         private Frame _frame;
         private readonly log4net.ILog _log;
-        public lilypond(Frame nav, log4net.ILog logParam, List<Note> ParamNote = null)
+        public lilypond(Frame nav, log4net.ILog logParam, List<Note> ParamNote = null, bool NeedHelp = false)
         {
             _frame = nav;
             _log = logParam;
@@ -41,15 +41,17 @@ namespace tfe
             if (ParamNote == null)
             {  // if no notes are imported no posibility to generate a lilypond file
                 _log.Info("ParamNote is null");
-                ToPdf.IsEnabled = false;
-                ToLaTex.IsEnabled = false;
             }
             else
             {
                 _log.Info("ParamNote has " + ParamNote.Count + " elements");
                 _notes = ParamNote;
-                ToPdf.IsEnabled = true;
-                ToLaTex.IsEnabled = true;
+            }
+            ToPdf.IsEnabled = false;
+            ToLaTex.IsEnabled = false;
+            if (NeedHelp)
+            {
+                help.Visibility = Visibility.Visible;
             }
         }
 
@@ -99,16 +101,15 @@ namespace tfe
             };
             string Lilypond = @"LilyPond\usr\bin\lilypond.exe";
 #endif
-            OpenFileDialog openFileDialog = new OpenFileDialog();
+            /*OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "Lilypond Files (*.ly)|*.ly";  // only ly files
             openFileDialog.InitialDirectory = ReadConf("LilyFolder");
-            if (openFileDialog.ShowDialog() != true) return;  // if no file is selected
-            string script = @" --output=" + ReadConf("PartiFolder") + " " + openFileDialog.FileName;
+            if (openFileDialog.ShowDialog() != true) return;  // if no file is selected*/
+            string script = @" --output=" + ReadConf("PartiFolder") + " " + _LyliPath.AbsolutePath;
             Cursor = Cursors.Arrow;
             _log.Debug("Lilypond arguments: "+script);
-            TraitePdf(openFileDialog.SafeFileName, Lilypond, script);
+            TraitePdf(System.IO.Path.GetFileName(_LyliPath.LocalPath), Lilypond, script);
         }
-
 
         private void TraitePdf(string name, string Lilypond, string script) { 
             if(ReadConf("PartiFolder")+ @"\" == @"\"){  // if param for folder of partitions is empty

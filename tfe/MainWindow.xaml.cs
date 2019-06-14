@@ -4,6 +4,8 @@ using python;
 using Requete;
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Configuration;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
@@ -38,12 +40,23 @@ namespace tfe
             };
             Splash.Close(new TimeSpan(5));
             InitializeComponent();
+            IsConnected();
+            if(ReadConf("WavFolder") == "" && ReadConf("LilyFolder") == "" && ReadConf("LatexFolder") == "" && ReadConf("TabFolder") == "" && ReadConf("PartiFolder") == "") { 
+                foreach(string key in new List<string> { "WavFolder", "LilyFolder", "LatexFolder", "TabFolder", "PartiFolder" }) //init document folder
+                {
+                    WriteConf(key, Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)+@"\DiaTab\"+key);
+                    if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\DiaTab\" + key))
+                    {
+                        Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\DiaTab\" + key);
+                    }
+                }
+            }
             Audio_Click();
         }
 
         private void Audio_Click(object sender = null, RoutedEventArgs e = null)
         {
-            nav.Navigate(new input(nav, _log));
+            nav.Navigate(new input(nav, TitleMenu, _log));
             TitleMenu.Content = "Gestion de l'audio";
         }
 
@@ -63,11 +76,54 @@ namespace tfe
         {
             Config conf = new Config(_log);
             conf.ShowDialog();
+            IsConnected();
         }
 
         private void Help_Click(object sender, RoutedEventArgs e)
         {
             Process.Start("https://docs.google.com/document/d/1p7f-_XnWPieBqKoqPCSCYtwtNbvRD9kP0L4fHDpBh_I/edit?usp=sharing");
+        }
+
+        private void WriteConf(string key, string value)
+        {
+            // Open App.Config of executable
+            Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            // Add an Application Setting.
+            config.AppSettings.Settings.Remove(key);
+            config.AppSettings.Settings.Add(key, value);
+            // Save the configuration file.
+            config.Save(ConfigurationSaveMode.Modified);
+            ConfigurationManager.RefreshSection("appSettings");
+            _log.Debug("Write New Configuration Value: " + key + "->" + value);
+        }
+
+        private string ReadConf(string key)
+        {
+            try
+            {
+                NameValueCollection appSettings = ConfigurationManager.AppSettings;
+
+                string[] arr = appSettings.GetValues(key);
+                return arr[0];
+            }
+            catch (Exception ex)
+            {
+                _log.Error("Error key not found:" + key + "\tMessage:" + ex.Message);
+                throw;
+            }
+        }
+
+        private void IsConnected()
+        {
+            if(ReadConf("pseudo") != "")
+            {
+                identifiant.Content = ReadConf("pseudo");
+                identifiant.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                identifiant.Visibility = Visibility.Collapsed;
+            }
         }
     }
 }

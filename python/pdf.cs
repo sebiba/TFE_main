@@ -25,13 +25,9 @@ namespace python
             {
                 return JsonConvert.DeserializeObject<List<string>>(Request.Post(Request.GetToken(pseudo, password), "http://tfe.moovego.be/api/ApiApp/GetFiles"));
             }
-            catch (IdentificationException)
-            {
-                throw;
-            }
             catch
             {
-                throw new AccessViolationException();
+                throw;
             }
         }
 

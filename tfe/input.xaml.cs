@@ -4,10 +4,13 @@ using python;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Configuration;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Threading;
 
 namespace tfe
 {
@@ -19,16 +22,21 @@ namespace tfe
         public WaveIn waveSource = null;
         public WaveFileWriter waveFile = null;
         public List<Note> _notes = new List<Note>();
+        public Label TitleMenu;
+
+        private delegate void UpdateProgressBarDelegate(DependencyProperty dp, Object value);
 
         private Frame _frame;
         private readonly log4net.ILog _log;
 
-        public input(Frame nav, log4net.ILog logParam)
+        public input(Frame nav, Label TitleMenuParam ,log4net.ILog logParam)
         {
+            TitleMenu = TitleMenuParam;
             _frame = nav;
             _log = logParam;
             _log.Info("Show Audio page");
             InitializeComponent();
+            Progression.Value = 0;
         }
 #region record
         private void StartBtn_Click(object sender, EventArgs e)
@@ -127,8 +135,10 @@ namespace tfe
             if (openFileDialog.ShowDialog() != true) return;  // if no file is selected
             Cursor = Cursors.Wait;
             Impfile.Text = openFileDialog.FileName;
+            UpdateProgress(10);
             try { 
-            _notes = PyUtils.Getfreq(openFileDialog.FileName);  // get frequency
+                _notes = PyUtils.Getfreq(openFileDialog.FileName);  // get frequency
+                UpdateProgress(70);
                 _log.Info("Get frequencies of the audio file: " + openFileDialog.FileName);
             }
             catch(Exception ex)
@@ -150,8 +160,11 @@ namespace tfe
 
                 }
             }
+            UpdateProgress(80);
             Cursor = Cursors.Arrow;
-            _frame.Navigate(new lilypond( _frame, _log, _notes));
+            UpdateProgress(100);
+            TitleMenu.Content = "Lilypond";
+            _frame.Navigate(new lilypond( _frame, _log, _notes, true));
         }
 
         private string ReadConf(string key)
@@ -168,6 +181,14 @@ namespace tfe
                 _log.Error("Error key not found:" + key + "\tMessage:" + ex.Message);
                 throw;
             }
+        }
+
+        private void UpdateProgress(double status)
+        {
+            Progression.Dispatcher.Invoke(new UpdateProgressBarDelegate(Progression.SetValue),
+                DispatcherPriority.Background,
+                new object[] { ProgressBar.ValueProperty, status });
+            ProgressionNumber.Content = status + " %";
         }
     }
 }

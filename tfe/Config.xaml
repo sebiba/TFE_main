@@ -16,7 +16,7 @@
                 <TextBox Name="pseudo" HorizontalAlignment="Left" Height="23" Margin="83,14,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="205"/>
                 <Label Content="Mot de passe" HorizontalAlignment="Left" Margin="0,38,0,0" VerticalAlignment="Top" Height="27" Width="83"/>
                 <PasswordBox Name="password" HorizontalAlignment="Left" Height="23" Margin="83,42,0,0" VerticalAlignment="Top" Width="205"/>
-                <Button Content="Tester et enregistrer" Click="Connection_Click"  HorizontalAlignment="Left" Margin="159,246,0,0" VerticalAlignment="Top" Width="129"/>
+                <Button Content="Connecter" Click="Connection_Click"  HorizontalAlignment="Left" Margin="159,246,0,0" VerticalAlignment="Top" Width="129"/>
                 <Button Content="Créer le compte" Click="Register_Click"  HorizontalAlignment="Left" Margin="25,246,0,0" VerticalAlignment="Top" Width="129"/>
             </Grid>
         </GroupBox>
@@ -36,5 +36,6 @@
                 <TextBox Name="PartiFolder" GotFocus="PartiFolder_GotFocus"  HorizontalAlignment="Left" Height="23" Margin="112,126,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="325"/>
             </Grid>
         </GroupBox>
+        <Button Content="Fermer" HorizontalAlignment="Left" Margin="709,321,0,0" VerticalAlignment="Top" Width="75" Click="Close_Click"/>
     </Grid>
 </Window>

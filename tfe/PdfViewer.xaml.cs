@@ -30,7 +30,7 @@ namespace tfe
             catch (IdentificationException)
             {
                 _log.Warn("Failed to connect to the session on server");
-                MessageBox.Show("une erreur d'authentification est survenue. Connecter vous depuis la page paramètres.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("une erreur d'authentification est survenue. Connectez vous depuis la page paramètres.", "Attention", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
             catch (Exception ex)
             {
@@ -52,7 +52,7 @@ namespace tfe
             catch (IdentificationException)
             {
                 _log.Warn("Failed to connect to the session on server");
-                MessageBox.Show("Un Problème est survenu lors de la connection à votre compte en ligne", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("une erreur d'authentification est survenue. Connectez vous depuis la page paramètres.", "Attention", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
             catch (NullReferenceException)
             {

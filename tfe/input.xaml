@@ -22,5 +22,7 @@
                 <TextBox Name="Impfile" GotFocus="ImporteBtn_Click" HorizontalAlignment="Left" Height="19" Margin="10,30,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="288"/>
             </Grid>
         </GroupBox>
+        <ProgressBar Name="Progression" Minimum="0" Maximum="100" Value="0" HorizontalAlignment="Left" Height="25" Margin="10,169,0,0" VerticalAlignment="Top" Width="600"/>
+        <Label Content="" Name="ProgressionNumber" HorizontalAlignment="Left" Margin="268,168,0,0" VerticalAlignment="Top"/>
     </Grid>
 </Page>

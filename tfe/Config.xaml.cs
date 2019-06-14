@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Configuration;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Forms;
 
@@ -114,7 +115,7 @@ namespace tfe
                 WriteConf("pseudo", pseudo.Text);
                 WriteConf("password", password.Password);
                 _log.Debug("Test connection successfull pseudo:"+pseudo.Text);
-                System.Windows.MessageBox.Show("Identification Correct, identifiant enregistré", "Validation", MessageBoxButton.OK, MessageBoxImage.Information);
+                System.Windows.MessageBox.Show("Connexion réussie", "Validation", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Requete.IdentificationException)
             {
@@ -130,7 +131,8 @@ namespace tfe
 
         private void Register_Click(object sender, RoutedEventArgs e)
         {
-            System.Windows.MessageBox.Show("Pour vous créer un compte, il faut vous rendre à cette addresse https://tfe.moovego.be/Account/Register", "connection", MessageBoxButton.OK, MessageBoxImage.Hand);
+            Process.Start("https://tfe.moovego.be/Account/Register");
+            //System.Windows.MessageBox.Show("Pour vous créer un compte, il faut vous rendre à cette addresse https://tfe.moovego.be/Account/Register", "connection", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void WriteConf(string key, string value)
@@ -160,6 +162,11 @@ namespace tfe
                 _log.Error("Error key not found:" + key + "\tMessage:" + ex.Message);
                 throw;
             }
+        }
+
+        private void Close_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }
