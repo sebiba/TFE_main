@@ -11,6 +11,7 @@ using System.Globalization;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
+using System.Reflection;
 using System.Windows;
 
 namespace tfe
@@ -41,7 +42,8 @@ namespace tfe
             Splash.Close(new TimeSpan(5));
             InitializeComponent();
             IsConnected();
-            if(ReadConf("WavFolder") == "" && ReadConf("LilyFolder") == "" && ReadConf("LatexFolder") == "" && ReadConf("TabFolder") == "" && ReadConf("PartiFolder") == "") { 
+            Version.Content = Assembly.GetExecutingAssembly().GetName().Version;
+            if (ReadConf("WavFolder") == "" && ReadConf("LilyFolder") == "" && ReadConf("LatexFolder") == "" && ReadConf("TabFolder") == "" && ReadConf("PartiFolder") == "") { 
                 foreach(string key in new List<string> { "WavFolder", "LilyFolder", "LatexFolder", "TabFolder", "PartiFolder" }) //init document folder
                 {
                     WriteConf(key, Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)+@"\DiaTab\"+key);
@@ -95,6 +97,18 @@ namespace tfe
             config.Save(ConfigurationSaveMode.Modified);
             ConfigurationManager.RefreshSection("appSettings");
             _log.Debug("Write New Configuration Value: " + key + "->" + value);
+
+            ConfigurationSection section = config.GetSection("appSettings");
+
+            if (section != null && !section.SectionInformation.IsProtected)
+            {
+                section.SectionInformation.ProtectSection("RsaProtectedConfigurationProvider");
+                section.SectionInformation.ForceSave = true;
+                _log.Info("appSettings is now encrypted");
+                config.Save(ConfigurationSaveMode.Full);
+                ConfigurationManager.RefreshSection("configuration");
+                ResetConfigMechanism();
+            }
         }
 
         private string ReadConf(string key)
@@ -124,6 +138,28 @@ namespace tfe
             {
                 identifiant.Visibility = Visibility.Collapsed;
             }
+        }
+
+        private void ResetConfigMechanism()
+        {
+            typeof(ConfigurationManager)
+                .GetField("s_initState", BindingFlags.NonPublic |
+                                         BindingFlags.Static)
+                .SetValue(null, 0);
+
+            typeof(ConfigurationManager)
+                .GetField("s_configSystem", BindingFlags.NonPublic |
+                                            BindingFlags.Static)
+                .SetValue(null, null);
+
+            typeof(ConfigurationManager)
+                .Assembly.GetTypes()
+                .Where(x => x.FullName ==
+                            "System.Configuration.ClientConfigPaths")
+                .First()
+                .GetField("s_current", BindingFlags.NonPublic |
+                                       BindingFlags.Static)
+                .SetValue(null, null);
         }
     }
 }

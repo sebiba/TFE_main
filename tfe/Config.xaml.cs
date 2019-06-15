@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Configuration;
 using System.Diagnostics;
+using System.Security;
 using System.Windows;
 using System.Windows.Forms;
 
@@ -135,6 +136,11 @@ namespace tfe
             //System.Windows.MessageBox.Show("Pour vous créer un compte, il faut vous rendre à cette addresse https://tfe.moovego.be/Account/Register", "connection", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
+        private void Close_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
         private void WriteConf(string key, string value)
         {
             // Open App.Config of executable
@@ -162,11 +168,6 @@ namespace tfe
                 _log.Error("Error key not found:" + key + "\tMessage:" + ex.Message);
                 throw;
             }
-        }
-
-        private void Close_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
         }
     }
 }

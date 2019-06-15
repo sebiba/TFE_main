@@ -9,9 +9,9 @@
       Title="input">
 
     <Grid>
-        <GroupBox Header="Enregistrer" HorizontalAlignment="Left" Height="153" Margin="412,11,0,0" VerticalAlignment="Top" Width="198">
+        <GroupBox Header="Enregistrement audio" HorizontalAlignment="Left" Height="153" Margin="412,11,0,0" VerticalAlignment="Top" Width="198">
             <Grid HorizontalAlignment="Left" Height="139" Margin="-5,4,-4.4,-12.6" VerticalAlignment="Top" Width="195">
-                <Button Content="Record" Click="StartBtn_Click" x:Name="StartBtn" IsEnabled="True"  HorizontalAlignment="Left" Margin="10,38,0,0" VerticalAlignment="Top" Width="75"/>
+                <Button Content="Enregistrer" Click="StartBtn_Click" x:Name="StartBtn" IsEnabled="True"  HorizontalAlignment="Left" Margin="10,38,0,0" VerticalAlignment="Top" Width="75"/>
                 <Button Content="Stop" Click="StopBtn_Click" x:Name="StopBtn" IsEnabled="False"  HorizontalAlignment="Left" Margin="10,84,0,0" VerticalAlignment="Top" Width="75"/>
             </Grid>
         </GroupBox>
