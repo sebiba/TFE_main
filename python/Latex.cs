@@ -33,6 +33,7 @@ namespace python
 
             Lily lilyFile = new Lily(Lily.LocalPath);
             _Note = lilyFile.GetNotes();  // save notes
+            Personalise(lilyFile.getTitre(), lilyFile.getSousTitre());
         }
 
         /// <summary>
@@ -262,6 +263,12 @@ namespace python
             text[1].Substring(0, text[1].Length - 1);
             text[1] += "}";
             return text;
+        }
+
+        public void Personalise(string titre, string sousTitre)
+        {
+            _TexData[FindLigneContaining("Titre").GetValueOrDefault()] = @"\textbf{"+titre+"}";
+            _TexData[FindLigneContaining(@"\vspace{0.5cm}").GetValueOrDefault() + 1] = sousTitre;
         }
 
         /// <summary>

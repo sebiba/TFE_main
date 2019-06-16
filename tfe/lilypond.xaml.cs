@@ -41,6 +41,11 @@ namespace tfe
             if (ParamNote == null)
             {  // if no notes are imported no posibility to generate a lilypond file
                 _log.Info("ParamNote is null");
+                GenLily.IsEnabled = false;
+                titre.IsEnabled = false;
+                sTitre.IsEnabled = false;
+                piece.IsEnabled = false;
+                pdPage.IsEnabled = false;
             }
             else
             {
@@ -71,7 +76,7 @@ namespace tfe
             Lilypond.Customise(titre.Text, sTitre.Text, piece.Text, pdPage.Text);
             lilyFile.Text = Lilypond.SetNotes(_notes);
             _log.Debug("Create lilypond file: "+saveFileDialog.FileName);
-            MessageBox.Show("Fichier lilypond généré avec succes", "Génération Lylipond", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show("Fichier lilypond généré avec succès", "Génération Lylipond", MessageBoxButton.OK, MessageBoxImage.Information);
             ToLaTex.IsEnabled = true;
             ToPdf.IsEnabled = true;
             _LyliPath = new Uri(saveFileDialog.FileName);
@@ -105,10 +110,13 @@ namespace tfe
             openFileDialog.Filter = "Lilypond Files (*.ly)|*.ly";  // only ly files
             openFileDialog.InitialDirectory = ReadConf("LilyFolder");
             if (openFileDialog.ShowDialog() != true) return;  // if no file is selected*/
-            string script = @" --output=" + ReadConf("PartiFolder") + " " + _LyliPath.AbsolutePath;
+
+            string script = @" --output=" + ReadConf("PartiFolder") + " " + _LyliPath.LocalPath;
+            //string script = @" --output=" + ReadConf("PartiFolder") + " " + openFileDialog.FileName;
             Cursor = Cursors.Arrow;
             _log.Debug("Lilypond arguments: "+script);
             TraitePdf(System.IO.Path.GetFileName(_LyliPath.LocalPath), Lilypond, script);
+            //TraitePdf(openFileDialog.SafeFileName, Lilypond, script);
         }
 
         private void TraitePdf(string name, string Lilypond, string script) { 
@@ -186,7 +194,7 @@ namespace tfe
             List<string> Data = lilyFile.Text.Split('\n').ToList();
             lilyFile.Text = Lilypond.Save(Data);
             _log.Info("Save Lilypond file: "+ saveFileDialog.FileName);
-            MessageBox.Show("Fichier lilypond sauvegardé avec succes", "Génération Lylipond", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show("Fichier lilypond sauvegardé avec succès", "Génération Lylipond", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         /// <summary>

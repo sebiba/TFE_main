@@ -136,7 +136,8 @@ namespace tfe
             Cursor = Cursors.Wait;
             Impfile.Text = openFileDialog.FileName;
             UpdateProgress(10);
-            try { 
+            try {
+                UpdateProgress(40);
                 _notes = PyUtils.Getfreq(openFileDialog.FileName);  // get frequency
                 UpdateProgress(70);
                 _log.Info("Get frequencies of the audio file: " + openFileDialog.FileName);

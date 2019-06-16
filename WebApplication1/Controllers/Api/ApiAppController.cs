@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNet.Identity;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -77,6 +78,10 @@ namespace WebApplication1.Controllers.Api
             {
                 throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
             }
+            if (!Directory.Exists("~/Data/" + IdUser))
+            {
+                Directory.CreateDirectory("~/Data/" + IdUser); // create the directory for the user
+            }
             string root = HttpContext.Current.Server.MapPath("~/Data/"+ IdUser +"/");  // path on server
             MultipartFormDataStreamProvider provider = new MultipartFormDataStreamProvider(root);
 
@@ -117,7 +122,20 @@ namespace WebApplication1.Controllers.Api
         public List<string> GetFiles()
         {
             var id = User.Identity.GetUserId();
-            return helper.CustomHelper.GetFiles(User.Identity.GetUserId()).Select(delegate(string x) { return string.Join("\\",x.Split(new string[] { "\\" }, StringSplitOptions.None).Skip(1)); }).ToList();
+            try { 
+            return helper.CustomHelper.GetFiles(User.Identity.GetUserId()).Select(delegate(string x) {
+                    return string.Join("\\",x.Split(new string[] { "\\" }, StringSplitOptions.None).Skip(1));  //get a list with all safename
+                }).ToList();
+            }
+            catch
+            {
+                var resp = new HttpResponseMessage(HttpStatusCode.BadRequest)
+                {
+                    Content = new StringContent(JsonConvert.SerializeObject(new Dictionary<string, string>() { { "Error", string.Format("No directory found for ID = {0}", id) } })),// new StringContent(string.Format("No directory found for ID = {0}", id)),
+                    ReasonPhrase = "Directory Not Found"
+                };
+                throw new HttpResponseException(resp);
+            }
         }
 
         [HttpGet]

@@ -21,7 +21,7 @@
                 <Label Content="Pied de page" HorizontalAlignment="Left" Margin="30,295,0,0" VerticalAlignment="Top" Width="99" Height="30"/>
                 <TextBox Name="pdPage" HorizontalAlignment="Left" Height="25" Margin="134,295,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
                 <Image Source="img\LilyPond-logo.png" HorizontalAlignment="Left" Height="59" Margin="270,330,0,0" VerticalAlignment="Top" Width="61"/>
-                <Button Content="Générer le fichier Lilypond" Click="ToLilypond_Click" HorizontalAlignment="Left" Margin="116,353,0,0" VerticalAlignment="Top" Width="150"/>
+                <Button Name="GenLily" Content="Générer le fichier Lilypond" Click="ToLilypond_Click" HorizontalAlignment="Left" Margin="116,353,0,0" VerticalAlignment="Top" Width="150"/>
                 <CheckBox Content="avec un fichier .midi" Name="midi" HorizontalAlignment="Left" Margin="141,374,0,0" VerticalAlignment="Top" Checked="MidiChanged" Unchecked="MidiChanged"/>
                 <Button Content="Générer la partition" HorizontalAlignment="Left" IsEnabled="False" ToolTip="Générer en premier un fichier Lilypond" Name="ToPdf" Click="ToPdf_Click"  Margin="168,403,0,0" VerticalAlignment="Top" Width="150"/>
                 <Button Content="Générer la tablature" HorizontalAlignment="Left" IsEnabled="False" ToolTip="Générer en premier un fichier Lilypond" Name="ToLaTex" Click="ToLaTex_Click" Margin="13,403,0,0" VerticalAlignment="Top" Width="150"/>

@@ -58,13 +58,13 @@
         "Entry"
         {
         "MsmKey" = "8:_3AE09B1F1853C0B875F1F4317CA89237"
-        "OwnerKey" = "8:_4553976A111720CCB707DC71335E307C"
+        "OwnerKey" = "8:_AA14956B1908254235848BDF4216930E"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_3AE09B1F1853C0B875F1F4317CA89237"
-        "OwnerKey" = "8:_AA14956B1908254235848BDF4216930E"
+        "OwnerKey" = "8:_4553976A111720CCB707DC71335E307C"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -76,6 +76,12 @@
         "Entry"
         {
         "MsmKey" = "8:_3F37C0BD56447D959EF4F7B8408F0845"
+        "OwnerKey" = "8:_7D5C5289BE2D44F3AF7A2BBBC69A555A"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_4553976A111720CCB707DC71335E307C"
         "OwnerKey" = "8:_7D5C5289BE2D44F3AF7A2BBBC69A555A"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -1263,15 +1269,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:DiaTab"
-        "ProductCode" = "8:{81A85569-E117-4B45-A4BE-CAA128376A2E}"
-        "PackageCode" = "8:{3BFC3615-721D-4E91-9C26-6EC25B160D5D}"
+        "ProductCode" = "8:{96B146E3-B6E1-4C6B-9085-D5C9FA5872BF}"
+        "PackageCode" = "8:{111BE7AB-F796-44D7-9E81-54AC0D834F95}"
         "UpgradeCode" = "8:{A01D8268-403F-4095-8C8D-DF9B5415F805}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:1.1.3"
+        "ProductVersion" = "8:1.2.2"
         "Manufacturer" = "8:TFE"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:https://tfe.moovego.be"
@@ -1841,7 +1847,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_7D5C5289BE2D44F3AF7A2BBBC69A555A"
             {
-            "SourcePath" = "8:..\\python\\obj\\Release\\python.dll"
+            "SourcePath" = "8:..\\python\\obj\\Debug\\python.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_FE10FD69B6FB44078D26816B77EF4FBE"
@@ -1869,7 +1875,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_9BC866AEEB4E481DB58A8018416885E3"
             {
-            "SourcePath" = "8:..\\tfe\\obj\\Release\\tfe.exe"
+            "SourcePath" = "8:..\\tfe\\obj\\Debug\\tfe.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_FE10FD69B6FB44078D26816B77EF4FBE"
@@ -1897,7 +1903,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_C9A2E8953EE44818A7B85E7E7BD324FE"
             {
-            "SourcePath" = "8:..\\Requete\\obj\\Release\\netstandard2.0\\Requete.dll"
+            "SourcePath" = "8:..\\Requete\\obj\\Debug\\netstandard2.0\\Requete.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_FE10FD69B6FB44078D26816B77EF4FBE"

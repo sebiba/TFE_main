@@ -34,8 +34,8 @@ namespace tfe
             }
             catch (Exception ex)
             {
-                _log.Error("Error no accès to the server. "+ex.Message);
-                MessageBox.Show("une erreur d'accès est survenue sur le serveur."+ex.Message, "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+                _log.Error("L'utilisateur n'a pas encore de bibliotheque enligne. "+ex.Message);
+                MessageBox.Show("Vous n'avez pas encore de pdf enregistré enligne", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             _log.Info("Show PDF page with the pdf: "+path);
             pdfWebViewer.Navigate(new Uri(path));

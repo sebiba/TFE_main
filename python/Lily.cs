@@ -153,7 +153,7 @@ namespace python
                     break;
                 }
             }
-            return temp.Split(' ').ToList().Select(note => new Note(note)).ToList();
+            return temp.Split(' ').Where(note=>note != "").ToList().Select(note => new Note(note)).ToList();
         }
 
         /// <summary>
@@ -189,6 +189,26 @@ namespace python
                 if (_data[i].Contains("\tpiece =") && piece != "") _data[i] = "\tpiece = \"" + piece + "\"";
                 if (_data[i].Contains("tagline =") && pdPage != "") _data[i] = "\ttagline = \"" + pdPage + "\"";
             }
+        }
+
+        /// <summary>
+        /// get the title defined in the lilypond file
+        /// </summary>
+        /// <returns>title</returns>
+        public string getTitre()
+        {
+            int index = FindLigneContaining("title").GetValueOrDefault();
+            return _data.ElementAt(index).Substring(_data.ElementAt(index).IndexOf("\"") + 1, _data.ElementAt(index).LastIndexOf("\"") - _data.ElementAt(index).IndexOf("\"") - 1);
+        }
+
+        /// <summary>
+        /// get the sub title defined in the lilypond file
+        /// </summary>
+        /// <returns>sub title</returns>
+        public string getSousTitre()
+        {
+            int index = FindLigneContaining("subtitle").GetValueOrDefault();
+            return _data.ElementAt(index).Substring(_data.ElementAt(index).IndexOf("\"") + 1, _data.ElementAt(index).LastIndexOf("\"") - _data.ElementAt(index).IndexOf("\"") - 1);
         }
 
         /// <summary>

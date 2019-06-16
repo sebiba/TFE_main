@@ -1,10 +1,10 @@
 \version "2.16.0"  % necessary for upgrading to future LilyPond versions.
 
 \header{
-	title = "pure"
-	subtitle = "pure"
-	piece = "pure"
-	tagline = "pure"
+	title = "titre"
+	subtitle = "sous-titre"
+	piece = "pièce"
+	tagline = "pied de page"
 }
 
 \relative c' {
