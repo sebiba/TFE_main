@@ -24,7 +24,7 @@
                 <Image Source="img\logo.png"  HorizontalAlignment="Right" Margin="0,0,0,7" Width="236" Height="66" VerticalAlignment="Bottom"/>
             </Grid>
         </GroupBox>
-        <Label Content="Version" Name="Version" HorizontalAlignment="Left" Margin="10,0,0,20" Width="126" Height="26" VerticalAlignment="Bottom"/>
+        <Label Content="1.3.1" Name="Version" HorizontalAlignment="Left" Margin="10,0,0,20" Width="126" Height="26" VerticalAlignment="Bottom"/>
 
         <Label Content="Gestion de l'audio" Name="TitleMenu" HorizontalAlignment="Left" Margin="261,10,0,0" VerticalAlignment="Top" Height="44" Width="624" FontSize="20" FontWeight="Bold"/>
         <Frame Content="Frame" Name="nav" NavigationUIVisibility="Hidden" Margin="261,59,0,0" HorizontalAlignment="Left" Width="1041" Height="710" VerticalAlignment="Top"/>

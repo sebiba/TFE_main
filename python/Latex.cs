@@ -267,7 +267,7 @@ namespace python
 
         public void Personalise(string titre, string sousTitre)
         {
-            _TexData[FindLigneContaining("Titre").GetValueOrDefault()] = @"\textbf{"+titre+"}";
+            _TexData[FindLigneContaining(@"\textbf").GetValueOrDefault()] = @"\textbf{"+titre+"}";
             _TexData[FindLigneContaining(@"\vspace{0.5cm}").GetValueOrDefault() + 1] = sousTitre;
         }
 

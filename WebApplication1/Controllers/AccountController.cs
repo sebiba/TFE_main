@@ -176,14 +176,17 @@ namespace WebApplication1.Controllers
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+
                     // Pour plus d'informations sur l'activation de la confirmation de compte et de la réinitialisation de mot de passe, visitez https://go.microsoft.com/fwlink/?LinkID=320771
                     // Envoyer un message électronique avec ce lien
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirmez votre compte", "Confirmez votre compte en cliquant <a href=\"" + callbackUrl + "\">ici</a>");
 
-                    return RedirectToAction("Index", "Home");
+                    Session["user"] = UserManager.FindByName(model.Email).Id;  // keep in memory user id
+                    Session["name"] = model.Email;  // keep in memory user name
+                    return View("mainAccount");
+                    //return RedirectToAction("Index", "Home");
                 }
                 AddErrors(result);
             }
@@ -442,7 +445,7 @@ namespace WebApplication1.Controllers
                 // Will not overwrite if the destination file already exists.
                 var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
 
-                Directory.CreateDirectory(@"E:\TFE\WebApp\Data\" + UserManager.FindByName(dest).Id);
+                if(!Directory.Exists(@"E:\TFE\WebApp\Data\" + UserManager.FindByName(dest).Id)) Directory.CreateDirectory(@"E:\TFE\WebApp\Data\" + UserManager.FindByName(dest).Id);
                 System.IO.File.Copy(Path.Combine(@"E:\TFE\WebApp\Data\" + id, toShare), Path.Combine(@"E:\TFE\WebApp\Data\" + UserManager.FindByName(dest).Id, toShare));
                 return "True";
             }

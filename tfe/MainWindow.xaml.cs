@@ -42,7 +42,6 @@ namespace tfe
             Splash.Close(new TimeSpan(5));
             InitializeComponent();
             IsConnected();
-            Version.Content = Assembly.GetExecutingAssembly().GetName().Version;
             if (ReadConf("WavFolder") == "" && ReadConf("LilyFolder") == "" && ReadConf("LatexFolder") == "" && ReadConf("TabFolder") == "" && ReadConf("PartiFolder") == "") { 
                 foreach(string key in new List<string> { "WavFolder", "LilyFolder", "LatexFolder", "TabFolder", "PartiFolder" }) //init document folder
                 {
@@ -64,7 +63,7 @@ namespace tfe
 
         private void Lily_Click(object sender, RoutedEventArgs e)
         {
-            nav.Navigate(new lilypond(nav, _log));
+            nav.Navigate(new lilypond(nav, TitleMenu, _log));
             TitleMenu.Content = "Lilypond";
         }
 

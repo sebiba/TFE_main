@@ -92,7 +92,8 @@ namespace tfe
                 }
             }
             Cursor = Cursors.Arrow;
-            _frame.Navigate(new lilypond(_frame, _log, _notes));
+            TitleMenu.Content = "Lilypond";
+            _frame.Navigate(new lilypond(_frame, TitleMenu, _log, _notes, true));
         }
 
         void waveSource_DataAvailable(object sender, WaveInEventArgs e)
@@ -165,7 +166,7 @@ namespace tfe
             Cursor = Cursors.Arrow;
             UpdateProgress(100);
             TitleMenu.Content = "Lilypond";
-            _frame.Navigate(new lilypond( _frame, _log, _notes, true));
+            _frame.Navigate(new lilypond( _frame, TitleMenu, _log, _notes, true));
         }
 
         private string ReadConf(string key)

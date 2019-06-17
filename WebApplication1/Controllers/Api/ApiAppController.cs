@@ -78,11 +78,11 @@ namespace WebApplication1.Controllers.Api
             {
                 throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
             }
-            if (!Directory.Exists("~/Data/" + IdUser))
+            if (!Directory.Exists(@"E:\TFE\WebApp\Data\" + IdUser))
             {
-                Directory.CreateDirectory("~/Data/" + IdUser); // create the directory for the user
+                Directory.CreateDirectory(@"E:\TFE\WebApp\Data\" + IdUser); // create the directory for the user
             }
-            string root = HttpContext.Current.Server.MapPath("~/Data/"+ IdUser +"/");  // path on server
+            string root = HttpContext.Current.Server.MapPath(@"~\Data\" + IdUser +@"\");  // path on server
             MultipartFormDataStreamProvider provider = new MultipartFormDataStreamProvider(root);
 
             try

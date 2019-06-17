@@ -195,6 +195,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_8ECE7A5CDD16499FBF6990BDB0AF913A"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_918924A2E00A14DBB618D715B23BBCAA"
         "OwnerKey" = "8:_87778091705ED00F9F8AD4C452B3486D"
         "MsmSig" = "8:_UNDEFINED"
@@ -304,12 +310,6 @@
         "Entry"
         {
         "MsmKey" = "8:_C9A2E8953EE44818A7B85E7E7BD324FE"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_D4D2BA1C168941059EAD82081F2270A7"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -956,6 +956,26 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_8ECE7A5CDD16499FBF6990BDB0AF913A"
+            {
+            "SourcePath" = "8:..\\python\\data.zip"
+            "TargetName" = "8:data.zip"
+            "Tag" = "8:"
+            "Folder" = "8:_FE10FD69B6FB44078D26816B77EF4FBE"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_918924A2E00A14DBB618D715B23BBCAA"
             {
             "AssemblyRegister" = "3:1"
@@ -1162,26 +1182,6 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_D4D2BA1C168941059EAD82081F2270A7"
-            {
-            "SourcePath" = "8:..\\python\\data.zip"
-            "TargetName" = "8:data.zip"
-            "Tag" = "8:"
-            "Folder" = "8:_FE10FD69B6FB44078D26816B77EF4FBE"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_F0E4A41A0C6DC70F16F4D433E69C104C"
             {
             "AssemblyRegister" = "3:1"
@@ -1269,15 +1269,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:DiaTab"
-        "ProductCode" = "8:{96B146E3-B6E1-4C6B-9085-D5C9FA5872BF}"
-        "PackageCode" = "8:{111BE7AB-F796-44D7-9E81-54AC0D834F95}"
+        "ProductCode" = "8:{77CC1E4F-026B-49A6-98FC-60331CCA62FD}"
+        "PackageCode" = "8:{86F175F3-DA6A-4042-8E51-F04652AB5495}"
         "UpgradeCode" = "8:{A01D8268-403F-4095-8C8D-DF9B5415F805}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:1.2.2"
+        "ProductVersion" = "8:1.3.1"
         "Manufacturer" = "8:TFE"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:https://tfe.moovego.be"
@@ -1390,21 +1390,7 @@
         }
         "Shortcut"
         {
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_6454BEDC526B4188A9DAC4D8D9621031"
-            {
-            "Name" = "8:DiaTab"
-            "Arguments" = "8:"
-            "Description" = "8:"
-            "ShowCmd" = "3:1"
-            "IconIndex" = "3:0"
-            "Transitive" = "11:FALSE"
-            "Target" = "8:_9BC866AEEB4E481DB58A8018416885E3"
-            "Folder" = "8:_388B29362F66409EA1F92A99662E1277"
-            "WorkingFolder" = "8:_FE10FD69B6FB44078D26816B77EF4FBE"
-            "Icon" = "8:"
-            "Feature" = "8:"
-            }
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_C575409414FB46559778A334C23D741A"
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_71D1061486624DFB81A2C07A9285C50F"
             {
             "Name" = "8:DiaTab"
             "Arguments" = "8:"
@@ -1414,6 +1400,20 @@
             "Transitive" = "11:FALSE"
             "Target" = "8:_9BC866AEEB4E481DB58A8018416885E3"
             "Folder" = "8:_8ECC5E2889874FA982EE42DF27EFEB22"
+            "WorkingFolder" = "8:_FE10FD69B6FB44078D26816B77EF4FBE"
+            "Icon" = "8:_C0F4E01A2E3547FBB73E7E39AC677E90"
+            "Feature" = "8:"
+            }
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_C3FC9DB8928B4EFE968B395F3F1BB358"
+            {
+            "Name" = "8:DiaTab"
+            "Arguments" = "8:"
+            "Description" = "8:"
+            "ShowCmd" = "3:1"
+            "IconIndex" = "3:0"
+            "Transitive" = "11:FALSE"
+            "Target" = "8:_9BC866AEEB4E481DB58A8018416885E3"
+            "Folder" = "8:_388B29362F66409EA1F92A99662E1277"
             "WorkingFolder" = "8:_FE10FD69B6FB44078D26816B77EF4FBE"
             "Icon" = "8:_C0F4E01A2E3547FBB73E7E39AC677E90"
             "Feature" = "8:"
@@ -1847,7 +1847,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_7D5C5289BE2D44F3AF7A2BBBC69A555A"
             {
-            "SourcePath" = "8:..\\python\\obj\\Debug\\python.dll"
+            "SourcePath" = "8:..\\python\\obj\\Release\\python.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_FE10FD69B6FB44078D26816B77EF4FBE"
@@ -1875,7 +1875,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_9BC866AEEB4E481DB58A8018416885E3"
             {
-            "SourcePath" = "8:..\\tfe\\obj\\Debug\\tfe.exe"
+            "SourcePath" = "8:..\\tfe\\obj\\Release\\tfe.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_FE10FD69B6FB44078D26816B77EF4FBE"
@@ -1903,7 +1903,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_C9A2E8953EE44818A7B85E7E7BD324FE"
             {
-            "SourcePath" = "8:..\\Requete\\obj\\Debug\\netstandard2.0\\Requete.dll"
+            "SourcePath" = "8:..\\Requete\\obj\\Release\\netstandard2.0\\Requete.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_FE10FD69B6FB44078D26816B77EF4FBE"

@@ -10,9 +10,13 @@
 \header{
 	piece = "gamme"
 }
+\score{
 
 \relative c' {
 	\time 4/4
 	\key c \major
 	a b c d e f e d c b a b c d e f e d c b a
+}
+\layout{}
+\midi{}
 }

@@ -13,22 +13,22 @@
             <Grid HorizontalAlignment="Left" Margin="0,10,0,-12" Width="335">
                 <Label Content="Votre fichier audio a été traité avec succès. &#xD;&#xA;Vous pouvez à présent Personnaliser votre &#xD;&#xA;partition ou tablature." Name="help" Visibility="Collapsed" HorizontalAlignment="Left" Margin="13,58,0,0" VerticalAlignment="Top" Height="84" Width="312" FontSize="16" FontStyle="Italic"/>
                 <Label Content="Titre" HorizontalAlignment="Left" Margin="30,205,0,0" VerticalAlignment="Top" Width="99" Height="25"/>
-                <TextBox Name="titre" HorizontalAlignment="Left" Height="25" Margin="134,205,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                <TextBox Name="titre" LostFocus="TitleUpdate"  HorizontalAlignment="Left" Height="25" Margin="134,205,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
                 <Label Content="Sous-titre" HorizontalAlignment="Left" Margin="30,235,0,0" VerticalAlignment="Top" Width="99" Height="25"/>
-                <TextBox Name="sTitre" HorizontalAlignment="Left" Height="25" Margin="134,235,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                <TextBox Name="sTitre" LostFocus="STitleUpdate" HorizontalAlignment="Left" Height="25" Margin="134,235,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
                 <Label Content="Pièce" HorizontalAlignment="Left" Margin="30,265,0,0" VerticalAlignment="Top" Width="99" Height="25"/>
-                <TextBox Name="piece" HorizontalAlignment="Left" Height="25" Margin="134,265,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                <TextBox Name="piece" LostFocus="PieceUpdate" HorizontalAlignment="Left" Height="25" Margin="134,265,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
                 <Label Content="Pied de page" HorizontalAlignment="Left" Margin="30,295,0,0" VerticalAlignment="Top" Width="99" Height="30"/>
-                <TextBox Name="pdPage" HorizontalAlignment="Left" Height="25" Margin="134,295,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                <TextBox Name="pdPage" LostFocus="PdPageUpdate" HorizontalAlignment="Left" Height="25" Margin="134,295,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
                 <Image Source="img\LilyPond-logo.png" HorizontalAlignment="Left" Height="59" Margin="270,330,0,0" VerticalAlignment="Top" Width="61"/>
                 <Button Name="GenLily" Content="Générer le fichier Lilypond" Click="ToLilypond_Click" HorizontalAlignment="Left" Margin="116,353,0,0" VerticalAlignment="Top" Width="150"/>
                 <CheckBox Content="avec un fichier .midi" Name="midi" HorizontalAlignment="Left" Margin="141,374,0,0" VerticalAlignment="Top" Checked="MidiChanged" Unchecked="MidiChanged"/>
-                <Button Content="Générer la partition" HorizontalAlignment="Left" IsEnabled="False" ToolTip="Générer en premier un fichier Lilypond" Name="ToPdf" Click="ToPdf_Click"  Margin="168,403,0,0" VerticalAlignment="Top" Width="150"/>
-                <Button Content="Générer la tablature" HorizontalAlignment="Left" IsEnabled="False" ToolTip="Générer en premier un fichier Lilypond" Name="ToLaTex" Click="ToLaTex_Click" Margin="13,403,0,0" VerticalAlignment="Top" Width="150"/>
+                <Button Content="Générer la partition" HorizontalAlignment="Left" IsEnabled="False" Name="ToPdf" Click="ToPdf_Click"  Margin="168,403,0,0" VerticalAlignment="Top" Width="150"/>
+                <Button Content="Générer la tablature" HorizontalAlignment="Left" IsEnabled="False" Name="ToLaTex" Click="ToLaTex_Click" Margin="13,403,0,0" VerticalAlignment="Top" Width="150"/>
             </Grid>
         </GroupBox>
         <TextBox Name="lilyFile" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" HorizontalAlignment="Left" Margin="360,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="556" Width="430"/>
-        <Button Content="Sauvegarder les changement" Click="SvgLily" HorizontalAlignment="Left" Margin="445,571,0,0" VerticalAlignment="Top" Width="164"/>
+        <Button Content="Sauvegarder les changements" Click="SvgLily" HorizontalAlignment="Left" Margin="445,571,0,0" VerticalAlignment="Top" Width="164"/>
         <Button Content="Ouvrir un fichier Lilypond" Click="OpenLily"  HorizontalAlignment="Left" Margin="626,571,0,0" VerticalAlignment="Top" Width="164"/>
     </Grid>
 </Page>

@@ -10,7 +10,7 @@
 	\relative c' {
 		\time 4/4
 		\key c \major
-	 f4 c8
+	 a1 a2 a4 a8
 	}
 
 }

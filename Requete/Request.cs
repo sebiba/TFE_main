@@ -22,6 +22,7 @@ namespace Requete
         public static string PostFile(string token, string path)
         {
             var webClient = new WebClient();
+            path += ".pdf";
             string boundary = "------------------------" + DateTime.Now.Ticks.ToString("x");
             webClient.Headers.Add("Content-Type", "multipart/form-data; boundary=" + boundary);
             webClient.Headers.Add("Authorization", "Bearer " + token);

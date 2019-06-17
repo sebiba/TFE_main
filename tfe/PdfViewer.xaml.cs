@@ -35,7 +35,7 @@ namespace tfe
             catch (Exception ex)
             {
                 _log.Error("L'utilisateur n'a pas encore de bibliotheque enligne. "+ex.Message);
-                MessageBox.Show("Vous n'avez pas encore de pdf enregistré enligne", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Vous n'avez pas encore de pdf enregistré en ligne", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             _log.Info("Show PDF page with the pdf: "+path);
             pdfWebViewer.Navigate(new Uri(path));
@@ -46,7 +46,7 @@ namespace tfe
             try { 
                 _pdf.UploadPdf(ReadConf("pseudo"), ReadConf("password"));
                 listServer.ItemsSource = _pdf.GetPdf(ReadConf("pseudo"), ReadConf("password"));
-                MessageBox.Show("Le pdf a bien été envoyé dans votre espace personnel en ligne");
+                MessageBox.Show("Le pdf a bien été envoyé dans votre espace personnel en ligne", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
                 _log.Info("pdf uploaded to the server: " + _pdf._path);
             }
             catch (IdentificationException)

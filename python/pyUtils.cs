@@ -57,7 +57,7 @@ namespace python
 
             myProcessStartInfo.UseShellExecute = false;
             myProcessStartInfo.RedirectStandardOutput = true;
-            myProcessStartInfo.Arguments = script + " " + file;
+            myProcessStartInfo.Arguments = script + " \"" + file+"\"";
 
             Process myProcess = new Process
             {
